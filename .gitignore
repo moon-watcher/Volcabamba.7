@@ -1,0 +1,9 @@
+*.o
+*/*.o
+*/*.d
+out/
+game/out/
+*.cpb
+*.layout
+*.layout
+*.cbp
