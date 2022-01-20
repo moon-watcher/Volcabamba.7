@@ -14,6 +14,63 @@ System const sysSprite_tpl   = { &system_sprite_update,   sysSprite_list,   sysS
 
 void main ( )
 {
+    typedef struct
+    {
+        int  a;
+        char b;
+        int  c;
+    }
+    Interface_t;
+
+    typedef struct
+    {
+        int  primero;
+        char segundo;
+    }
+    Implement1_Interface_t;
+
+    typedef struct
+    {
+        int  primero;
+        char segundo;
+        int  tercero; 
+
+        // otros
+        char cuarto;
+    }
+    Implement2_Interface_t;
+
+    Interface_t var1 = { 1, 2, 3 };
+    Interface_t var2 = { 7, 8, 9 };
+    Implement1_Interface_t *i1 = (Interface_t*) &var1;
+    Implement2_Interface_t *i2 = (Interface_t*) &var2;
+
+    i2->primero = 11;
+    i2->cuarto  = 4;
+
+    drawInt ( i1->primero, 1, 1, 2 ); // 11
+    drawInt ( i1->segundo, 1, 2, 2 ); // 2
+
+    drawInt ( i2->primero, 1, 4, 2 ); // 11
+    drawInt ( i2->segundo, 1, 5, 2 ); // 8
+    drawInt ( i2->tercero, 1, 6, 2 ); // 9
+    drawInt ( i2->cuarto,  1, 7, 2 ); // 4
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     sysMovement = ecs.system.new ( &sysMovement_tpl );
     sysInput    = ecs.system.new ( &sysInput_tpl    );
     sysSprite   = ecs.system.new ( &sysSprite_tpl   );
