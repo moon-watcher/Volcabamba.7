@@ -71,35 +71,33 @@ void main ( )
 
 
 
-    sysMovement = ecs.system.new ( &sysMovement_tpl );
-    sysInput    = ecs.system.new ( &sysInput_tpl    );
-    sysSprite   = ecs.system.new ( &sysSprite_tpl   );
+    sysMovement = ecsSystem ( &sysMovement_tpl );
+    sysInput    = ecsSystem ( &sysInput_tpl    );
+    sysSprite   = ecsSystem ( &sysSprite_tpl   );
 
     SPR_init ( );
 
 
-    ECS *e = &ecs;
+    Manager *manPlayers = ecsManager ();
+    // Manager *manEnemies = ecsManager.new();
 
-    Manager *manPlayers = ecs.manager.new();
-    Manager *manEnemies = ecs.manager.new();
-
-    e->entity.new ( manPlayers, &entityHero1_tpl );
-    ecs.entity.new ( manEnemies, &entityEnemy1_tpl );
+    ecsEntity ( manPlayers, &entityHero1_tpl );
+    // ecs_entity_new ( manEnemies, &entityEnemy1_tpl );
 
     
 
     while ( 1 )
     {
-        ecs.system.init ( sysMovement );
-        ecs.system.init ( sysInput    );
-        ecs.system.init ( sysSprite   );
+        ecsSystemInit ( sysMovement );
+        ecsSystemInit ( sysInput    );
+        ecsSystemInit ( sysSprite   );
 
-        ecs.manager.update ( manEnemies );
-        ecs.manager.update ( manPlayers );
+        ecsManagerUpdate ( manPlayers );
+        // ecsManager_update ( manEnemies );
 
-        ecs.system.update ( sysMovement );
-        ecs.system.update ( sysInput    );
-        ecs.system.update ( sysSprite   );
+        ecsSystemUpdate ( sysMovement );
+        ecsSystemUpdate ( sysInput    );
+        ecsSystemUpdate ( sysSprite   );
 
         
         SPR_update ( );

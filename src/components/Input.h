@@ -2,10 +2,9 @@
 
 #include "../libs/joyreader.h"
 
-typedef struct
+typedef struct ComponentInput
 {
-    int active:1;
-    int id:2;
-    Joyreader *joy;
+    Joyreader joy;
+    void ( *handlerFn ) ( void *, void * );
 }
 ComponentInput;

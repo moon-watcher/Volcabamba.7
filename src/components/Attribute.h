@@ -34,4 +34,5 @@ typedef struct {
 	char bd:1;
 	char be:1;
 	char bf:1;
-}ComponentAttribute;
+}
+ComponentAttribute;

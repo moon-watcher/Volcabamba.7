@@ -25,4 +25,7 @@ System *sysInput;
 System *sysSprite;
 
 
-#define SYSTEM(s,v)  s->list [ s->length++ ] = v
+#define SYSTEM(s,v)              s->list [ s->length++ ] = v;
+#define SYSTEM_2(s,v1,v2)        SYSTEM(s,v1); SYSTEM(s,v2);
+#define SYSTEM_3(s,v1,v2,v3)     SYSTEM(s,v1); SYSTEM(s,v2); SYSTEM(s,v3);
+#define SYSTEM_4(s,v1,v2,v3,v4)  SYSTEM(s,v1); SYSTEM(s,v2); SYSTEM(s,v3); SYSTEM(s,v4);

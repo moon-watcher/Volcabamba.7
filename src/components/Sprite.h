@@ -7,4 +7,5 @@ typedef struct
 	const SpriteDefinition* sd;
 	unsigned                attr;
 	Sprite*                 sprite;
-}ComponentSprite;
+}
+ComponentSprite;

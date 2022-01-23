@@ -5,4 +5,5 @@
 typedef struct
 {
 	unsigned x, y, w, h;
-}ComponentBox;
+}
+ComponentBox;

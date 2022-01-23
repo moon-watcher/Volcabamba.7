@@ -7,15 +7,6 @@
 #include "data/systems.h"
 
 
-enum
-{
-    ST_UNKNOWN = 0b00000000,
-    ST_IDLE    = 0b00000001,
-    ST_MOVE    = 0b00000010,
-    ST_DIE     = 0b00000100,
-};
-
-
 typedef struct
 {
     ComponentRigidbody rigidbody;
@@ -33,61 +24,57 @@ Components;
     ComponentPosition  *cp    = &rb->position;      \
     ComponentVelocity  *cv    = &rb->velocity;      \
     ComponentInput     *ci    = &comps->input;      \
-    Joyreader          *joy   = ci->joy;
+    Joyreader          *joy   = &ci->joy;
+
+
+
+static void _idle_enter  ( Entity *entity );
+static void _idle_update ( Entity *entity );
+static void _move_enter  ( Entity *entity );
+static void _move_update ( Entity *entity );
+
+static State stateIdle = { "Idle", _idle_enter, _idle_update, NULL };
+static State stateMove = { "Move", _move_enter, _move_update, NULL };
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-
-static int puedeMover ( Entity *entity ) { return 1; }
-static int puedeParar ( Entity *entity ) { return 1; }
-
-
-static void move ( Entity *entity )
+static void _idle_enter ( Entity *entity )
 {
-    COMPONENTS(entity);
-
-    cv->x.dir = 0;
-    cv->y.dir = 0;
-
-    if ( joy_active_left ( joy ) )
-    {
-        cv->x.dir = -1;
-    }
-    else if ( joy_active_right ( joy ) )
-    {
-        cv->x.dir = +1;
-    }
-
-    if ( joy_active_up ( joy ) )
-    {
-        cv->y.dir = -1;
-    }
-    else if ( joy_active_down ( joy ) )
-    {
-        cv->y.dir = +1;
-    }
+    drawText("entra en idle", 10,1);
 }
 
-
-static void stop ( Entity *entity )
+static void _idle_update ( Entity *entity )
 {
-    COMPONENTS(entity);
+    COMPONENTS ( entity );
+    //EVENTS ( entity );
 
-    cv->x.dir = 0;
-    cv->y.dir = 0;
+    SYSTEM_2 ( sysSprite, sp, cp     );
+    SYSTEM_2 ( sysInput,  ci, entity );
+
+    // meter un contador que cuando acaba lanza _move
+    //    entity->state = &stateMove;
 }
 
+static void _move_enter ( Entity *entity )
+{
+    drawText("entra en move", 10,1);
+}
 
-////////////////////////////////////////////////////////////////////////////////////////
+static void _move_update ( Entity *entity )
+{
+    COMPONENTS ( entity );
+    //EVENTS ( entity );
 
-
-static Event const eventStop  = { puedeParar, { ST_IDLE, stop } };
-static Event const eventMover = { puedeMover, { ST_MOVE, move } };
+    SYSTEM_2 ( sysMovement, cp, cv     );
+    SYSTEM_2 ( sysSprite,   sp, cp     );
+    SYSTEM_2 ( sysInput,    ci, entity );
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////
-
 
 static void Awake ( Entity *entity )
 {
@@ -97,44 +84,41 @@ static void Awake ( Entity *entity )
     system_input_init ( ci );
 }
 
-
 static void Update ( Entity *entity )
 {
-    COMPONENTS ( entity );
-    EVENTS ( entity );
-
-    SYSTEM ( sysMovement, cp );
-    SYSTEM ( sysMovement, cv );
-    SYSTEM ( sysSprite,   sp );
-    SYSTEM ( sysSprite,   cp );
-    SYSTEM ( sysInput,    ci );
-
-
-
-    if ( joy_released_dir ( joy ) )
-    {
-        entity->event = eventStop;
-    }
-
-    if ( joy_active_dir ( joy ) )
-    {
-        entity->event = eventMover;
-    }
-
-    if ( joy_pressed_b(joy) )
-    {
-//        create_entity_bullet ( entity, &entityBullet1_tpl );
-    }
+    entity->state->update ( entity );
 }
-
 
 static void Delete ( Entity *entity )
 {
-
+    //
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
+
+
+void inputHandler ( void *param1, void *param2 )
+{
+    Entity    *entity = (Entity*)    param1;
+    Joyreader *joy    = (Joyreader*) param2;
+    
+    if ( joy_released_dir ( joy  ) )
+    {
+        ecsEntityState ( entity, &stateIdle );
+    }
+
+    if ( joy_active_dir ( joy ) )
+    {
+        ecsEntityState ( entity, &stateMove );
+    }
+
+    if ( joy_pressed_b ( joy ) )
+    {
+        // create_entity_bullet ( entity, &entityBullet1_tpl );
+    }
+}
+
 
 
 Entity const entityHero1_tpl = ( Entity const )
@@ -142,43 +126,44 @@ Entity const entityHero1_tpl = ( Entity const )
     .Awake  = Awake,
     .Update = Update,
     .Delete = Delete,
+    .state  = &stateIdle,
 
     .compsSize  = sizeof ( Components ),
     .components = &(Components) {
         .rigidbody = {
             .position = { FIX32(2.1), FIX32(100.2) },
             .velocity = {
-                .x = { FIX32(0), 0, FIX32(1.5), FIX32(1.5), FIX32(0.1), NULL },
-                .y = { FIX32(0), 0, FIX32(1.5), FIX32(1.5), FIX32(0.1), NULL }
+                .x = { FIX32(6), 0, FIX32(1.5), FIX32(1.5), FIX32(0.1), NULL },
+                .y = { FIX32(3), 0, FIX32(1.5), FIX32(1.5), FIX32(0.1), NULL }
             }
         },
         .sprite = { .sd = &res_hero1_sprite, .attr = TILE_ATTR ( PAL3, 1, 0, 0 ) },
-        .input  = { .active = TRUE, .id = JOY_1 },
+        .input  = { .handlerFn = inputHandler },
         .attrs  = { 0b00000000000000000000000000000000 },
     }
 };
 
 
-Entity const entityHero2_tpl = ( Entity const )
-{
-    .Awake  = Awake,
-    .Update = Update,
-    .Delete = Delete,
+// Entity const entityHero2_tpl = ( Entity const )
+// {
+//     .Awake  = Awake,
+//     .Update = Update,
+//     .Delete = Delete,
 
-    .compsSize  = sizeof ( Components ),
-    .components = &(Components) {
-        .rigidbody = {
-            .position = { FIX32(40.1), FIX32(10.2) },
-            .velocity = {
-                .x = { FIX32(0), 0, FIX32(2.0), FIX32(2.0), FIX32(0.1), NULL },
-                .y = { FIX32(0), 0, FIX32(2.0), FIX32(2.0), FIX32(0.1), NULL }
-            }
-        },
-        .sprite = { .sd = &res_hero2_sprite, .attr = TILE_ATTR ( PAL2, 1, 0, 0 ) },
-        .input  = { .active = TRUE, .id = JOY_2 },
-        .attrs  = { 0b00000000000000000000000000000000 },
-    }
-};
+//     .compsSize  = sizeof ( Components ),
+//     .components = &(Components) {
+//         .rigidbody = {
+//             .position = { FIX32(40.1), FIX32(10.2) },
+//             .velocity = {
+//                 .x = { FIX32(0), 0, FIX32(2.0), FIX32(2.0), FIX32(0.1), NULL },
+//                 .y = { FIX32(0), 0, FIX32(2.0), FIX32(2.0), FIX32(0.1), NULL }
+//             }
+//         },
+//         .sprite = { .sd = &res_hero2_sprite, .attr = TILE_ATTR ( PAL2, 1, 0, 0 ) },
+//         .input  = { .joy = joyreader2, .handlerFn = &inputHandler },
+//         .attrs  = { 0b00000000000000000000000000000000 },
+//     }
+// };
 
 
 //https://stackoverflow.com/questions/1647631/c-state-machine-design

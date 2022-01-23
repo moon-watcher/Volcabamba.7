@@ -22,4 +22,5 @@ typedef struct
 
 //    void  (*Sleep) (void*);
 //    void  (*WakeUp)(void*);
-}ComponentRigidbody;
+}
+ComponentRigidbody;

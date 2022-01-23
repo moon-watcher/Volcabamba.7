@@ -8,4 +8,5 @@ typedef struct
     VDPPlane     plane;
     Image const *image;
     u16          attributes;
-}ComponentImage;
+}
+ComponentImage;

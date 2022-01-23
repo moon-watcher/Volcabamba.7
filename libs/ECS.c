@@ -7,13 +7,13 @@ static int const Entity_s  = sizeof ( Entity  );
 static int const System_s  = sizeof ( System  );
 
 
-static Manager* manager_new ( )
+Manager* ecsManager ( )
 {
     return malloc ( Manager_s );
 }
 
 
-static void manager_update ( Manager *manager )
+void ecsManagerUpdate ( Manager *manager )
 {
     listptr *list = &manager->entities;
 
@@ -34,7 +34,7 @@ static void manager_update ( Manager *manager )
 }
 
 
-static void manager_delete ( Manager *manager )
+void ecsManagerDelete ( Manager *manager )
 {
     listptr *list = &manager->entities;
 
@@ -53,7 +53,7 @@ static void manager_delete ( Manager *manager )
 
 
 
-static Entity *entity_new ( Manager *manager, Entity const *tpl )
+Entity *ecsEntity ( Manager *manager, Entity const *tpl )
 {
     Entity *entity;
     
@@ -73,10 +73,19 @@ static Entity *entity_new ( Manager *manager, Entity const *tpl )
 }
 
 
+void ecsEntityState ( Entity *entity, State *state )
+{
+    if ( state->enter )
+    {
+        state->enter ( entity );
+    }
 
-//static System *system_new ( void (*updateFn), void *list, int max )
+    entity->state = state;
+}
 
-static System *system_new ( System const *tpl )
+
+
+System *ecsSystem ( System const *tpl )
 {
     System *system = malloc ( System_s );
 
@@ -86,13 +95,13 @@ static System *system_new ( System const *tpl )
 }
 
 
-static void system_init ( System *system )
+void ecsSystemInit ( System *system )
 {
     system->length = 0;
 }
 
 
-static void system_update ( System *system )
+void ecsSystemUpdate ( System *system )
 {
     if ( !system )
     {
@@ -112,16 +121,8 @@ static void system_update ( System *system )
 }
 
 
-static void system_delete ( System *system )
+void ecsSystemDelete ( System *system )
 {
     free ( system );
     system = NULL;
 }
-
-
-ECS ecs =
-{
-    { manager_new, manager_update, manager_delete, },
-    { entity_new, },
-    { system_new, system_init, system_update, system_delete },
-};

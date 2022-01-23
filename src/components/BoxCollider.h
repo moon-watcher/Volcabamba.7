@@ -23,4 +23,5 @@ typedef struct
         unsigned h;
     }
     size;
-}ComponentBoxCollider;
+}
+ComponentBoxCollider;

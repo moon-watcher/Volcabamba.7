@@ -2,20 +2,16 @@
 
 typedef struct
 {
-    unsigned port:2;
+    unsigned port:1;
     unsigned changed;
     unsigned active;
-    int      paused:1;
 }
 Joyreader;
 
 
-Joyreader *joyreader_init   ( unsigned port );
-void       joyreader_update ( Joyreader *joy );
-void       joyreader_pause  ( Joyreader *joy );
-void       joyreader_reset  ( Joyreader *joy );
-void       joyreader_end    ( Joyreader *joy );
-
+void joyreader_init   ( Joyreader *joy, unsigned port );
+void joyreader_update ( Joyreader *joy );
+void joyreader_reset  ( Joyreader *joy );
 
 
 #define joy_active(JOY)                 ( JOY->active )
@@ -117,3 +113,39 @@ void       joyreader_end    ( Joyreader *joy );
 #define joy_released_abc(JOY)           ( joy_released_a(JOY)        | joy_released_b(JOY) | joy_released_c(JOY) )
 #define joy_released_xyz(JOY)           ( joy_released_x(JOY)        | joy_released_y(JOY) | joy_released_z(JOY) )
 #define joy_released_btn(JOY)           ( joy_released_abc(JOY)      | joy_released_xyz(JOY) )
+
+
+
+/*
+#define EVAL(ACTION,A)  ( ( j->ACTION >> A ) & 1 )
+
+#define JOYDEFINE(ACTION) \
+    unsigned joy_##ACTION              ( Joyreader *j ) { return j->ACTION; } \
+    \
+    unsigned joy_##ACTION##_up         ( Joyreader *j ) { return EVAL(ACTION,0); } \
+    unsigned joy_##ACTION##_down       ( Joyreader *j ) { return EVAL(ACTION,1); } \
+    unsigned joy_##ACTION##_left       ( Joyreader *j ) { return EVAL(ACTION,2); } \
+    unsigned joy_##ACTION##_right      ( Joyreader *j ) { return EVAL(ACTION,3); } \
+    unsigned joy_##ACTION##_a          ( Joyreader *j ) { return EVAL(ACTION,6); } \
+    unsigned joy_##ACTION##_b          ( Joyreader *j ) { return EVAL(ACTION,4); } \
+    unsigned joy_##ACTION##_c          ( Joyreader *j ) { return EVAL(ACTION,5); } \
+    unsigned joy_##ACTION##_x          ( Joyreader *j ) { return EVAL(ACTION,10); } \
+    unsigned joy_##ACTION##_y          ( Joyreader *j ) { return EVAL(ACTION,9); } \
+    unsigned joy_##ACTION##_z          ( Joyreader *j ) { return EVAL(ACTION,8); } \
+    unsigned joy_##ACTION##_start      ( Joyreader *j ) { return EVAL(ACTION,7); } \
+    unsigned joy_##ACTION##_mode       ( Joyreader *j ) { return EVAL(ACTION,11); } \
+    \
+    unsigned joy_##ACTION##_vertical   ( Joyreader *j ) { return EVAL(ACTION,0) | EVAL(ACTION,1); } \
+    unsigned joy_##ACTION##_horizontal ( Joyreader *j ) { return EVAL(ACTION,2) | EVAL(ACTION,3); } \
+    unsigned joy_##ACTION##_dir        ( Joyreader *j ) { return EVAL(ACTION,0) | EVAL(ACTION,1) | EVAL(ACTION,2) | EVAL(ACTION,3); } \
+    unsigned joy_##ACTION##_abc        ( Joyreader *j ) { return EVAL(ACTION,4) | EVAL(ACTION,5) | EVAL(ACTION,6); } \
+    unsigned joy_##ACTION##_xyz        ( Joyreader *j ) { return EVAL(ACTION,8) | EVAL(ACTION,9) | EVAL(ACTION,10); } \
+    unsigned joy_##ACTION##_btn        ( Joyreader *j ) { return EVAL(ACTION,4) | EVAL(ACTION,5) | EVAL(ACTION,6) | EVAL(ACTION,8) | EVAL(ACTION,9) | EVAL(ACTION,10); }
+
+
+JOYDEFINE ( active   );
+JOYDEFINE ( changed  );
+JOYDEFINE ( inactive );
+JOYDEFINE ( pressed  );
+JOYDEFINE ( released );
+*/
