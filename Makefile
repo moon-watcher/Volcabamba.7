@@ -126,7 +126,7 @@ cleanres: cleantmp
 cleanobj:
 	$(RM) -f $(OBJS) out/sega.o out/rom_head.bin out/rom_head.o out/rom.out
 
-clean: cleanobj cleanres cleanlst cleandep
+clean: # clean: cleanobj cleanres cleanlst cleandep
 	$(RM) -f  $(PROJECT)
 	$(RM) -rf out/
 

@@ -1,14 +1,14 @@
 
 #include <genesis.h>
 
-#include "../libs/ECS.h"
-#include "../libs/draw.h"
+#include "libs/ECS.h"
+#include "libs/draw.h"
 #include "data/entities.h"
 #include "data/systems.h"
 
-System const sysMovement_tpl = { &system_movement_update, sysMovement_list, sysMovement_max, "sysMovement", 0 };
-System const sysInput_tpl    = { &system_input_update,    sysInput_list,    sysInput_max,    "sysInput",    0 };
-System const sysSprite_tpl   = { &system_sprite_update,   sysSprite_list,   sysSprite_max,   "sysSprite",   0 };
+System sysMovement_tpl = { &system_movement_update, sysMovement_list, sysMovement_max, "sysMovement", 0 };
+System sysInput_tpl    = { &system_input_update,    sysInput_list,    sysInput_max,    "sysInput",    0 };
+System sysSprite_tpl   = { &system_sprite_update,   sysSprite_list,   sysSprite_max,   "sysSprite",   0 };
 
 
 

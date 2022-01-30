@@ -2,9 +2,9 @@
 #include "ECS.h"
 
 
-static int const Manager_s = sizeof ( Manager );
-static int const Entity_s  = sizeof ( Entity  );
-static int const System_s  = sizeof ( System  );
+static int Manager_s = sizeof ( Manager );
+static int Entity_s  = sizeof ( Entity  );
+static int System_s  = sizeof ( System  );
 
 
 Manager* ecsManager ( )
@@ -73,8 +73,11 @@ Entity *ecsEntity ( Manager *manager, Entity const *tpl )
 }
 
 
-void ecsEntityState ( Entity *entity, State *state )
+//void ecsEntityState ( Entity *entity, State const *voidstate )
+void ecsEntityState ( Entity *entity, State const *state )
 {
+    //State *state = (State*) voidstate;
+
     if ( state->enter )
     {
         state->enter ( entity );
@@ -85,7 +88,7 @@ void ecsEntityState ( Entity *entity, State *state )
 
 
 
-System *ecsSystem ( System const *tpl )
+System *ecsSystem ( System *tpl )
 {
     System *system = malloc ( System_s );
 
