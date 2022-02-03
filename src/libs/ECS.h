@@ -8,10 +8,9 @@ struct Entity;
 
 typedef struct 
 {
-    char *name;
     void ( *enter  ) ( struct Entity * );
     void ( *update ) ( struct Entity * );
-    void *data;
+    void ( *exit   ) ( struct Entity * );
 }
 State;
 
@@ -22,7 +21,7 @@ typedef struct Entity
 
     int   compsSize:9;
     void* components;
-    //void const* state;
+    
     State const *state;
 
     void ( *Awake  ) ( struct Entity * );

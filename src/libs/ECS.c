@@ -5,6 +5,7 @@
 static int Manager_s = sizeof ( Manager );
 static int Entity_s  = sizeof ( Entity  );
 static int System_s  = sizeof ( System  );
+static int State_s   = sizeof ( State   );
 
 
 Manager* ecsManager ( )
@@ -56,7 +57,7 @@ void ecsManagerDelete ( Manager *manager )
 Entity *ecsEntity ( Manager *manager, Entity const *tpl )
 {
     Entity *entity;
-    
+       
     int const compsSize = tpl->compsSize;
 
     entity             = malloc ( Entity_s  );
@@ -73,17 +74,14 @@ Entity *ecsEntity ( Manager *manager, Entity const *tpl )
 }
 
 
-//void ecsEntityState ( Entity *entity, State const *voidstate )
-void ecsEntityState ( Entity *entity, State const *state )
+void ecsEntityState ( Entity *entity, State const *tpl )
 {
-    //State *state = (State*) voidstate;
-
-    if ( state->enter )
+    if ( tpl->enter )
     {
-        state->enter ( entity );
+        tpl->enter ( entity );
     }
 
-    entity->state = state;
+    entity->state = tpl;
 }
 
 

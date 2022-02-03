@@ -7,8 +7,7 @@
 #include "../res/sprites.h"
 
 #include "components.h"
-#include "states/Idle.h"
-#include "states/Move.h"
+#include "states.h"
 
 
 
@@ -22,6 +21,11 @@ static void Awake ( Entity *entity )
 
 static void Update ( Entity *entity )
 {
+    COMPONENTS ( entity );
+    
+    SYSTEM2 ( sysSprite,   sp, cp     );
+    SYSTEM2 ( sysInput,    ci, entity );
+
     entity->state->update ( entity );
 }
 
