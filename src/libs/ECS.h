@@ -3,17 +3,6 @@
 #include <genesis.h>
 #include "listptr.h"
 
-struct Entity;
-
-
-typedef struct 
-{
-    void ( *enter  ) ( struct Entity * );
-    void ( *update ) ( struct Entity * );
-    void ( *exit   ) ( struct Entity * );
-}
-State;
-
 
 typedef struct Entity
 {
@@ -22,23 +11,32 @@ typedef struct Entity
     int   compsSize:9;
     void* components;
     
-    State const *state;
-
     void ( *Awake  ) ( struct Entity * );
     void ( *Update ) ( struct Entity * );
     void ( *Delete ) ( struct Entity * );
+
+    struct State *state;
 }
 Entity;
 
 
-typedef struct
+typedef struct State
+{
+    void ( *enter  ) ( Entity * );
+    void ( *update ) ( Entity * );
+    void ( *exit   ) ( Entity * );
+}
+State;
+
+
+typedef struct Manager
 {
     listptr entities;
 }
 Manager;
 
 
-typedef struct
+typedef struct System
 {
     void ( *updateFn ) ( void *, int );
     void **list;
@@ -67,3 +65,5 @@ void     ecsSystemDelete  ( System * );
 #define SYSTEM2(s,a,b)      SYSTEM1(s,a); SYSTEM1(s,b);
 #define SYSTEM3(s,a,b,c)    SYSTEM1(s,a); SYSTEM1(s,b); SYSTEM1(s,c);
 #define SYSTEM4(s,a,b,c,d)  SYSTEM1(s,a); SYSTEM1(s,b); SYSTEM1(s,c); SYSTEM1(s,d);
+
+#define execptrfn(f,v)  if(f) f(v);

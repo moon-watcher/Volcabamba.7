@@ -24,12 +24,12 @@ void ecsManagerUpdate ( Manager *manager )
 
         if ( entity->delete )
 	    {
-            entity->Delete ( entity );
+            execptrfn ( entity->Delete, entity );
             listptr_remove ( list, node );
 	    }
 	    else
         {
-            entity->Update ( entity );
+            execptrfn ( entity->Update, entity );
         }
     }
 }
@@ -43,7 +43,7 @@ void ecsManagerDelete ( Manager *manager )
     {
         Entity *entity = node->data;
         
-        entity->Delete ( entity );
+        execptrfn ( entity->Delete, entity );
     }
 
     listptr_destroy ( list );
@@ -68,20 +68,25 @@ Entity *ecsEntity ( Manager *manager, Entity const *tpl )
 
     listptr_add ( &manager->entities, entity );
 
-    entity->Awake ( entity );
+    execptrfn ( entity->Awake,        entity );
+    execptrfn ( entity->state->enter, entity );
 
     return entity;
 }
 
 
-void ecsEntityState ( Entity *entity, State const *tpl )
+void ecsEntityState ( Entity *entity, State const *state )
 {
-    if ( tpl->enter )
+    State *s = entity->state;
+
+    if ( s == state )
     {
-        tpl->enter ( entity );
+        return;
     }
 
-    entity->state = tpl;
+    execptrfn ( s->exit, entity );
+    s = (State*) state;
+    execptrfn ( s->enter, entity );
 }
 
 
