@@ -5,6 +5,7 @@
 typedef struct
 {
 	const SpriteDefinition* sd;
+	int                     index;
 	unsigned                attr;
 	Sprite*                 sprite;
 }
