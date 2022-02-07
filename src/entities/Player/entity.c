@@ -32,9 +32,12 @@ static void Update ( Entity *entity )
 {
     COMPONENTS ( entity );
 
-    SYSTEM2 ( sysMovement, cp, cv     );
-    SYSTEM2 ( sysSprite,   sp, cp     );
-    SYSTEM2 ( sysInput,    ci, entity );
+    systemadd ( sysMovement, cp     );
+    systemadd ( sysMovement, cv     );
+    systemadd ( sysSprite,   sp     );
+    systemadd ( sysSprite,   cp     );
+    systemadd ( sysInput,    ci     ) ;
+    systemadd ( sysInput,    entity );
     
     execptrfn ( entity->state->update, entity );
 }

@@ -100,10 +100,10 @@
 //     COMPONENTS ( entity );
 //     EVENTS ( entity );
 
-//     SYSTEM ( sysMovement, cp );
-//     SYSTEM ( sysMovement, cv );
-//     SYSTEM ( sysSprite,   sp );
-//     SYSTEM ( sysSprite,   cp );
+//     systemadd ( sysMovement, cp );
+//     systemadd ( sysMovement, cv );
+//     systemadd ( sysSprite,   sp );
+//     systemadd ( sysSprite,   cp );
 
 
 //     if ( !to->count--)

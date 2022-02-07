@@ -61,9 +61,5 @@ void     ecsSystemDelete  ( System * );
 
 
 
-#define SYSTEM1(s,a)        s->list [ s->length++ ] = a;
-#define SYSTEM2(s,a,b)      SYSTEM1(s,a); SYSTEM1(s,b);
-#define SYSTEM3(s,a,b,c)    SYSTEM1(s,a); SYSTEM1(s,b); SYSTEM1(s,c);
-#define SYSTEM4(s,a,b,c,d)  SYSTEM1(s,a); SYSTEM1(s,b); SYSTEM1(s,c); SYSTEM1(s,d);
-
-#define execptrfn(f,v)  if(f) f(v);
+#define systemadd(s,a)  ({ s->list [ s->length++ ] = a; })
+#define execptrfn(f,v)  ({ if(f) f(v); })
