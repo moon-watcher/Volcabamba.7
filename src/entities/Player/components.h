@@ -2,6 +2,7 @@
 
 #include "data/components.h"
 
+
 #define COMPONENTS(entity)                          \
     Components         *comps = entity->components; \
     ComponentRigidbody *rb    = &comps->rigidbody;  \
@@ -20,4 +21,3 @@ typedef struct
     ComponentAttribute attrs;
 }
 Components;
-

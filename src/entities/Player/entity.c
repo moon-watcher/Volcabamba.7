@@ -1,84 +1,71 @@
 #include <genesis.h>
 
 #include "libs/ECS.h"
-
-#include "libs/joyreader.h"
 #include "data/systems.h"
-#include "../res/sprites.h"
-
 #include "components.h"
 #include "states.h"
-
+#include "../res/sprites.h"
 
 
 static void Awake ( Entity *entity )
 {
+    // Se ejecuta una vez cuando se crea la entidad.
+    // Aquí se inicializan cosas como:
+    //
+    // sprites
+    // paleta
+    // musica/sfx
+    // controles
+    // ...
+    
     COMPONENTS(entity);
 
+    sp->sd = &res_hero1_sprite;
+    sp->index = 0;
+    
     system_sprite_init ( sp, cp );
-    system_input_init ( ci );
+    system_input_init ( ci, ci->joy.port );
 }
+
 
 static void Update ( Entity *entity )
 {
     COMPONENTS ( entity );
-    
+
+    SYSTEM2 ( sysMovement, cp, cv     );
     SYSTEM2 ( sysSprite,   sp, cp     );
     SYSTEM2 ( sysInput,    ci, entity );
-
-    entity->state->update ( entity );
+    
+    execptrfn ( entity->state->update, entity );
 }
+
 
 static void Delete ( Entity *entity )
 {
-    //
+    // Se destruye todo lo inicializado en el Awake
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-void inputHandler ( void *param1, void *param2 )
-{
-    Entity    *entity = (Entity*)    param1;
-    Joyreader *joy    = (Joyreader*) param2;
-    
-    if ( joy_released_dir ( joy  ) )
-    {
-        ecsEntityState ( entity, &idleState );
-    }
-
-    if ( joy_active_dir ( joy ) )
-    {
-        ecsEntityState ( entity, &moveState );
-    }
-
-    if ( joy_pressed_b ( joy ) )
-    {
-        // create_entity_bullet ( entity, &entityBullet1_tpl );
-    }
-}
-
-
-
-Entity entityHero1_tpl = //( Entity )
+Entity const entityPlayer1_tpl = // ( Entity )
 {
     .Awake  = Awake,
     .Update = Update,
     .Delete = Delete,
-    .state  = &idleState, // &idleState, // &(states.idle),
-
-    .compsSize  = sizeof ( Components ),
+    .state = (State*) &idleState,
+    .compsSize = sizeof(Components),
     .components = &(Components) {
-        .rigidbody = {
-            .position = { FIX32(2.1), FIX32(100.2) },
+        .rigidbody = { 
+            .position = { 0, 0 },
             .velocity = {
-                .x = { FIX32(6), 0, FIX32(1.5), FIX32(1.5), FIX32(0.1), NULL },
-                .y = { FIX32(3), 0, FIX32(1.5), FIX32(1.5), FIX32(0.1), NULL }
+                .x = { 0, 0, 0, 0, 0, NULL },
+                .y = { 0, 0, 0, 0, 0, NULL }
             }
         },
-        .sprite = { .sd = &res_hero1_sprite, .attr = TILE_ATTR ( PAL3, 1, 0, 0 ) },
-        .input  = { .handlerFn = inputHandler },
+        .sprite = { .attr = TILE_ATTR ( PAL3, 1, 0, 0 ) },
         .attrs  = { 0b00000000000000000000000000000000 },
-    }
+        .input  = { .joy.port = PORT_1 },
+    },
 };
