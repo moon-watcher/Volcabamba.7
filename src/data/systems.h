@@ -6,7 +6,7 @@
 void system_movement_update ( void *array, int length );
 
 void system_input_update    ( void *array, int length );
-void system_input_init      ( ComponentInput *input );
+void system_input_init      ( ComponentInput *input, int port );
 
 void system_sprite_update   ( void *array, int length );
 void system_sprite_init     ( ComponentSprite *sp, ComponentPosition *cp );

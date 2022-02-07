@@ -14,15 +14,12 @@ void system_input_update ( void *array[], int length )
         
         joyreader_update ( &ci->joy );
 
-        ci->handlerFn ( entity, &ci->joy );
+        ci->handler ( &ci->joy, entity, NULL );
     }
 }
 
 
-void system_input_init ( ComponentInput *input )
+void system_input_init ( ComponentInput *ci, int port )
 {
-    // if ( input->active )
-    // {
-    //     input->joy = joyreader_init ( input->id );
-    // }
+    joyreader_init ( &ci->joy, port );
 }
