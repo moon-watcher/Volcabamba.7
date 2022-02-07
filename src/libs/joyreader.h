@@ -9,7 +9,7 @@ typedef struct
 Joyreader;
 
 
-void joyreader_init   ( Joyreader *joy, unsigned port );
+void joyreader_init   ( Joyreader *joy, int port );
 void joyreader_update ( Joyreader *joy );
 void joyreader_reset  ( Joyreader *joy );
 
