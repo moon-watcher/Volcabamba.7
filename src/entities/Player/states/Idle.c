@@ -13,7 +13,6 @@ static void inputHandler ( Joyreader *joy, void *ptr1, void *ptr2 )
     if ( joy_pressed_dir ( joy ) )
     {
         ecsEntityState ( entity, &moveState );
-        drawText("pressed ", 10, 23 );
     }
 }
 
@@ -26,13 +25,14 @@ static void enter ( Entity *entity )
     COMPONENTS(entity);
 
     ci->handler = inputHandler;
-    //cv = NULL;
+    cv->x.dir = 0;
+    cv->y.dir = 0;
 }
 
 
 static void update ( Entity *entity )
 {
-    drawText("idle_update",2,1);
+    //
 }
 
 
@@ -45,18 +45,8 @@ static void exit ( Entity *entity )
 ////////////////////////////////////////////////////////////////////////
 
 
-State const idleState = { enter, update, exit };
-
-
-// al cambiar una entidad de *monoestado debe haber una transción 
-
-// debe hacer un estado CREATE que inicializa los sprites y todo, y una vez ejecutado,
-// pasa al estado indicado.
-// Al cambiar de monoestado no será necesario reinicializar el sprite, pero habrá que 
-// hacer una transicón entre estados para solo volcar los datos necesarios y no 
-// volver a crear el sprite
-//
-// además 
+//State const idleState = { enter, update, exit };
+State const idleState = { enter, NULL, NULL };
 
 
 // Entity const entityPlayerIdle_tpl = //( Entity )
@@ -64,7 +54,6 @@ State const idleState = { enter, update, exit };
 //     .Awake  = Awake,
 //     .Update = Update,
 //     .Delete = Delete,
-
 //     .compsSize  = sizeof ( Components ),
 //     .components = &(Components) {
 //         .rigidbody = {

@@ -43,25 +43,22 @@ void system_movement_update ( void *array[], int length )
                 x_vel = fix32Neg(x_maximum);
             }
         }
-        else
+        else if ( x_vel > 0 )
         {
-            if ( x_vel > 0 )
-            {
-                x_vel = fix32Sub ( x_vel, x_deceleration );
+            x_vel = fix32Sub ( x_vel, x_deceleration );
 
-                if ( x_vel < 0 )
-                {
-                    x_vel = 0;
-                }
+            if ( x_vel < 0 )
+            {
+                x_vel = 0;
             }
-            else if ( x_vel < 0 )
-            {
-                x_vel = fix32Sub ( x_vel, fix32Neg(x_deceleration) );
+        }
+        else if ( x_vel < 0 )
+        {
+            x_vel = fix32Sub ( x_vel, fix32Neg(x_deceleration) );
 
-                if ( x_vel < fix32Neg(x_maximum) )
-                {
-                    x_vel = fix32Neg(x_maximum);
-                }
+            if ( x_vel < fix32Neg(x_maximum) )
+            {
+                x_vel = fix32Neg(x_maximum);
             }
         }
 
@@ -84,27 +81,25 @@ void system_movement_update ( void *array[], int length )
                 y_vel = fix32Neg(y_maximum);
             }
         }
-        else
+        else if ( y_vel > 0 )
         {
-            if ( y_vel > 0 )
-            {
-                y_vel = fix32Sub ( y_vel, y_deceleration );
+            y_vel = fix32Sub ( y_vel, y_deceleration );
 
-                if ( y_vel < 0 )
-                {
-                    y_vel = 0;
-                }
-            }
-            else if ( y_vel < 0 )
+            if ( y_vel < 0 )
             {
-                y_vel = fix32Sub ( y_vel, fix32Neg(y_deceleration) );
-
-                if ( y_vel < fix32Neg(y_maximum) )
-                {
-                    y_vel = fix32Neg(y_maximum);
-                }
+                y_vel = 0;
             }
         }
+        else if ( y_vel < 0 )
+        {
+            y_vel = fix32Sub ( y_vel, fix32Neg(y_deceleration) );
+
+            if ( y_vel < fix32Neg(y_maximum) )
+            {
+                y_vel = fix32Neg(y_maximum);
+            }
+        }
+
 
         x->vel = x_vel;
         y->vel = y_vel;

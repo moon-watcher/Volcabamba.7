@@ -22,7 +22,7 @@ listptr;
 
 
 #define listptr_foreach( l, n ) \
-    for ( listptrNode *n = l->head; n; n = n ->next )
+    for ( listptrNode *n = l->head; n; n = n->next )
 
 
 void         listptr_init    ( listptr *list, listptrFn freeFn );

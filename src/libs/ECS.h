@@ -61,5 +61,5 @@ void     ecsSystemDelete  ( System * );
 
 
 
-#define systemadd(s,a)  ({ s->list [ s->length++ ] = a; })
-#define execptrfn(f,v)  ({ if(f) f(v); })
+#define ecsSystemAdd(s,a)  ({ s->list [ s->length++ ] = a; })
+#define ecsExecptrfn(f,v)  ({ if(f) f(v); })

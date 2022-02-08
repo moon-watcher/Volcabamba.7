@@ -11,6 +11,12 @@ System sysInput_tpl    = { &system_input_update,    sysInput_list,    sysInput_m
 System sysSprite_tpl   = { &system_sprite_update,   sysSprite_list,   sysSprite_max,   "sysSprite",   0 };
 
 
+drawState(char *s)
+{
+    drawText(s, 0,0);
+    // waitMs(5);
+    // drawText( "           ", 0, 0 );
+}
 
 void main ( )
 {

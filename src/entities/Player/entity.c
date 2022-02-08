@@ -32,14 +32,14 @@ static void Update ( Entity *entity )
 {
     COMPONENTS ( entity );
 
-    systemadd ( sysMovement, cp     );
-    systemadd ( sysMovement, cv     );
-    systemadd ( sysSprite,   sp     );
-    systemadd ( sysSprite,   cp     );
-    systemadd ( sysInput,    ci     ) ;
-    systemadd ( sysInput,    entity );
+    ecsSystemAdd ( sysMovement, cp     );
+    ecsSystemAdd ( sysMovement, cv     );
+    ecsSystemAdd ( sysSprite,   sp     );
+    ecsSystemAdd ( sysSprite,   cp     );
+    ecsSystemAdd ( sysInput,    ci     );
+    ecsSystemAdd ( sysInput,    entity );
     
-    execptrfn ( entity->state->update, entity );
+    ecsExecptrfn ( entity->state->update, entity );
 }
 
 
@@ -54,7 +54,7 @@ static void Delete ( Entity *entity )
 
 Entity const entityPlayer1_tpl = // ( Entity )
 {
-    .Awake  = Awake,
+    .Awake = Awake,
     .Update = Update,
     .Delete = Delete,
     .state = (State*) &idleState,

@@ -9,7 +9,7 @@ typedef struct
     fix32  maximum;
     fix32  acceleration;
     fix32  deceleration;
-    void  (*accel_fn)(void*);
+    void  (*accel_fn)(void*,void*);
 }
 ComponentVelocity_Inner;
 
