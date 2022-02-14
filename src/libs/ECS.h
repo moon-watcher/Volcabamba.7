@@ -50,7 +50,7 @@ void     ecsManagerDelete ( Manager * );
 Entity*  ecsEntity        ( Manager *, Entity const * );
 void     ecsEntityState   ( Entity  *, State  const * );
 
-System*  ecsSystem        ( System * );
+System*  ecsSystem        ( System const * );
 void     ecsSystemUpdate  ( System * );
 void     ecsSystemDelete  ( System * );
 

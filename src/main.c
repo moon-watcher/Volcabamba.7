@@ -6,16 +6,16 @@
 #include "data/entities.h"
 #include "data/systems.h"
 
-System sysMovement_tpl = { &system_movement_update, sysMovement_list, sysMovement_max, "sysMovement", 0 };
-System sysInput_tpl    = { &system_input_update,    sysInput_list,    sysInput_max,    "sysInput",    0 };
-System sysSprite_tpl   = { &system_sprite_update,   sysSprite_list,   sysSprite_max,   "sysSprite",   0 };
+System const sysMovement_tpl = { .updateFn = &system_movement_update, .max = 160, .name = "sysMovement" };
+System const sysInput_tpl    = { .updateFn = &system_input_update,    .max = 8,   .name = "sysInput"    };
+System const sysSprite_tpl   = { .updateFn = &system_sprite_update,   .max = 160, .name = "sysSprite"   };
 
 
-drawState(char *s)
+void drawState(char *s)
 {
     drawText(s, 0,0);
-    // waitMs(5);
-    // drawText( "           ", 0, 0 );
+    waitMs(50);
+    drawText( "           ", 0, 0 );
 }
 
 void main ( )

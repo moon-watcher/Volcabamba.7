@@ -82,23 +82,37 @@ void ecsEntityState ( Entity *entity, State const *state )
 
 
 
-System *ecsSystem ( System *tpl )
+System *ecsSystem ( System const *tpl )
 {
     System *system = malloc ( System_s );
 
     memcpy ( system, tpl, System_s );
-    
+
+    system->list   = malloc ( sizeof(void*) * tpl->max );
     system->length = 0;
+
     return system;
 }
 
 
 void ecsSystemUpdate ( System *system )
 {
-    if ( system->length > system->max )
+    if ( system->length >= system->max )
     {
-        drawText ( "FALLO:",     1, 0 );
-        drawText ( system->name, 8, 0 );
+        // En lugar de un mensaje de error
+        // hacer algo aquí para que se 
+        // redimensione system->list.
+        // Luego, por ejemplo: al finalizar
+        // una fase, sería ideal que mostrara
+        // el system->max de cada sistema
+
+        VDP_resetScreen();
+        drawText ( "SYSTEM:",      0, 0 );
+        drawText ( system->name,   8, 0 );
+        drawText ( "MAX:",         0, 1 );
+        drawText ( system->max,    8, 1 );
+        drawText ( "LENGTH:",      0, 2 );
+        drawText ( system->length, 8, 2 );
         waitMs(10000);
         
         return;
@@ -111,6 +125,8 @@ void ecsSystemUpdate ( System *system )
 
 void ecsSystemDelete ( System *system )
 {
+    free ( system->list );
+    system->list = NULL;
     free ( system );
     system = NULL;
 }
