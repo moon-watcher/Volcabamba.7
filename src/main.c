@@ -26,15 +26,15 @@ void main ( )
     SPR_init ( );
 
 
-    Manager *manPlayers = ecsManager ( );
+    Manager manPlayers;
     // Manager *manEnemies = ecsManager.new();
 
-    ecsEntity ( manPlayers, &entityPlayer1_tpl );
+    ecsEntity ( &manPlayers, &entityPlayer1_tpl );
 //     // ecs_entity_new ( manEnemies, &entityEnemy1_tpl );
 
     while ( 1 )
     {
-        ecsManagerUpdate ( manPlayers );
+        ecsManagerUpdate ( &manPlayers );
         // ecsManager_update ( manEnemies );
 
         ecsSystemUpdate ( sysMovement );

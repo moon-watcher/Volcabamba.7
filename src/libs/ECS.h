@@ -16,6 +16,7 @@ typedef struct Entity
     void ( *Delete ) ( struct Entity * );
 
     struct State *state;
+    void *data;
 }
 Entity;
 
@@ -43,7 +44,6 @@ typedef struct System
 System;
 
 
-Manager* ecsManager       ( );
 void     ecsManagerUpdate ( Manager * );
 void     ecsManagerDelete ( Manager * );
 

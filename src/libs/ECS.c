@@ -2,16 +2,8 @@
 #include "ECS.h"
 
 
-static int const Manager_s = sizeof ( Manager );
 static int const Entity_s  = sizeof ( Entity  );
 static int const System_s  = sizeof ( System  );
-static int const State_s   = sizeof ( State   );
-
-
-Manager* ecsManager ( )
-{
-    return malloc ( Manager_s );
-}
 
 
 void ecsManagerUpdate ( Manager *manager )
@@ -40,6 +32,7 @@ void ecsManagerDelete ( Manager *manager )
     {
         Entity *entity = node->data;
         
+        ecsExecPtrfn ( entity->state->exit, entity );
         ecsExecPtrfn ( entity->Delete, entity );
     }
 
