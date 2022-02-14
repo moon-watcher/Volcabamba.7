@@ -9,6 +9,7 @@
 static void inputHandler ( Joyreader *j, void *p1, void *p2 )
 {
     Entity *entity = (Entity*) p1;
+
     COMPONENTS ( entity );
 
     if ( !joy_active_dir ( j ) )
@@ -74,7 +75,10 @@ static void enter ( Entity *entity )
 
 static void update ( Entity *entity )
 {
-    //
+    //     COMPONENTS(entity);
+
+    // ecsSystemAdd ( sysMovement, cp     );
+    // ecsSystemAdd ( sysMovement, cv     );
 }
 
 
@@ -87,5 +91,5 @@ static void exit ( Entity *entity )
 ////////////////////////////////////////////////////////////////////////
 
 
-//State const moveState = { enter, update, exit };
-State const moveState = { enter, NULL, NULL };
+State const moveState = { enter, update, exit };
+// State const moveState = { enter, NULL, NULL };

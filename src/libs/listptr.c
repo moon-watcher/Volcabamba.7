@@ -76,7 +76,7 @@ void listptr_remove ( listptr *list, listptrNode *node )
         node->next->prev = node->prev;
     }
 
-    list->length--;
+    --list->length;
     free ( node );
 }
 

@@ -29,11 +29,7 @@ typedef struct State
 State;
 
 
-typedef struct Manager
-{
-    listptr entities;
-}
-Manager;
+typedef listptr Manager;
 
 
 typedef struct System
@@ -55,11 +51,10 @@ Entity*  ecsEntity        ( Manager *, Entity const * );
 void     ecsEntityState   ( Entity  *, State  const * );
 
 System*  ecsSystem        ( System * );
-void     ecsSystemInit    ( System * );
 void     ecsSystemUpdate  ( System * );
 void     ecsSystemDelete  ( System * );
 
 
 
-#define ecsSystemAdd(s,a)  ({ s->list [ s->length++ ] = a; })
-#define ecsExecptrfn(f,v)  ({ if(f) f(v); })
+#define ecsSystemAdd(s,a)  s->list [ s->length++ ] = a
+#define ecsExecPtrfn(f,v)  if(f) { f(v); }

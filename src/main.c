@@ -36,10 +36,6 @@ void main ( )
 
     while ( 1 )
     {
-        ecsSystemInit ( sysMovement );
-        ecsSystemInit ( sysInput    );
-        ecsSystemInit ( sysSprite   );
-
         ecsManagerUpdate ( manPlayers );
         // ecsManager_update ( manEnemies );
 

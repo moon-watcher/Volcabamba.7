@@ -2,10 +2,10 @@
 #include "ECS.h"
 
 
-static int Manager_s = sizeof ( Manager );
-static int Entity_s  = sizeof ( Entity  );
-static int System_s  = sizeof ( System  );
-static int State_s   = sizeof ( State   );
+static int const Manager_s = sizeof ( Manager );
+static int const Entity_s  = sizeof ( Entity  );
+static int const System_s  = sizeof ( System  );
+static int const State_s   = sizeof ( State   );
 
 
 Manager* ecsManager ( )
@@ -16,20 +16,19 @@ Manager* ecsManager ( )
 
 void ecsManagerUpdate ( Manager *manager )
 {
-    listptr *list = &manager->entities;
-
-    listptr_foreach ( list, node )
+    listptr_foreach ( manager, node )
     {
         Entity *entity = node->data;
 
         if ( entity->delete )
 	    {
-            ecsExecptrfn ( entity->Delete, entity );
-            listptr_remove ( list, node );
+            ecsExecPtrfn ( entity->Delete, entity );
+            listptr_remove ( manager, node );
 	    }
 	    else
         {
-            ecsExecptrfn ( entity->Update, entity );
+            ecsExecPtrfn ( entity->Update,        entity );
+            ecsExecPtrfn ( entity->state->update, entity );
         }
     }
 }
@@ -37,16 +36,14 @@ void ecsManagerUpdate ( Manager *manager )
 
 void ecsManagerDelete ( Manager *manager )
 {
-    listptr *list = &manager->entities;
-
-    listptr_foreach ( list, node )
+    listptr_foreach ( manager, node )
     {
         Entity *entity = node->data;
         
-        ecsExecptrfn ( entity->Delete, entity );
+        ecsExecPtrfn ( entity->Delete, entity );
     }
 
-    listptr_destroy ( list );
+    listptr_destroy ( manager );
     
     free ( manager );
     manager = NULL;
@@ -55,21 +52,20 @@ void ecsManagerDelete ( Manager *manager )
 
 
 Entity *ecsEntity ( Manager *manager, Entity const *tpl )
-{
-    Entity *entity;
-       
-    int const compsSize = tpl->compsSize;
+{   
+    Entity *entity;    
+    int Comps_s = tpl->compsSize;
 
-    entity             = malloc ( Entity_s  );
-    entity->components = malloc ( compsSize );
+    entity             = malloc ( Entity_s );
+    entity->components = malloc ( Comps_s  );
 
-    memcpy ( entity,             tpl,             Entity_s  );
-    memcpy ( entity->components, tpl->components, compsSize );
+    memcpy ( entity,             tpl,             Entity_s );
+    memcpy ( entity->components, tpl->components, Comps_s  );
 
-    listptr_add ( &manager->entities, entity );
+    listptr_add ( manager, entity );
 
-    ecsExecptrfn ( entity->Awake,        entity );
-    ecsExecptrfn ( entity->state->enter, entity );
+    ecsExecPtrfn ( entity->Awake,        entity );
+    ecsExecPtrfn ( entity->state->enter, entity );
 
     return entity;
 }
@@ -79,9 +75,9 @@ void ecsEntityState ( Entity *entity, State const *state )
 {
     State *s = entity->state;
 
-    ecsExecptrfn ( s->exit, entity );
+    ecsExecPtrfn ( s->exit, entity );
     s = (State*) state;
-    ecsExecptrfn ( s->enter, entity );
+    ecsExecPtrfn ( s->enter, entity );
 }
 
 
@@ -91,24 +87,14 @@ System *ecsSystem ( System *tpl )
     System *system = malloc ( System_s );
 
     memcpy ( system, tpl, System_s );
-
-    return system;
-}
-
-
-void ecsSystemInit ( System *system )
-{
+    
     system->length = 0;
+    return system;
 }
 
 
 void ecsSystemUpdate ( System *system )
 {
-    if ( !system )
-    {
-        return;
-    }
-
     if ( system->length > system->max )
     {
         drawText ( "FALLO:",     1, 0 );
@@ -119,6 +105,7 @@ void ecsSystemUpdate ( System *system )
     }
 
     system->updateFn ( system->list, system->length );
+    system->length = 0;
 }
 
 

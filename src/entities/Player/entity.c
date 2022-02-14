@@ -30,7 +30,7 @@ static void Awake ( Entity *entity )
 
 static void Update ( Entity *entity )
 {
-    COMPONENTS ( entity );
+    COMPONENTS(entity);
 
     ecsSystemAdd ( sysMovement, cp     );
     ecsSystemAdd ( sysMovement, cv     );
@@ -38,8 +38,6 @@ static void Update ( Entity *entity )
     ecsSystemAdd ( sysSprite,   cp     );
     ecsSystemAdd ( sysInput,    ci     );
     ecsSystemAdd ( sysInput,    entity );
-    
-    ecsExecptrfn ( entity->state->update, entity );
 }
 
 
