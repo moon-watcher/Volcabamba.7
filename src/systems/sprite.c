@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "data/components.h"
+#include "inc/components.h"
 
 
 void system_sprite ( void *array[], int length )

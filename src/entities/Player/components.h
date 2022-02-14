@@ -1,6 +1,6 @@
 #pragma once
 
-#include "data/components.h"
+#include "inc/components.h"
 
 
 #define COMPONENTS(entity)                          \

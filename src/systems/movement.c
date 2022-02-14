@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "data/components.h"
+#include "inc/components.h"
 
 
 void system_movement ( void *array[], int length )

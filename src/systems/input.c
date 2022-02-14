@@ -1,7 +1,7 @@
 #include <genesis.h>
 
 #include "../libs/ECS.h"
-#include "data/components.h"
+#include "inc/components.h"
 #include "../libs/joyreader.h"
 
 

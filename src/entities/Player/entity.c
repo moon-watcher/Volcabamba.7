@@ -2,6 +2,7 @@
 
 #include "libs/ECS.h"
 #include "data/systems.h"
+#include "inc/systems.h"
 #include "components.h"
 #include "states.h"
 #include "../res/sprites.h"
