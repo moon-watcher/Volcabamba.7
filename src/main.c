@@ -6,9 +6,9 @@
 #include "data/entities.h"
 #include "data/systems.h"
 
-System const sysMovement_tpl = { .updateFn = &system_movement_update, .max = 160, .name = "sysMovement" };
-System const sysInput_tpl    = { .updateFn = &system_input_update,    .max = 8,   .name = "sysInput"    };
-System const sysSprite_tpl   = { .updateFn = &system_sprite_update,   .max = 160, .name = "sysSprite"   };
+System const sysMovement_tpl = { .updateFn = &system_movement, .max = 160, .name = "sysMovement" };
+System const sysInput_tpl    = { .updateFn = &system_input,    .max = 8,   .name = "sysInput"    };
+System const sysSprite_tpl   = { .updateFn = &system_sprite,   .max = 160, .name = "sysSprite"   };
 
 
 void drawState(char *s)

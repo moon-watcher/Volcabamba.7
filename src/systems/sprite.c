@@ -3,7 +3,7 @@
 #include "data/components.h"
 
 
-void system_sprite_update ( void *array[], int length )
+void system_sprite ( void *array[], int length )
 {
     for ( int i = 0; i < length; )
     {

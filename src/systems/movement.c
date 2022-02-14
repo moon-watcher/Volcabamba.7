@@ -3,7 +3,7 @@
 #include "data/components.h"
 
 
-void system_movement_update ( void *array[], int length )
+void system_movement ( void *array[], int length )
 {
     for ( int i = 0; i < length; )
     {

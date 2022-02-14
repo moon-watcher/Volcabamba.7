@@ -5,7 +5,7 @@
 #include "../libs/joyreader.h"
 
 
-void system_input_update ( void *array[], int length )
+void system_input ( void *array[], int length )
 {
     for ( int i = 0; i < length; )
     {
