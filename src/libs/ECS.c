@@ -47,7 +47,7 @@ void ecsManagerDelete ( Manager *manager )
 Entity *ecsEntity ( Manager *manager, Entity const *tpl )
 {   
     Entity *entity;    
-    int Comps_s = tpl->compsSize;
+    int const Comps_s = tpl->compsSize;
 
     entity             = malloc ( Entity_s );
     entity->components = malloc ( Comps_s  );
@@ -120,6 +120,7 @@ void ecsSystemDelete ( System *system )
 {
     free ( system->list );
     system->list = NULL;
+ 
     free ( system );
     system = NULL;
 }
