@@ -63,9 +63,9 @@ static void setPositionInt ( Entity *entity, int x, int y )
 static void setPositionFIX32 ( Entity *entity, fix32 x )
 {
     //COMPONENTS ( entity );
-    Components         *comps = entity->components; \
-    ComponentRigidbody *rb    = &comps->rigidbody;  \
-    ComponentPosition  *cp    = &rb->position;      \
+    Components         *comps = entity->components;
+    ComponentRigidbody *rb    = &comps->rigidbody;
+    ComponentPosition  *cp    = &rb->position;
 
     cp->x = x;
     cp->y = FIX32 ( 111 );
