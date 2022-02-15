@@ -51,6 +51,36 @@ static void Delete ( Entity *entity )
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+static void setPositionInt ( Entity *entity, int x, int y )
+{
+    COMPONENTS ( entity );
+
+    cp->x = FIX32 ( x );
+    cp->y = FIX32 ( y );
+}
+
+
+static void setPositionFIX32 ( Entity *entity, fix32 x )
+{
+    //COMPONENTS ( entity );
+    Components         *comps = entity->components; \
+    ComponentRigidbody *rb    = &comps->rigidbody;  \
+    ComponentPosition  *cp    = &rb->position;      \
+
+    cp->x = x;
+    cp->y = FIX32 ( 111 );
+}
+
+
+static int getInt ()
+{
+    return 76;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 Entity const entityPlayer1_tpl = // ( Entity )
 {
     .Awake = Awake,
@@ -70,4 +100,9 @@ Entity const entityPlayer1_tpl = // ( Entity )
         .attrs  = { 0b00000000000000000000000000000000 },
         .input  = { .joy.port = PORT_1 },
     },
+    .exec = &(EntityInterface) {
+        .setPositionInt = setPositionInt,
+        .setPositionFIX32 = setPositionFIX32,
+        .getInt = getInt,
+    }
 };

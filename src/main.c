@@ -6,6 +6,7 @@
 #include "data/entities.h"
 #include "data/systems.h"
 #include "inc/systems.h"
+#include "libs/draw.h"
 
 
 
@@ -20,6 +21,7 @@ void drawState(char *s)
     drawText( "           ", 0, 0 );
 }
 
+
 void main ( )
 {
     sysMovement = ecsSystem ( &sysMovement_tpl );
@@ -33,8 +35,20 @@ void main ( )
     Manager manPlayers;
     // Manager *manEnemies = ecsManager.new();
 
-    ecsEntity ( &manPlayers, &entityPlayer1_tpl );
-//     // ecs_entity_new ( manEnemies, &entityEnemy1_tpl );
+    Entity *e = ecsEntity ( &manPlayers, &entityPlayer1_tpl );
+    // ecs_entity_new ( manEnemies, &entityEnemy1_tpl );
+
+    //e->exec->setPositionInt ( e, 30, 40 );
+    //e->exec->setFallara ( e, 30, 40 );
+    
+    ecsEntityExec ( e, setPositionInt, 130, 3 );
+    ecsEntityExec ( e, setFallara, 130, 3 );
+    ecsEntityExec ( e, setPositionFIX32, 12 );
+    int g = ecsEntityExec ( e, getInt, NULL );
+    drawInt( g, 32,1, 4);
+    int f = ecsEntityExec ( e, getFalla, NULL );
+    drawInt( f, 32,2, 4);
+    
 
     while ( 1 )
     {
@@ -45,7 +59,6 @@ void main ( )
         ecsSystemUpdate ( sysInput    );
         ecsSystemUpdate ( sysSprite   );
 
-        
         SPR_update ( );
         SYS_doVBlankProcess();
         JOY_update();
