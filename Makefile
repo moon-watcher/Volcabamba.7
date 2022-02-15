@@ -87,7 +87,7 @@ LST := $(SRC_C:.c=.lst)
 LSTS := $(addprefix out/, $(LST))
 
 INCS := -I$(INCLUDE) -I$(SRC) -I$(RES) -I$(LIBINCLUDE) -I$(LIBRES)
-DEFAULT_FLAGS = -m68000 -Wall -Wextra -Wno-shift-negative-value -Wno-main -Wno-unused-parameter -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-function -fno-builtin $(INCS) -B$(BIN) 
+DEFAULT_FLAGS = -m68000 -Wall -Wextra -Wno-shift-negative-value -Wno-main -Wno-unused-parameter -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unused-function -Wno-unused-value -fno-builtin $(INCS) -B$(BIN) 
 FLAGSZ80 := -i$(SRC) -i$(INCLUDE) -i$(RES) -i$(LIBSRC) -i$(LIBINCLUDE)
 
 
