@@ -72,7 +72,7 @@ static void setPositionFIX32 ( Entity *entity, fix32 x )
 }
 
 
-static int getInt ()
+static int getInt ( )
 {
     return 76;
 }
