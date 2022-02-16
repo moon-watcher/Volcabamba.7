@@ -77,8 +77,8 @@ static int getInt ( )
     return 76;
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 Entity const entityPlayer1_tpl = // ( Entity )
@@ -100,7 +100,7 @@ Entity const entityPlayer1_tpl = // ( Entity )
         .attrs  = { 0b00000000000000000000000000000000 },
         .input  = { .joy.port = PORT_1 },
     },
-    .exec = &(EntityInterface) {
+    .exec = &(EntityExecInterface) {
         .setPositionInt = setPositionInt,
         .setPositionFIX32 = setPositionFIX32,
         .getInt = getInt,

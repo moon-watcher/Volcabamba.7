@@ -5,6 +5,9 @@
 static int const Entity_s  = sizeof ( Entity  );
 static int const System_s  = sizeof ( System  );
 
+#define execPtrfn(FUNCTION,ENTITY) \
+    ({ FUNCTION ? FUNCTION ( ENTITY ) : NULL; })
+
 
 void ecsManagerUpdate ( Manager *manager )
 {
@@ -14,13 +17,13 @@ void ecsManagerUpdate ( Manager *manager )
 
         if ( entity->delete )
 	    {
-            ecsExecPtrfn ( entity->Delete, entity );
+            execPtrfn ( entity->Delete, entity );
             listptr_remove ( manager, node );
 	    }
 	    else
         {
-            ecsExecPtrfn ( entity->Update,        entity );
-            ecsExecPtrfn ( entity->state->update, entity );
+            execPtrfn ( entity->Update,        entity );
+            execPtrfn ( entity->state->update, entity );
         }
     }
 }
@@ -32,8 +35,8 @@ void ecsManagerDelete ( Manager *manager )
     {
         Entity *entity = node->data;
         
-        ecsExecPtrfn ( entity->state->exit, entity );
-        ecsExecPtrfn ( entity->Delete, entity );
+        execPtrfn ( entity->state->exit, entity );
+        execPtrfn ( entity->Delete, entity );
     }
 
     listptr_destroy ( manager );
@@ -57,8 +60,8 @@ Entity *ecsEntity ( Manager *manager, Entity const *tpl )
 
     listptr_add ( manager, entity );
 
-    ecsExecPtrfn ( entity->Awake,        entity );
-    ecsExecPtrfn ( entity->state->enter, entity );
+    execPtrfn ( entity->Awake,        entity );
+    execPtrfn ( entity->state->enter, entity );
 
     return entity;
 }
@@ -68,9 +71,9 @@ void ecsEntityState ( Entity *entity, State const *state )
 {
     State *s = entity->state;
 
-    ecsExecPtrfn ( s->exit, entity );
+    execPtrfn ( s->exit, entity );
     s = (State*) state;
-    ecsExecPtrfn ( s->enter, entity );
+    execPtrfn ( s->enter, entity );
 }
 
 
@@ -121,6 +124,6 @@ void ecsSystemDelete ( System *system )
     free ( system->list );
     system->list = NULL;
  
-    free ( system );
+    free ( system ); 
     system = NULL;
 }

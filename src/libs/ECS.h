@@ -4,15 +4,6 @@
 #include "listptr.h"
 
 
-struct Entity;
-
-typedef struct
-{
-    #include "config/EntityInterface.inc"
-}
-EntityInterface;
-
-
 typedef struct Entity
 {
     bool  delete:1;
@@ -24,12 +15,19 @@ typedef struct Entity
     void ( *Update ) ( struct Entity * );
     void ( *Delete ) ( struct Entity * );
 
+    struct EntityExecInterface *exec;
     struct State *state;
     void *data;
 
-    EntityInterface *exec;
 }
 Entity;
+
+
+typedef struct EntityExecInterface
+{
+    #include "config/EntityExecInterface.inc"
+}
+EntityExecInterface;
 
 
 typedef struct State
@@ -67,6 +65,5 @@ void     ecsSystemDelete  ( System * );
 
 
 
-#define ecsEntityExec(ENTITY,FUNCTION,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
 #define ecsSystemAdd(SYSTEM,VALUE)            SYSTEM->list [ SYSTEM->length++ ] = VALUE
-#define ecsExecPtrfn(FUNCTION,VALUE)          if ( FUNCTION ) { FUNCTION ( VALUE ); }
+#define ecsEntityExec(ENTITY,FUNCTION,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
