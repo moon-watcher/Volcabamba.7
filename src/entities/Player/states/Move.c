@@ -14,37 +14,26 @@ static void inputHandler ( Joyreader *j, void *p1, void *p2 )
 
     if ( !joy_active_dir ( j ) )
     {
-        ecsEntityState ( entity, &idleState );
+        ecsEntityState ( entity, &Player_idleState );
 
         return;
     }
 
+    int h = joy_get_horizontal ( j, active );
+    int v = joy_exec_vertical  ( j, active,
+        {
+            SPR_setAnim ( sp->sprite, 1 );
+        },
+        {
+            SPR_setAnim ( sp->sprite, 2 );
+        },
+        {
+            SPR_setAnim ( sp->sprite, 0 );
+        }
+    );
 
-    if ( joy_active_left ( j ) )
-    {
-        cv->x.dir = -1;
-    }
-    else if ( joy_active_right ( j ) )
-    {
-        cv->x.dir = +1;
-    }
-    else
-    {
-        cv->x.dir = 0;
-    }
-    
-    if ( joy_active_up ( j ) )
-    {
-        cv->y.dir = -1;
-    }
-    else if ( joy_active_down ( j ) )
-    {
-        cv->y.dir = +1;
-    }
-    else
-    {
-        cv->y.dir = 0;
-    }
+    cv->x.dir = h ? ( h == JOY_DIR_LEFT ? -1 : +1 ) : 0;
+    cv->y.dir = v ? ( v == JOY_DIR_UP   ? -1 : +1 ) : 0;
 }
 
 
@@ -60,15 +49,15 @@ static void enter ( Entity *entity )
     cv->x.vel = 0;
     cv->x.dir = 0;
     cv->x.maximum = FIX32(2.0);
-    cv->x.acceleration = FIX32(2.0);
-    cv->x.deceleration = FIX32(0.2);
+    cv->x.acceleration = FIX32(1.0);
+    cv->x.deceleration = FIX32(0.19);
     cv->x.accel_fn =  NULL;
 
     cv->y.vel = 0;
     cv->y.dir = 0;
     cv->y.maximum = FIX32(2.0);
-    cv->y.acceleration = FIX32(2.0);
-    cv->y.deceleration = FIX32(0.2);
+    cv->y.acceleration = FIX32(1.0);
+    cv->y.deceleration = FIX32(0.19);
     cv->y.accel_fn =  NULL;
 }
 
@@ -87,9 +76,4 @@ static void exit ( Entity *entity )
     //
 }
 
-
-////////////////////////////////////////////////////////////////////////
-
-
-State const moveState = { enter, update, exit };
-// State const moveState = { enter, NULL, NULL };
+State const Player_moveState = { enter, update, exit };

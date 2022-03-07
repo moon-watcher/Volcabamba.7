@@ -51,7 +51,7 @@ static void Delete ( Entity *entity )
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-static void setPositionInt ( Entity *entity, int x, int y )
+static void setPosition ( Entity *entity, int x, int y )
 {
     COMPONENTS ( entity );
 
@@ -78,6 +78,16 @@ static int getInt ( )
 }
 
 
+static void disableInput ( Entity *entity )
+{
+    COMPONENTS ( entity );
+    // Components     *comps = entity->components;
+    // ComponentInput *ci= &comps->input;
+
+    ci->handler = NULL;
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -86,7 +96,7 @@ Entity const entityPlayer1_tpl = // ( Entity )
     .Awake = Awake,
     .Update = Update,
     .Delete = Delete,
-    .state = (State*) &idleState,
+    .state = (State*) &Player_idleState,
     .compsSize = sizeof(Components),
     .components = &(Components) {
         .rigidbody = { 
@@ -101,8 +111,37 @@ Entity const entityPlayer1_tpl = // ( Entity )
         .input  = { .joy.port = PORT_1 },
     },
     .exec = &(EntityExecInterface) {
-        .setPositionInt = setPositionInt,
+        .setPosition      = setPosition,
         .setPositionFIX32 = setPositionFIX32,
-        .getInt = getInt,
+        .getInt           = getInt,
+        .disableInput     = disableInput,
+    }
+};
+
+
+Entity const entityPlayer2_tpl = // ( Entity )
+{
+    .Awake = Awake,
+    .Update = Update,
+    .Delete = Delete,
+    .state = (State*) &Player_idleState,
+    .compsSize = sizeof(Components),
+    .components = &(Components) {
+        .rigidbody = { 
+            .position = { 0, 0 },
+            .velocity = {
+                .x = { 0, 0, 0, 0, 0, NULL },
+                .y = { 0, 0, 0, 0, 0, NULL }
+            }
+        },
+        .sprite = { .attr = TILE_ATTR ( PAL3, 1, 0, 0 ) },
+        .attrs  = { 0b00000000000000000000000000000000 },
+        .input  = { .joy.port = PORT_2 },
+    },
+    .exec = &(EntityExecInterface) {
+        .setPosition      = setPosition,
+        .setPositionFIX32 = setPositionFIX32,
+        .getInt           = getInt,
+        .disableInput     = disableInput,
     }
 };

@@ -5,6 +5,7 @@
 #include "libs/draw.h"
 #include "data/entities.h"
 #include "data/systems.h"
+#include "data/managers.h"
 #include "inc/systems.h"
 #include "libs/draw.h"
 
@@ -31,28 +32,39 @@ void main ( )
 
     SPR_init ( );
 
+    ///ecsManager()
 
-    Manager manPlayers;
     // Manager *manEnemies = ecsManager.new();
 
-    Entity *e = ecsEntity ( &manPlayers, &entityPlayer1_tpl );
+    Entity *e = ecsEntity ( &entityPlayer1_tpl );
+    ecsManagerAdd ( &manPlayers, e );
     // ecs_entity_new ( manEnemies, &entityEnemy1_tpl );
 
-    //e->exec->setPositionInt ( e, 30, 40 );
+
+
+// por alguna razón está haciendo la suma de velocidades de e y e2 en el imput
+    Entity *e2 = ecsManagerNewEntity ( &manPlayers, &entityPlayer2_tpl );
+    //ecsEntityExec ( disableInput, e2, NULL );
+
+
+
+    //e->exec->setPosition ( e, 30, 40 );
     //e->exec->setFallara ( e, 30, 40 );
     
-    ecsEntityExec ( e, setPositionInt, 130, 3 );
-    ecsEntityExec ( e, setFallara, 130, 3 );
-    ecsEntityExec ( e, setPositionFIX32, 12 );
-    int g = ecsEntityExec ( e, getInt, NULL );
+    ecsEntityExec ( setPosition, e,  130, 3 );
+    ecsEntityExec ( setFallara, e,  130, 3 );
+    ecsEntityExec ( setPositionFIX32, e, 12 );
+    
+    int g = ecsEntityExec ( getInt, e, NULL );
     drawInt( g, 32,1, 4);
-    int f = ecsEntityExec ( e, getFalla, NULL );
+    int f = ecsEntityExec ( getFalla, e, NULL );
     drawInt( f, 32,2, 4);
     
 
     while ( 1 )
     {
         ecsManagerUpdate ( &manPlayers );
+        ecsManagerUpdate ( &manPlayersBullets );
         // ecsManager_update ( manEnemies );
 
         ecsSystemUpdate ( sysMovement );

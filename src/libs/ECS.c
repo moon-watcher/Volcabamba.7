@@ -2,11 +2,20 @@
 #include "ECS.h"
 
 
-static int const Entity_s  = sizeof ( Entity  );
-static int const System_s  = sizeof ( System  );
+static int const Entity_s = sizeof ( Entity  );
+static int const System_s = sizeof ( System  );
 
 #define execPtrfn(FUNCTION,ENTITY) \
     ({ FUNCTION ? FUNCTION ( ENTITY ) : NULL; })
+
+
+
+static inline void _enterAction  ( Entity*, Manager*, listptrNode* );
+static inline void _updateAction ( Entity*, Manager*, listptrNode* );
+static inline void _deleteAction ( Entity*, Manager*, listptrNode* );
+
+static void ( *actionsArray [ ] ) ( Entity*, Manager*, listptrNode* ) = { _enterAction, _updateAction, _deleteAction };
+
 
 
 void ecsManagerUpdate ( Manager *manager )
@@ -15,16 +24,7 @@ void ecsManagerUpdate ( Manager *manager )
     {
         Entity *entity = node->data;
 
-        if ( entity->delete )
-	    {
-            execPtrfn ( entity->Delete, entity );
-            listptr_remove ( manager, node );
-	    }
-	    else
-        {
-            execPtrfn ( entity->Update,        entity );
-            execPtrfn ( entity->state->update, entity );
-        }
+        actionsArray [ entity->action ] ( entity, manager, node );
     }
 }
 
@@ -46,8 +46,23 @@ void ecsManagerDelete ( Manager *manager )
 }
 
 
+void ecsManagerAdd ( Manager *manager, Entity *entity )
+{
+    listptr_add ( manager, entity );
+}
 
-Entity *ecsEntity ( Manager *manager, Entity const *tpl )
+
+Entity *ecsManagerNewEntity ( Manager *manager, Entity const *tpl )
+{
+    Entity *entity = ecsEntity ( tpl );
+
+    ecsManagerAdd ( manager, entity );
+
+    return entity;
+}
+
+
+Entity *ecsEntity ( Entity const *tpl )
 {   
     Entity *entity;    
     int const Comps_s = tpl->compsSize;
@@ -58,12 +73,15 @@ Entity *ecsEntity ( Manager *manager, Entity const *tpl )
     memcpy ( entity,             tpl,             Entity_s );
     memcpy ( entity->components, tpl->components, Comps_s  );
 
-    listptr_add ( manager, entity );
-
-    execPtrfn ( entity->Awake,        entity );
-    execPtrfn ( entity->state->enter, entity );
+    entity->action = 0; // init
 
     return entity;
+}
+
+
+void ecsEntityDelete ( Entity *entity )
+{
+    entity->action = 2;
 }
 
 
@@ -72,7 +90,15 @@ void ecsEntityState ( Entity *entity, State const *state )
     State *s = entity->state;
 
     execPtrfn ( s->exit, entity );
+    
+    if ( s->data )
+    {
+        free ( s->data );
+        s->data = NULL;
+    }
+
     s = (State*) state;
+
     execPtrfn ( s->enter, entity );
 }
 
@@ -126,4 +152,32 @@ void ecsSystemDelete ( System *system )
  
     free ( system ); 
     system = NULL;
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+static inline void _enterAction ( Entity *entity, Manager *manager, listptrNode *node )
+{
+    execPtrfn ( entity->Awake,        entity );
+    execPtrfn ( entity->state->enter, entity );
+    entity->action = 1; // update
+}
+
+static inline void _updateAction ( Entity *entity, Manager *manager, listptrNode *node )
+{
+    execPtrfn ( entity->Update,        entity );
+    execPtrfn ( entity->state->update, entity );
+}
+
+static inline void _deleteAction ( Entity *entity, Manager *manager, listptrNode *node )
+{
+    execPtrfn ( entity->state->exit, entity );
+    execPtrfn ( entity->Delete,      entity );
+    listptr_remove ( manager, node );
 }

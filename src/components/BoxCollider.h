@@ -1,8 +1,5 @@
 #pragma once
 
-#include <genesis.h>
-
-
 // https://docs.unity3d.com/Manual/class-BoxCollider.html
 // https://docs.unity3d.com/ScriptReference/BoxCollider2D.html
 
