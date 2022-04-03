@@ -2,8 +2,8 @@
 
 #include "libs/ECS.h"
 #include "data/systems.h"
+#include "data/states.h"
 #include "../components.h"
-#include "../states.h"
 
 
 static void inputHandler ( Joyreader *j, void *p1, void *p2 )

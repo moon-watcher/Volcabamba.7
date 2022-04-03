@@ -4,25 +4,31 @@
 #include "data/systems.h"
 #include "data/entities.h"
 #include "data/managers.h"
+#include "data/states.h"
 #include "../components.h"
-#include "../states.h"
 
 
-static void inputHandler ( Joyreader *joy, void *ptr1, void *ptr2 )
+static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 {
     Entity* entity = (Entity*) ptr1;
+    COMPONENTS(entity);
 
-    if ( joy_pressed_dir ( joy ) )
+
+    if ( joy_pressed_dir ( j ) )
     {
         ecsEntityState ( entity, &Player_moveState );
     }
 
-    if ( joy_pressed_abc ( joy ) )
+    if ( joy_pressed_a ( j ) )
     {
-        int x = 44;
-        int y = 66;
-        
-        entity_PlayerBullet_create ( x, y );
+        drawText ( "dispara", 4, 3 );        
+        entity_PlayerBullet_create ( FIX32(cp->x), FIX32(cp->y) );
+    }
+
+    if ( joy_pressed_c ( j ) )
+    {
+        drawText ( "muere", 4, 4 );
+        ecsEntityState ( entity, &Player_dieState );
     }
 }
 

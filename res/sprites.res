@@ -1,5 +1,5 @@
-SPRITE res_hero1_sprite "../data/graphics/hero1.bmp" 2 2
-SPRITE res_hero2_sprite "../data/graphics/hero2.bmp" 2 2
+SPRITE res_hero1_sprite "../data/graphics/hero1.bmp" 2 2 0 10 
+SPRITE res_hero2_sprite "../data/graphics/hero2.bmp" 2 2 0 10
 
 
 SPRITE res_sp_enemies_2x2 "../data/graphics/enemies_2x2.bmp" 2 2 0 0

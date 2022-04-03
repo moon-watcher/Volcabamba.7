@@ -2,25 +2,37 @@
 #include "ECS.h"
 
 
+enum
+{
+    ECS_ENTITY_INIT, 
+    ECS_ENTITY_UPDATE,
+    ECS_ENTITY_NEWSTATE,
+    ECS_ENTITY_DELETE
+};
+
+
 static int const Entity_s = sizeof ( Entity  );
 static int const System_s = sizeof ( System  );
 
-#define execPtrfn(FUNCTION,ENTITY) \
-    ({ FUNCTION ? FUNCTION ( ENTITY ) : NULL; })
+#define execPtrfn(FUNCTION,ENTITY) ({ FUNCTION ? FUNCTION ( ENTITY ) : NULL; })
+// #define execPtrfn(FUNCTION,ENTITY) ({ FUNCTION ( ENTITY ); })
 
 
 
 static inline void _enterAction  ( Entity*, Manager*, listptrNode* );
 static inline void _updateAction ( Entity*, Manager*, listptrNode* );
+static inline void _stateAction  ( Entity*, Manager*, listptrNode* );
 static inline void _deleteAction ( Entity*, Manager*, listptrNode* );
 
-static void ( *actionsArray [ ] ) ( Entity*, Manager*, listptrNode* ) = { _enterAction, _updateAction, _deleteAction };
+static void ( *actionsArray [ ] ) ( Entity*, Manager*, listptrNode* ) = { _enterAction, _updateAction, _stateAction, _deleteAction };
 
 
 
 void ecsManagerUpdate ( Manager *manager )
 {
-    listptr_foreach ( manager, node )
+    listptr *list = &manager->entities;
+
+    listptr_foreach ( list, node )
     {
         Entity *entity = node->data;
 
@@ -31,16 +43,22 @@ void ecsManagerUpdate ( Manager *manager )
 
 void ecsManagerDelete ( Manager *manager )
 {
-    listptr_foreach ( manager, node )
+    listptr *list = &manager->entities;
+
+    listptr_foreach ( list, node )
     {
         Entity *entity = node->data;
         
         execPtrfn ( entity->state->exit, entity );
-        execPtrfn ( entity->Delete, entity );
+        execPtrfn ( entity->exit,        entity );
+        execPtrfn ( entity->Delete,      entity );
     }
 
-    listptr_destroy ( manager );
+    listptr_destroy ( list );
     
+    free ( list );
+    list = NULL;
+
     free ( manager );
     manager = NULL;
 }
@@ -48,7 +66,7 @@ void ecsManagerDelete ( Manager *manager )
 
 void ecsManagerAdd ( Manager *manager, Entity *entity )
 {
-    listptr_add ( manager, entity );
+    listptr_add ( &manager->entities, entity );
 }
 
 
@@ -73,7 +91,7 @@ Entity *ecsEntity ( Entity const *tpl )
     memcpy ( entity,             tpl,             Entity_s );
     memcpy ( entity->components, tpl->components, Comps_s  );
 
-    entity->action = 0; // init
+    entity->action = ECS_ENTITY_INIT;
 
     return entity;
 }
@@ -81,39 +99,40 @@ Entity *ecsEntity ( Entity const *tpl )
 
 void ecsEntityDelete ( Entity *entity )
 {
-    entity->action = 2;
+    entity->action = ECS_ENTITY_DELETE;
 }
 
 
 void ecsEntityState ( Entity *entity, State const *state )
 {
-    State *s = entity->state;
+    execPtrfn ( entity->state->exit, entity );
+    execPtrfn ( entity->exit,        entity );
 
-    execPtrfn ( s->exit, entity );
-    
-    if ( s->data )
+    if ( entity->state->data )
     {
-        free ( s->data );
-        s->data = NULL;
+        free ( entity->state->data );
+        entity->state->data = NULL;
     }
 
-    s = (State*) state;
-
-    execPtrfn ( s->enter, entity );
+    entity->state = (State*) state;
+    entity->action = ECS_ENTITY_NEWSTATE;
 }
 
 
 
-System *ecsSystem ( System const *tpl )
+//System *ecsSystem ( System const *tpl )
+System *ecsSystem ( ecsSystemUpdateFn update, int max, char *name )
 {
-    System *system = malloc ( System_s );
+    System *system;
 
-    memcpy ( system, tpl, System_s );
-
-    system->list   = malloc ( sizeof(void*) * tpl->max );
+    system = malloc ( System_s );
+    system->update = update;
+    system->list = malloc ( sizeof(void*) * max );
+    system->max = max;
+    system->name = name;
     system->length = 0;
 
-    return system;
+    return syste;
 }
 
 
@@ -121,12 +140,8 @@ void ecsSystemUpdate ( System *system )
 {
     if ( system->length >= system->max )
     {
-        // En lugar de un mensaje de error
-        // hacer algo aquí para que se 
-        // redimensione system->list.
-        // Luego, por ejemplo: al finalizar
-        // una fase, sería ideal que mostrara
-        // el system->max de cada sistema
+        // En lugar de un mensaje de error hacer algo aquí para que se redimensione system->list.
+        // Luego, por ejemplo: al finalizar una fase, sería ideal que mostrara el system->max de cada sistema
 
         VDP_resetScreen();
         drawText ( "SYSTEM:",      0, 0 );
@@ -140,7 +155,7 @@ void ecsSystemUpdate ( System *system )
         return;
     }
 
-    system->updateFn ( system->list, system->length );
+    system->update ( system->list, system->length );
     system->length = 0;
 }
 
@@ -149,24 +164,20 @@ void ecsSystemDelete ( System *system )
 {
     free ( system->list );
     system->list = NULL;
- 
-    free ( system ); 
+    free ( system );
     system = NULL;
 }
-
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
 static inline void _enterAction ( Entity *entity, Manager *manager, listptrNode *node )
 {
+    entity->action = ECS_ENTITY_UPDATE;
     execPtrfn ( entity->Awake,        entity );
+    execPtrfn ( entity->enter,        entity );
     execPtrfn ( entity->state->enter, entity );
-    entity->action = 1; // update
 }
 
 static inline void _updateAction ( Entity *entity, Manager *manager, listptrNode *node )
@@ -175,9 +186,19 @@ static inline void _updateAction ( Entity *entity, Manager *manager, listptrNode
     execPtrfn ( entity->state->update, entity );
 }
 
+static inline void _stateAction ( Entity *entity, Manager *manager, listptrNode *node )
+{
+    entity->action = ECS_ENTITY_UPDATE;
+    execPtrfn ( entity->enter,         entity );
+    execPtrfn ( entity->state->enter,  entity );
+    execPtrfn ( entity->Update,        entity );
+    execPtrfn ( entity->state->update, entity );
+}
+
 static inline void _deleteAction ( Entity *entity, Manager *manager, listptrNode *node )
 {
     execPtrfn ( entity->state->exit, entity );
+    execPtrfn ( entity->exit,        entity );
     execPtrfn ( entity->Delete,      entity );
-    listptr_remove ( manager, node );
+    listptr_remove ( &manager->entities, node );
 }

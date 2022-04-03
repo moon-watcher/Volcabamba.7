@@ -11,7 +11,6 @@ void system_sprite ( void *array[], int length )
         ComponentPosition *cp = array[i++];
 
         SPR_setPosition ( sp->sprite, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
-
     }
 }
 

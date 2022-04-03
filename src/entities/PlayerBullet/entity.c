@@ -4,9 +4,9 @@
 #include "data/systems.h"
 #include "data/managers.h"
 #include "data/entities.h"
-#include "inc/systems.h"
+#include "data/systems.h"
+#include "data/states.h"
 #include "components.h"
-#include "states.h"
 #include "../res/sprites.h"
 
 
@@ -54,12 +54,12 @@ static void Delete ( Entity *entity )
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-static void setPosition ( Entity *entity, int x, int y )
+static void setPosition ( Entity *entity, fix32 x, fix32 y )
 {
     COMPONENTS ( entity );
 
-    cp->x = FIX32 ( x );
-    cp->y = FIX32 ( y );
+    cp->x = x;
+    cp->y = y;
 }
 
 

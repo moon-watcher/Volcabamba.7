@@ -1,13 +1,17 @@
 #pragma once
 
 #include "libs/ECS.h"
+#include <inc/components.h>
 
-System const sysMovement_tpl;
-System const sysInput_tpl;
-System const sysSprite_tpl;
+// System sysMovement;
+// System sysInput;
+// System sysSprite;
 
 
-System *sysMovement;
-System *sysInput;
-System *sysSprite;
+void system_movement    ( void *array, int length );
 
+void system_input       ( void *array, int length );
+void system_input_init  ( ComponentInput *input, int port );
+
+void system_sprite      ( void *array, int length );
+void system_sprite_init ( ComponentSprite *sp, ComponentPosition *cp );

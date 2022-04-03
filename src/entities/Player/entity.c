@@ -2,9 +2,9 @@
 
 #include "libs/ECS.h"
 #include "data/systems.h"
-#include "inc/systems.h"
+#include "data/systems.h"
+#include "data/states.h"
 #include "components.h"
-#include "states.h"
 #include "../res/sprites.h"
 
 
@@ -51,25 +51,25 @@ static void Delete ( Entity *entity )
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-static void setPosition ( Entity *entity, int x, int y )
+static void setPosition ( Entity *entity, fix32 x, fix32 y )
 {
     COMPONENTS ( entity );
 
-    cp->x = FIX32 ( x );
-    cp->y = FIX32 ( y );
-}
-
-
-static void setPositionFIX32 ( Entity *entity, fix32 x )
-{
-    //COMPONENTS ( entity );
-    Components         *comps = entity->components;
-    ComponentRigidbody *rb    = &comps->rigidbody;
-    ComponentPosition  *cp    = &rb->position;
-
     cp->x = x;
-    cp->y = FIX32 ( 111 );
+    cp->y = y;
 }
+
+
+// static void setPositionFIX32 ( Entity *entity, fix32 x )
+// {
+//     //COMPONENTS ( entity );
+//     Components         *comps = entity->components;
+//     ComponentRigidbody *rb    = &comps->rigidbody;
+//     ComponentPosition  *cp    = &rb->position;
+
+//     cp->x = x;
+//     cp->y = FIX32 ( 111 );
+// }
 
 
 static int getInt ( )
@@ -111,10 +111,9 @@ Entity const entityPlayer1_tpl = // ( Entity )
         .input  = { .joy.port = PORT_1 },
     },
     .exec = &(EntityExecInterface) {
-        .setPosition      = setPosition,
-        .setPositionFIX32 = setPositionFIX32,
-        .getInt           = getInt,
-        .disableInput     = disableInput,
+        .setPosition  = setPosition,
+        .getInt       = getInt,
+        .disableInput = disableInput,
     }
 };
 
@@ -139,9 +138,8 @@ Entity const entityPlayer2_tpl = // ( Entity )
         .input  = { .joy.port = PORT_2 },
     },
     .exec = &(EntityExecInterface) {
-        .setPosition      = setPosition,
-        .setPositionFIX32 = setPositionFIX32,
-        .getInt           = getInt,
-        .disableInput     = disableInput,
+        .setPosition  = setPosition,
+        .getInt       = getInt,
+        .disableInput = disableInput,
     }
 };
