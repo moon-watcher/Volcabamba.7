@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "libs/ECS.h"
+#include "modo/modo.h"
 #include "data/systems.h"
 #include "data/managers.h"
 #include "data/entities.h"
@@ -12,11 +12,11 @@
 
 void entity_PlayerBullet_create ( int x, int y )
 {
-    Entity *bullet = ecsEntity ( &entityPlayerBullet1_tpl );
+    Entity *bullet = modoEntity ( &entityPlayerBullet1_tpl );
         
-    ecsManagerAdd ( &manPlayersBullets, bullet );
+    modoManagerAdd ( manPlayersBullets, bullet );
     
-    ecsEntityExec ( setPosition, bullet, 0, 0 );
+    modoEntityExec ( setPosition, bullet, 0, 0 );
 }
 
 
@@ -38,10 +38,10 @@ static void Update ( Entity *entity )
 {
     COMPONENTS(entity);
 
-    ecsSystemAdd ( sysMovement, cp     );
-    ecsSystemAdd ( sysMovement, cv     );
-    ecsSystemAdd ( sysSprite,   sp     );
-    ecsSystemAdd ( sysSprite,   cp     );
+    modoSystemAdd ( sysMovement, cp     );
+    modoSystemAdd ( sysMovement, cv     );
+    modoSystemAdd ( sysSprite,   sp     );
+    modoSystemAdd ( sysSprite,   cp     );
 }
 
 

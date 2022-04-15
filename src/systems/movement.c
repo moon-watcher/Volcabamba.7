@@ -1,12 +1,16 @@
 #include <genesis.h>
 
+#include "modo/system.h"
 #include "inc/components.h"
 
 
 void system_movement ( void *array[], int length )
 {
+    drawText ( "SYSTEM: movement", 0, 10 );
+    waitMs(1000);
     for ( int i = 0; i < length; )
     {
+        
         ComponentPosition *cp = array[i++];
         ComponentVelocity *cv = array[i++];
 

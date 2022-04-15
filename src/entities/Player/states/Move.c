@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "libs/ECS.h"
+#include "modo/modo.h"
 #include "data/systems.h"
 #include "data/states.h"
 #include "../components.h"
@@ -14,7 +14,7 @@ static void inputHandler ( Joyreader *j, void *p1, void *p2 )
 
     if ( !joy_active_dir ( j ) )
     {
-        ecsEntityState ( entity, &Player_idleState );
+        modoEntityState ( entity, &Player_idleState );
 
         return;
     }
@@ -66,8 +66,8 @@ static void update ( Entity *entity )
 {
     //     COMPONENTS(entity);
 
-    // ecsSystemAdd ( sysMovement, cp     );
-    // ecsSystemAdd ( sysMovement, cv     );
+    // modoSystemAdd ( sysMovement, cp     );
+    // modoSystemAdd ( sysMovement, cv     );
 }
 
 

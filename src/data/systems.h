@@ -1,11 +1,11 @@
 #pragma once
 
-#include "libs/ECS.h"
+#include "modo/modo.h"
 #include <inc/components.h>
 
-// System sysMovement;
-// System sysInput;
-// System sysSprite;
+System *sysMovement;
+System *sysInput;
+System *sysSprite;
 
 
 void system_movement    ( void *array, int length );

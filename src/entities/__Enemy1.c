@@ -1,7 +1,7 @@
 /*
 // #include <genesis.h>
 
-// #include "../libs/ECS.h"
+// #include "../modo/modo.h"
 // #include "../res/sprites.h"
 // #include "data/components.h"
 // #include "data/systems.h"
@@ -100,10 +100,10 @@
 //     COMPONENTS ( entity );
 //     EVENTS ( entity );
 
-//     ecsSystemAdd ( sysMovement, cp );
-//     ecsSystemAdd ( sysMovement, cv );
-//     ecsSystemAdd ( sysSprite,   sp );
-//     ecsSystemAdd ( sysSprite,   cp );
+//     modoSystemAdd ( sysMovement, cp );
+//     modoSystemAdd ( sysMovement, cv );
+//     modoSystemAdd ( sysSprite,   sp );
+//     modoSystemAdd ( sysSprite,   cp );
 
 
 //     if ( !to->count--)

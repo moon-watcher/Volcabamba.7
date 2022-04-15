@@ -1,9 +1,9 @@
 #pragma once
 
-#include "libs/ECS.h"
+#include "modo/modo.h"
 
 
-Manager manPlayers;
-Manager manPlayersBullets;
-Manager manScreens;
-Manager manEnemies;
+Manager *manPlayers;
+Manager *manPlayersBullets;
+Manager *manScreens;
+Manager *manEnemies;

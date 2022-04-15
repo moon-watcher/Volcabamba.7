@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "libs/ECS.h"
+#include "modo/modo.h"
 #include "libs/draw.h"
 #include "data/entities.h"
 #include "data/managers.h"
@@ -21,32 +21,32 @@ static void _enter ( Entity *entity )
 
     SPR_init ( );
 
-    ///ecsManager()
+    ///modoManager()
 
-    // Manager *manEnemies = ecsManager.new();
+    // Manager *manEnemies = modoManager.new();
 
-    Entity *e = ecsEntity ( &entityPlayer1_tpl );
-    ecsManagerAdd ( &manPlayers, e );
-    //ecs_entity_new ( manEnemies, &entityEnemy1_tpl );
+    Entity *e = modoEntity ( &entityPlayer1_tpl );
+    modoManagerAdd ( manPlayers, e );
+    //MODO_entity_new ( manEnemies, &entityEnemy1_tpl );
 
 
 
 // // por alguna razón está haciendo la suma de velocidades de e y e2 en el imput
-//     Entity *e2 = ecsManagerNewEntity ( &manPlayers, &entityPlayer2_tpl );
-//     //ecsEntityExec ( disableInput, e2, NULL );
+//     Entity *e2 = modoManagerNewEntity ( &manPlayers, &entityPlayer2_tpl );
+//     //modoEntityExec ( disableInput, e2, NULL );
 
 
 
 //     //e->exec->setPosition ( e, 30, 40 );
 //     //e->exec->setFallara ( e, 30, 40 );
     
-    ecsEntityExec ( setPosition, e, FIX32(130), FIX32(3) );
-//     ecsEntityExec ( setFallara, e,  130, 3 );
-//     // ecsEntityExec ( setPositionFIX32, e, 12 );
+    modoEntityExec ( setPosition, e, FIX32(130), FIX32(3) );
+//     modoEntityExec ( setFallara, e,  130, 3 );
+//     // modoEntityExec ( setPositionFIX32, e, 12 );
     
-//     int g = ecsEntityExec ( getInt, e, NULL );
+//     int g = modoEntityExec ( getInt, e, NULL );
 //     drawInt( g, 32,1, 4);
-//     int f = ecsEntityExec ( getFalla, e, NULL );
+//     int f = modoEntityExec ( getFalla, e, NULL );
 //     drawInt( f, 32,2, 4);
 }
 
@@ -61,13 +61,13 @@ static void _update ( Entity *entity )
     // drawText("update",3,3 ); 
         
 
-    // ecsManagerUpdate ( &manPlayers );
-    // ecsManagerUpdate ( &manPlayersBullets );
-    // // ecsManager_update ( manEnemies );
+    // modoManagerUpdate ( &manPlayers );
+    // modoManagerUpdate ( &manPlayersBullets );
+    // // modoManager_update ( manEnemies );
 
-    // ecsSystemUpdate ( &sysMovement );
-    // ecsSystemUpdate ( &sysInput    );
-    // ecsSystemUpdate ( &sysSprite   );
+    // modoSystemUpdate ( &sysMovement );
+    // modoSystemUpdate ( &sysInput    );
+    // modoSystemUpdate ( &sysSprite   );
 
     // SPR_update ( );
     // SYS_doVBlankProcess();
@@ -91,7 +91,7 @@ State const screenGameloop_State = { _enter, _update, _exit };
 
 // #include <genesis.h>
 
-// #include "libs/ECS.h"
+// #include "modo/modo.h"
 // #include "libs/draw.h"
 // #include "data/entities.h"
 // #include "data/managers.h"
@@ -107,41 +107,41 @@ State const screenGameloop_State = { _enter, _update, _exit };
 //     PAL_setPalette(PAL2,palette_red );
 //     PAL_setPalette(PAL0,palette_green );
 
-//     ecsSystem ( &sysMovement, &system_movement, 160, "sysMovement" );
-//     ecsSystem ( &sysInput,    &system_input,      8, "sysInput"    );
-//     ecsSystem ( &sysSprite,   &system_sprite,   160, "sysSprite"   );
+//     modoSystem ( &sysMovement, &system_movement, 160, "sysMovement" );
+//     modoSystem ( &sysInput,    &system_input,      8, "sysInput"    );
+//     modoSystem ( &sysSprite,   &system_sprite,   160, "sysSprite"   );
 
 //     drawText("enter",3,2 ); waitMs(1000); 
 
 
 //     SPR_init ( );
 
-//     ///ecsManager()
+//     ///modoManager()
 
-//     // Manager *manEnemies = ecsManager.new();
+//     // Manager *manEnemies = modoManager.new();
 
-//     Entity *e = ecsEntity ( &entityPlayer1_tpl );
-//     ecsManagerAdd ( &manPlayers, e );
-//     //ecs_entity_new ( manEnemies, &entityEnemy1_tpl );
+//     Entity *e = modoEntity ( &entityPlayer1_tpl );
+//     modoManagerAdd ( manPlayers, e );
+//     //MODO_entity_new ( manEnemies, &entityEnemy1_tpl );
 
 
 
 // // // por alguna razón está haciendo la suma de velocidades de e y e2 en el imput
-// //     Entity *e2 = ecsManagerNewEntity ( &manPlayers, &entityPlayer2_tpl );
-// //     //ecsEntityExec ( disableInput, e2, NULL );
+// //     Entity *e2 = modoManagerNewEntity ( &manPlayers, &entityPlayer2_tpl );
+// //     //modoEntityExec ( disableInput, e2, NULL );
 
 
 
 // //     //e->exec->setPosition ( e, 30, 40 );
 // //     //e->exec->setFallara ( e, 30, 40 );
     
-//     ecsEntityExec ( setPosition, e, FIX32(130), FIX32(3) );
-// //     ecsEntityExec ( setFallara, e,  130, 3 );
-// //     // ecsEntityExec ( setPositionFIX32, e, 12 );
+//     modoEntityExec ( setPosition, e, FIX32(130), FIX32(3) );
+// //     modoEntityExec ( setFallara, e,  130, 3 );
+// //     // modoEntityExec ( setPositionFIX32, e, 12 );
     
-// //     int g = ecsEntityExec ( getInt, e, NULL );
+// //     int g = modoEntityExec ( getInt, e, NULL );
 // //     drawInt( g, 32,1, 4);
-// //     int f = ecsEntityExec ( getFalla, e, NULL );
+// //     int f = modoEntityExec ( getFalla, e, NULL );
 // //     drawInt( f, 32,2, 4);
 // }
 
@@ -156,13 +156,13 @@ State const screenGameloop_State = { _enter, _update, _exit };
 //     drawText("update",3,3 ); 
         
 
-//     ecsManagerUpdate ( &manPlayers );
-//     ecsManagerUpdate ( &manPlayersBullets );
-//     // ecsManager_update ( manEnemies );
+//     modoManagerUpdate ( &manPlayers );
+//     modoManagerUpdate ( &manPlayersBullets );
+//     // modoManager_update ( manEnemies );
 
-//     ecsSystemUpdate ( &sysMovement );
-//     ecsSystemUpdate ( &sysInput    );
-//     ecsSystemUpdate ( &sysSprite   );
+//     modoSystemUpdate ( &sysMovement );
+//     modoSystemUpdate ( &sysInput    );
+//     modoSystemUpdate ( &sysSprite   );
 
 //     SPR_update ( );
 //     SYS_doVBlankProcess();
