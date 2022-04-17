@@ -33,9 +33,9 @@ void entidades ( )
     // System const sysInput_tpl    = { .updateFn = &system_input,    .max = 8,   .name = "sysInput"    };
     // System const sysSprite_tpl   = { .updateFn = &system_sprite,   .max = 160, .name = "sysSprite"   };
 
-    System *sysMovement = ecsSystem ( &system_movement, 160, "sysMovement" );
-    System *sysInput    = ecsSystem ( &system_input,      8, "sysInput"    );
-    System *sysSprite   = ecsSystem ( &system_sprite,   160, "sysSprite"   );
+    sysMovement = ecsSystem ( &system_movement, 160, "sysMovement" );
+    sysInput    = ecsSystem ( &system_input,      8, "sysInput"    );
+    sysSprite   = ecsSystem ( &system_sprite,   160, "sysSprite"   );
 
 
     SPR_init ( );
@@ -103,12 +103,7 @@ void entidades ( )
 
 void screens ()
 {
-    ecsSystem ( &sysInput, system_input, 8, "sysInput" );
-    
-    int i;
-    
-    ({ i = 0; i; });
-
+   
     ecsManagerNewEntity ( &manScreens, &screen_Entity_tpl );
 
     while ( 1 )
@@ -125,11 +120,11 @@ void screens ()
 
 void main ( )
 {
-    System *sysMovement = ecsSystem ( &system_movement, 160, "sysMovement" );
-    System *sysInput    = ecsSystem ( &system_input,      8, "sysInput"    );
-    System *sysSprite   = ecsSystem ( &system_sprite,   160, "sysSprite"   );
+    sysMovement = ecsSystem ( &system_movement, 160, "sysMovement" );
+    sysInput    = ecsSystem ( &system_input,      8, "sysInput"    );
+    sysSprite   = ecsSystem ( &system_sprite,   160, "sysSprite"   );
 
 
-    // entidades();
-    screens();
+    entidades();
+    //screens();
 }

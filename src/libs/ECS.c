@@ -123,16 +123,15 @@ void ecsEntityState ( Entity *entity, State const *state )
 //System *ecsSystem ( System const *tpl )
 System *ecsSystem ( ecsSystemUpdateFn update, int max, char *name )
 {
-    System *system;
+    System *system = malloc ( System_s );
 
-    system = malloc ( System_s );
     system->update = update;
     system->list = malloc ( sizeof(void*) * max );
     system->max = max;
     system->name = name;
     system->length = 0;
 
-    return syste;
+    return system;
 }
 
 

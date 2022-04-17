@@ -77,7 +77,7 @@ void    ecsSystemDelete     ( System * );
 
 
 
-#define ecsSystemAdd(SYSTEM,VALUE)            SYSTEM.list [ SYSTEM.length++ ] = VALUE
+#define ecsSystemAdd(SYSTEM,VALUE)            SYSTEM->list [ SYSTEM->length++ ] = VALUE
 #define ecsEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
 
 
