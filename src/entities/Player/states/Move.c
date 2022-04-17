@@ -1,8 +1,8 @@
 #include <genesis.h>
 
 #include "modo/modo.h"
-#include "data/systems.h"
-#include "data/states.h"
+#include "inc/systems.h"
+#include "inc/states.h"
 #include "../components.h"
 
 

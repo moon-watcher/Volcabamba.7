@@ -10,7 +10,16 @@ typedef struct Manager
 }
 Manager;
 
+
 void modoManagerInit   ( Manager* );
 void modoManagerUpdate ( Manager* );
 void modoManagerDelete ( Manager* );
 void modoManagerAdd    ( Manager*, Entity* );
+
+
+/*
+#define modoManagerNewEntity(M,T)     \
+    ({ Entity *e = modoEntity ( T );  \
+       modoManagerAdd ( M, e );       \
+       e; })
+*/

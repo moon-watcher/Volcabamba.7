@@ -4,18 +4,19 @@
 
 typedef struct System
 {
-    // API
-    void ( *init   ) ( );
     void ( *update ) ( );
-    void ( *delete ) ( );
-    void ( *add    ) ( );
-
-    // vars
-    void ( *updatefn ) (  );
     void **list;
     unsigned length;
-    //
     unsigned max;
     char *name;
 }
 System;
+
+
+void modoSystemInit   ( System *, void *, unsigned, char* );
+void modoSystemUpdate ( System * );
+void modoSystemDelete ( System * );
+
+
+#define modoSystemAdd(S,V) \
+    S->list [ S->length++ ] = V

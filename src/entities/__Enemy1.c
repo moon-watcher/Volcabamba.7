@@ -3,8 +3,8 @@
 
 // #include "../modo/modo.h"
 // #include "../res/sprites.h"
-// #include "data/components.h"
-// #include "data/systems.h"
+// #include "inc/components.h"
+// #include "inc/systems.h"
 
 
 

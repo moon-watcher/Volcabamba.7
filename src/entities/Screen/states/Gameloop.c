@@ -2,10 +2,10 @@
 
 #include "modo/modo.h"
 #include "libs/draw.h"
-#include "data/entities.h"
-#include "data/managers.h"
-#include "data/states.h"
-#include "data/systems.h"
+#include "inc/entities.h"
+#include "inc/managers.h"
+#include "inc/states.h"
+#include "inc/systems.h"
 #include "../components.h"
 
 
@@ -25,7 +25,8 @@ static void _enter ( Entity *entity )
 
     // Manager *manEnemies = modoManager.new();
 
-    Entity *e = modoEntity ( &entityPlayer1_tpl );
+    Entity *e = modo ( Entity );
+    modoEntityInit ( e, &entityPlayer1_tpl );
     modoManagerAdd ( manPlayers, e );
     //MODO_entity_new ( manEnemies, &entityEnemy1_tpl );
 
@@ -33,20 +34,20 @@ static void _enter ( Entity *entity )
 
 // // por alguna razón está haciendo la suma de velocidades de e y e2 en el imput
 //     Entity *e2 = modoManagerNewEntity ( &manPlayers, &entityPlayer2_tpl );
-//     //modoEntityExec ( disableInput, e2, NULL );
+//     //modoEntityExec ( e2, disableInput, NULL );
 
 
 
 //     //e->exec->setPosition ( e, 30, 40 );
 //     //e->exec->setFallara ( e, 30, 40 );
     
-    modoEntityExec ( setPosition, e, FIX32(130), FIX32(3) );
-//     modoEntityExec ( setFallara, e,  130, 3 );
-//     // modoEntityExec ( setPositionFIX32, e, 12 );
+    modoEntityExec ( e, setPosition, FIX32(130), FIX32(3) );
+//     modoEntityExec ( e, setFallara,  130, 3 );
+//     // modoEntityExec (e,  setPositionFIX32, 12 );
     
-//     int g = modoEntityExec ( getInt, e, NULL );
+//     int g = modoEntityExec ( e, getInt, NULL );
 //     drawInt( g, 32,1, 4);
-//     int f = modoEntityExec ( getFalla, e, NULL );
+//     int f = modoEntityExec ( e, getFalla, NULL );
 //     drawInt( f, 32,2, 4);
 }
 
@@ -93,10 +94,10 @@ State const screenGameloop_State = { _enter, _update, _exit };
 
 // #include "modo/modo.h"
 // #include "libs/draw.h"
-// #include "data/entities.h"
-// #include "data/managers.h"
-// #include "data/states.h"
-// #include "data/systems.h"
+// #include "inc/entities.h"
+// #include "inc/managers.h"
+// #include "inc/states.h"
+// #include "inc/systems.h"
 // #include "../components.h"
 
 
@@ -128,20 +129,20 @@ State const screenGameloop_State = { _enter, _update, _exit };
 
 // // // por alguna razón está haciendo la suma de velocidades de e y e2 en el imput
 // //     Entity *e2 = modoManagerNewEntity ( &manPlayers, &entityPlayer2_tpl );
-// //     //modoEntityExec ( disableInput, e2, NULL );
+// //     //modoEntityExec ( e2, disableInput, NULL );
 
 
 
 // //     //e->exec->setPosition ( e, 30, 40 );
 // //     //e->exec->setFallara ( e, 30, 40 );
     
-//     modoEntityExec ( setPosition, e, FIX32(130), FIX32(3) );
-// //     modoEntityExec ( setFallara, e,  130, 3 );
-// //     // modoEntityExec ( setPositionFIX32, e, 12 );
+//     modoEntityExec ( e, setPosition, FIX32(130), FIX32(3) );
+// //     modoEntityExec ( e, setFallara,   130, 3 );
+// //     // modoEntityExec ( e, setPositionFIX32,, 12 );
     
-// //     int g = modoEntityExec ( getInt, e, NULL );
+// //     int g = modoEntityExec ( e, getInt,  NULL );
 // //     drawInt( g, 32,1, 4);
-// //     int f = modoEntityExec ( getFalla, e, NULL );
+// //     int f = modoEntityExec ( e, getFalla, NULL );
 // //     drawInt( f, 32,2, 4);
 // }
 

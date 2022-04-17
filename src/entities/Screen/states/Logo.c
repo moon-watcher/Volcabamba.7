@@ -1,10 +1,10 @@
 #include <genesis.h>
 
 #include "modo/modo.h"
-#include "data/systems.h"
-#include "data/entities.h"
-#include "data/managers.h"
-#include "data/states.h"
+#include "inc/systems.h"
+#include "inc/entities.h"
+#include "inc/managers.h"
+#include "inc/states.h"
 #include "../components.h"
 #include "../res/logos.h"
 
@@ -22,7 +22,7 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 }
 
 
-modoDefineState ( screenLogo_State,
+modoStateDefine ( screenLogo_State,
     
     { /* enter */
         COMPONENTS(entity);

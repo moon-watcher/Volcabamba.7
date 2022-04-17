@@ -1,44 +1,37 @@
 #include <genesis.h>
 #include "entity.h"
-#include "modo.h"
 
 
-Entity *modoEntity ( Entity const *tpl )
+void modoEntityInit ( Entity *self, Entity const *tpl )
 {   
-    Entity *entity;
+    unsigned const size = tpl->compsSize;
 
-    int const Entity_s = sizeof ( Entity  );
-    int const Comps_s  = tpl->compsSize;
+    self->components = malloc ( size );
 
-    entity             = malloc ( Entity_s );
-    entity->components = malloc ( Comps_s  );
+    memcpy ( self, tpl, sizeof ( Entity ) );
+    memcpy ( self->components, tpl->components, size );
 
-    memcpy ( entity,             tpl,             Entity_s );
-    memcpy ( entity->components, tpl->components, Comps_s  );
-
-    entity->action = MODO_ENTITY_INIT;
-
-    return entity;
+    self->action = MODO_ENTITY_INIT;
 }
 
 
-void modoEntityDelete ( Entity *entity )
+void modoEntityDelete ( Entity *self )
 {
-    entity->action = MODO_ENTITY_DELETE;
+    self->action = MODO_ENTITY_DELETE;
 }
 
 
-void modoEntityState ( Entity *entity, State const *state )
+void modoEntityState ( Entity *self, State const *state )
 {
-    if ( entity->state->exit ) entity->state->exit ( entity );
-    if ( entity->exit        ) entity->exit        ( entity );
+    if ( self->state->exit ) self->state->exit ( self );
+    if ( self->exit        ) self->exit        ( self );
 
-    if ( entity->state->data )
+    if ( self->state->data )
     {
-        free ( entity->state->data );
-        entity->state->data = NULL;
+        free ( self->state->data );
+        self->state->data = NULL;
     }
 
-    entity->state  = (State*) state;
-    entity->action = MODO_ENTITY_NEWSTATE;
+    self->state  = (State*) state;
+    self->action = MODO_ENTITY_NEWSTATE;
 }

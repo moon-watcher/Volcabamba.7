@@ -1,6 +1,6 @@
 #pragma once
 
-#include "modo/modo.h"
+#include "modo/manager.h"
 
 
 Manager *manPlayers;

@@ -2,11 +2,10 @@
 #include <genesis.h>
 
 #include "modo/modo.h"
-#include "modo/current.h"
 #include "libs/draw.h"
-#include "data/entities.h"
-#include "data/systems.h"
-#include "data/managers.h"
+#include "inc/entities.h"
+#include "inc/systems.h"
+#include "inc/managers.h"
 
 
 void drawState(char *s)
@@ -54,20 +53,20 @@ void drawState(char *s)
 
 // // por alguna razón está haciendo la suma de velocidades de e y e2 en el imput
 //     Entity *e2 = modoManagerNewEntity ( manPlayers, &entityPlayer2_tpl );
-//     //modoEntityExec ( disableInput, e2, NULL );
+//     //modoEntityExec ( e2, disableInput, NULL );
 
 
 
 //     //e->exec->setPosition ( e, 30, 40 );
 //     //e->exec->setFallara ( e, 30, 40 );
     
-//     modoEntityExec ( setPosition, e, FIX32(130), FIX32(3) );
-//     modoEntityExec ( setFallara, e,  130, 3 );
-//     // modoEntityExec ( setPositionFIX32, e, 12 );
+//     modoEntityExec ( e, setPosition, FIX32(130), FIX32(3) );
+//     modoEntityExec ( e, setFallara,  130, 3 );
+//     // modoEntityExec ( e, setPositionFIX32, 12 );
     
-//     int g = modoEntityExec ( getInt, e, NULL );
+//     int g = modoEntityExec ( e, getInt, NULL );
 //     drawInt( g, 32,1, 4);
-//     int f = modoEntityExec ( getFalla, e, NULL );
+//     int f = modoEntityExec ( e, getFalla, NULL );
 //     drawInt( f, 32,2, 4);
     
 
@@ -101,28 +100,49 @@ void drawState(char *s)
 
 
 
-// void screens ()
-// {
-//     sysInput = modoSystem ( system_input, 8, "sysInput" );
+void screens ()
+{
+    //modoSystemInit ( sysMovement, &system_movement, 160, "sysMovement" );
+    //modoSystemInit ( sysSprite,   &system_sprite,   160, "sysSprite"   );
+    modoSystemInit ( sysInput, &system_input, 8, "sysInput" );
+    //drawText ( sysInput->name, 0,0 ); waitMs(1000);
+
+    Entity *screen = modo ( Entity );
+    modoEntityInit ( screen, &screen_Entity_tpl );
+
+    modoManagerInit ( manScreens );
+    drawUInt ( manScreens->entities.length, 10, 0, 4 ); waitMs ( 1000 );
+    modoManagerAdd ( manScreens, screen );
+        drawUInt ( manScreens->entities.length, 10, 1, 4 ); waitMs ( 1000 );
+
     
-//     int i;
+
+    int p = 0;
     
-//     ({ i = 0; i; });
+    while ( 1 )
+    {
+        modoManagerUpdate ( manScreens );
 
-//     modoManagerNewEntity ( manScreens, &screen_Entity_tpl );
+        //modoSystemUpdate ( sysMovement );
+        //modoSystemUpdate ( sysInput );
+        //modoSystemUpdate ( sysSprite );
 
-//     while ( 1 )
-//     {
-//         modoManagerUpdate ( manScreens );
+        //SYS_doVBlankProcess();
+        //JOY_update();
 
-//         modoSystemUpdate ( sysInput );
+        //drawText("asd",1,++p); waitMs(111);
+    }
 
-//         SYS_doVBlankProcess();
-//         JOY_update();
-//     }
 
-//     modoSystemDelete ( sysInput );
-// }
+    modoSystemDelete ( sysMovement );
+    modoSystemDelete ( sysInput );
+    modoSystemDelete ( sysSprite );
+
+    modoManagerDelete ( manScreens );
+}
+
+
+
 
 
 void main ( )
@@ -130,41 +150,62 @@ void main ( )
     sysMovement = modo ( System );
     sysInput    = modo ( System );
     sysSprite   = modo ( System );
-
-    $(sysMovement)->init ( &system_movement, 160, "sysMovement" );
-    $(sysInput)->init    ( &system_input,      8, "sysInput"    );
-    $(sysSprite)->init   ( &system_sprite,   160, "sysSprite"   );
     
-
-    int *a = NULL;
-    $(sysMovement)->add(a);
-    //modo->system(asd)->update();
-
     while(1)
     {
-        $(sysMovement)->update();
-        $(sysInput)->update();
-        $(sysSprite)->update();
+        screens();
     }
-    
+}    
+
+
+
+
+// void main11 ( )
+// {
+//     sysMovement = modo ( System );
+//     sysInput    = modo ( System );
+//     sysSprite   = modo ( System );
+
+
 //     modoSystemInit ( sysMovement, &system_movement, 160, "sysMovement" );
-
+//     modoSystemInit ( sysInput,    &system_input,      8, "sysInput"    );
+//     modoSystemInit ( sysSprite,   &system_sprite,   160, "sysSprite"   );
+    
 //     manScreens  = modo ( Manager );
-//     $S(manScreens)->update();
+
+
+//     int *a = 1;
+//     int *b = 2;
+//     int *p1 = &a;
+//     int *p2 = &b;
+
+//     modoSystemAdd ( sysMovement, *p1 );
+//     modoSystemAdd ( sysMovement, *p2 );
+
+//     while(1)
+//     {
+//         screens();
+//         modoSystemUpdate ( sysMovement );
+//         modoSystemUpdate ( sysInput );
+//         modoSystemUpdate ( sysSprite );
+//         modoSystemUpdate ( manScreens );
+//     }
     
-//     $(sysMovement)->init ( &system_movement, 144, "sysMovement" );
-//     $(sysMovement)->setUpdateFn ( system_movement );
-//     $(sysMovement)
-//         ->setMax ( 143 )
-//         ->setName ( "vvv" );
+
+
     
-//     algo(algo, 2);
-//     $(algo)->tal(2);
-//     modo( )
+// //     $(sysMovement)->init ( &system_movement, 144, "sysMovement" );
+// //     $(sysMovement)->setUpdateFn ( system_movement );
+// //     $(sysMovement)
+// //         ->setMax ( 143 )
+// //         ->setName ( "vvv" );
+    
+// //     algo(algo, 2);
+// //     $(algo)->tal(2);
+// //     modo( )
 
-// hay una variable que es de tipo system con sus valores y funciones
+// // hay una variable que es de tipo system con sus valores y funciones
 
 
-//     // entidades();
-//     screens();
-}
+// //     // entidades();
+// }

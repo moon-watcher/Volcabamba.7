@@ -1,22 +1,22 @@
 #include <genesis.h>
 
 #include "modo/modo.h"
-#include "data/systems.h"
-#include "data/managers.h"
-#include "data/entities.h"
-#include "data/systems.h"
-#include "data/states.h"
+#include "inc/systems.h"
+#include "inc/managers.h"
+#include "inc/entities.h"
+#include "inc/systems.h"
+#include "inc/states.h"
 #include "components.h"
 #include "../res/sprites.h"
 
 
 void entity_PlayerBullet_create ( int x, int y )
 {
-    Entity *bullet = modoEntity ( &entityPlayerBullet1_tpl );
-        
+    Entity *bullet = modo( Entity );
+    modoEntityInit ( bullet, &entityPlayerBullet1_tpl );
     modoManagerAdd ( manPlayersBullets, bullet );
     
-    modoEntityExec ( setPosition, bullet, 0, 0 );
+    modoEntityExec ( bullet, setPosition, 0, 0 );
 }
 
 

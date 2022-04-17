@@ -2,9 +2,6 @@
 #include "listptr.h"
 
 
-static int const listptrNode_s = sizeof ( listptrNode );
-
-
 void listptr_init ( listptr *list, listptrFn freeFn )
 {
     list->length = 0;
@@ -27,15 +24,9 @@ void listptr_destroy ( listptr *list )
 }
 
 
-int listptr_size ( listptr *list )
-{
-	return list->length;
-}
-
-
 listptrNode *listptr_add ( listptr *list, void *element )
 {
-	listptrNode *node = malloc ( listptrNode_s );
+	listptrNode *node = malloc ( sizeof ( listptrNode ) );
 
 	node->data       = element;
 	node->prev       = ((void*)0);

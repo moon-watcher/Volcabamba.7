@@ -14,7 +14,7 @@ listptrNode;
 
 typedef struct
 {
-    int          length;
+    unsigned     length;
 	listptrNode *head;
 	listptrFn    freeFn;
 }
@@ -27,7 +27,6 @@ listptr;
 
 void         listptr_init    ( listptr *list, listptrFn freeFn );
 void         listptr_destroy ( listptr *list );
-int          listptr_size    ( listptr *list );
 listptrNode *listptr_add     ( listptr *list, void *element );
 void         listptr_remove  ( listptr *list, listptrNode *node );
 void         listptr_iterate ( listptr *list, listptrFn iterator );

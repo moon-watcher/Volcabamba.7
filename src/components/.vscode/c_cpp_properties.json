@@ -4,6 +4,16 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
+                "D:/MDDev/Works/Volcabamba.7/SGDK/inc",
+                "D:/MDDev/Works/Volcabamba.7/game/src/inc",
+                "D:/MDDev/Works/Volcabamba.7/game/src/libs",
+                "D:/MDDev/Works/Volcabamba.7/game/src/modo",
+                "D:/MDDev/Works/Volcabamba.7/game/src/components",
+                "D:/MDDev/Works/Volcabamba.7/game/src/entities",
+                "D:/MDDev/Works/Volcabamba.7/game/src/entities/*",
+                "D:/MDDev/Works/Volcabamba.7/game/src/config",
+                "D:/MDDev/Works/Volcabamba.7/game/src/systems",
+                "D:/MDDev/Works/Volcabamba.7/SGDK/inc",
                 "D:/MDDev/Works/Volcabamba.7/SGDK/inc"
             ],
             "defines": [

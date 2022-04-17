@@ -7,7 +7,7 @@
 
 void system_input ( void *array[], int length )
 {
-    for ( int i = 0; i < length; )
+    for ( unsigned i = 0; i < length; )
     {
         ComponentInput *ci     = array [ i++ ];
         Entity         *entity = array [ i++ ];
