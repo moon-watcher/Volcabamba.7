@@ -29,12 +29,9 @@ void modoSystemUpdate ( System *system )
         // Luego, por ejemplo: al finalizar una fase, sería ideal que mostrara el system->max de cada sistema
 
         VDP_resetScreen();
-        drawText ( "SYSTEM:",      0, 0 );
-        drawText ( system->name,   8, 0 );
-        drawText ( "MAX:",         0, 1 );
-        drawText ( system->max,    8, 1 );
-        drawText ( "LENGTH:",      0, 2 );
-        drawText ( system->length, 8, 2 );
+        drawText ( "SYSTEM:", 0, 0 ); drawText ( system->name,   8, 0 );
+        drawText ( "MAX:",    0, 1 ); drawUInt ( system->max,    8, 1, 5 );
+        drawText ( "LENGTH:", 0, 2 ); drawUInt ( system->length, 8, 2, 5 );
         waitMs(10000);
         
         return;
