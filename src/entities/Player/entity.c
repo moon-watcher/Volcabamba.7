@@ -1,9 +1,9 @@
 #include <genesis.h>
 
-#include "libs/ECS.h"
-#include "data/systems.h"
-#include "data/systems.h"
-#include "data/states.h"
+#include "modo/modo.h"
+#include "inc/systems.h"
+#include "inc/systems.h"
+#include "inc/states.h"
 #include "components.h"
 #include "../res/sprites.h"
 
@@ -33,12 +33,12 @@ static void Update ( Entity *entity )
 {
     COMPONENTS(entity);
 
-    ecsSystemAdd ( sysMovement, cp     );
-    ecsSystemAdd ( sysMovement, cv     );
-    ecsSystemAdd ( sysSprite,   sp     );
-    ecsSystemAdd ( sysSprite,   cp     );
-    ecsSystemAdd ( sysInput,    ci     );
-    ecsSystemAdd ( sysInput,    entity );
+    modoSystemAdd ( sysMovement, cp     );
+    modoSystemAdd ( sysMovement, cv     );
+    modoSystemAdd ( sysSprite,   sp     );
+    modoSystemAdd ( sysSprite,   cp     );
+    modoSystemAdd ( sysInput,    ci     );
+    modoSystemAdd ( sysInput,    entity );
 }
 
 

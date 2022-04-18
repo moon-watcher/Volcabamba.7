@@ -1,9 +1,5 @@
 #pragma once
 
-#include <genesis.h>
-#include "listptr.h"
-
-
 
 typedef struct Entity
 {
@@ -40,49 +36,16 @@ typedef struct State
 }
 State;
 
-
-typedef struct Manager
-{
-    listptr entities;
-}
-Manager;
+Entity* modoEntity           ( Entity const * );
+void    modoEntityState      ( Entity *, State const * );
+void    modoEntityDelete     ( Entity * );
 
 
-typedef struct System
-{
-    void ( *update ) ( void *, int );
-    void **list;
-    int max;
-    char *name;
-    int length;
-}
-System;
-
-
-typedef void (*ecsSystemUpdateFn) (void*,int);
-
-
-void    ecsManagerUpdate    ( Manager * );
-void    ecsManagerDelete    ( Manager * );
-void    ecsManagerAdd       ( Manager *, Entity * );
-Entity* ecsManagerNewEntity ( Manager *, Entity const * );
-
-Entity* ecsEntity           ( Entity const * );
-void    ecsEntityState      ( Entity *, State const * );
-void    ecsEntityDelete     ( Entity * );
-
-System* ecsSystem           ( ecsSystemUpdateFn, int, char* );
-void    ecsSystemUpdate     ( System * );
-void    ecsSystemDelete     ( System * );
+#define modoEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
 
 
 
-#define ecsSystemAdd(SYSTEM,VALUE)            SYSTEM->list [ SYSTEM->length++ ] = VALUE
-#define ecsEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
-
-
-
-#define ecsDefineState(STATE,ENTER,UPDATE,EXIT)                               \
+#define modoDefineState(STATE,ENTER,UPDATE,EXIT)                              \
     static void STATE##_enter  ( Entity *entity ) ENTER                       \
     static void STATE##_update ( Entity *entity ) UPDATE                      \
     static void STATE##_exit   ( Entity *entity ) EXIT                        \
@@ -90,7 +53,7 @@ void    ecsSystemDelete     ( System * );
 
 
 
-#define ecsDefineEntity(TPL,STATE,COMPS,AWAKE,UPDATE,DELETE,ENTER,EXIT)       \
+#define modoDefineEntity(TPL,STATE,COMPS,AWAKE,UPDATE,DELETE,ENTER,EXIT)      \
     static void TPL##_Awake  ( Entity *entity ) AWAKE                         \
     static void TPL##_Update ( Entity *entity ) UPDATE                        \
     static void TPL##_Delete ( Entity *entity ) DELETE                        \

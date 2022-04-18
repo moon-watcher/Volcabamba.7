@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "../libs/ECS.h"
+#include "../modo/modo.h"
 #include "inc/components.h"
 #include "../libs/joyreader.h"
 

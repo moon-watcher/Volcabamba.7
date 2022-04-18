@@ -1,10 +1,10 @@
 #include <genesis.h>
 
-#include "libs/ECS.h"
-#include "data/systems.h"
-#include "data/entities.h"
-#include "data/managers.h"
-#include "data/states.h"
+#include "modo/modo.h"
+#include "inc/systems.h"
+#include "inc/entities.h"
+#include "inc/managers.h"
+#include "inc/states.h"
 #include "../components.h"
 
 

@@ -1,10 +1,10 @@
 #include <genesis.h>
 
-#include "libs/ECS.h"
-#include "data/systems.h"
-#include "data/entities.h"
-#include "data/managers.h"
-#include "data/states.h"
+#include "modo/modo.h"
+#include "inc/systems.h"
+#include "inc/entities.h"
+#include "inc/managers.h"
+#include "inc/states.h"
 #include "../components.h"
 #include "../res/logos.h"
 
@@ -17,12 +17,12 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
     if ( joy_pressed_start ( j ) )
     {
-        ecsEntityState ( entity, &screenTitle_State );
+        modoEntityState ( entity, &screenTitle_State );
     }
 }
 
 
-ecsDefineState ( screenLogo_State,
+modoDefineState ( screenLogo_State,
     
     { /* enter */
         COMPONENTS(entity);
@@ -37,8 +37,8 @@ ecsDefineState ( screenLogo_State,
     { /* update */
         COMPONENTS(entity);
 
-        ecsSystemAdd ( sysInput, ci     );
-        ecsSystemAdd ( sysInput, entity );
+        modoSystemAdd ( sysInput, ci     );
+        modoSystemAdd ( sysInput, entity );
     },
 
     { /* exit */

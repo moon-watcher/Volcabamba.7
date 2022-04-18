@@ -1,9 +1,9 @@
 #include <genesis.h>
 
-#include "libs/ECS.h"
-#include "data/systems.h"
-#include "data/systems.h"
-#include "data/states.h"
+#include "modo/modo.h"
+#include "inc/systems.h"
+#include "inc/systems.h"
+#include "inc/states.h"
 #include "components.h"
 #include "../res/sprites.h"
 

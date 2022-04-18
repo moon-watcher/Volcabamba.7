@@ -1,10 +1,10 @@
 #include <genesis.h>
 
-#include "libs/ECS.h"
-#include "data/systems.h"
-#include "data/entities.h"
-#include "data/managers.h"
-#include "data/states.h"
+#include "modo/modo.h"
+#include "inc/systems.h"
+#include "inc/entities.h"
+#include "inc/managers.h"
+#include "inc/states.h"
 #include "../components.h"
 
 
@@ -16,7 +16,7 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
     if ( joy_pressed_dir ( j ) )
     {
-        ecsEntityState ( entity, &Player_moveState );
+        modoEntityState ( entity, &Player_moveState );
     }
 
     if ( joy_pressed_a ( j ) )
@@ -28,7 +28,7 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
     if ( joy_pressed_c ( j ) )
     {
         drawText ( "muere", 4, 4 );
-        ecsEntityState ( entity, &Player_dieState );
+        modoEntityState ( entity, &Player_dieState );
     }
 }
 
