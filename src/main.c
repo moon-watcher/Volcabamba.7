@@ -69,17 +69,21 @@ void entidades ( )
 
 void screens ()
 {
-    // modoManagerNewEntity ( manScreens, &screen_Entity_tpl );
+    Entity *screen = modoEntity ( &screen_Entity_tpl );
+    manScreens = modoManager ( );
 
-    // while ( 1 )
-    // {
-    //     modoManagerUpdate ( manScreens );
+    modoManagerAdd ( manScreens, screen );
+    
+    while ( 1 )
+    {
+        modoManagerUpdate ( manScreens );
 
-    //     modoSystemUpdate ( sysInput );
 
-    //     SYS_doVBlankProcess();
-    //     JOY_update();
-    //}
+        modoSystemUpdate ( sysInput );
+
+        SYS_doVBlankProcess();
+        JOY_update();
+    }
 }
 
 
@@ -89,10 +93,9 @@ void main ( )
     sysInput    = modoSystem ( &system_input,      8, "sysInput"    );
     sysSprite   = modoSystem ( &system_sprite,   160, "sysSprite"   );
 
-    manScreens        = modoManager ( );
     manPlayersBullets = modoManager ( );
     manPlayers        = modoManager ( );
 
-    entidades();
-    //screens();
+    // entidades();
+    screens();
 }

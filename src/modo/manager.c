@@ -1,5 +1,8 @@
 #include <genesis.h>
-#include "modo.h"
+#include "manager.h"
+
+#define exec(FUNCTION,ENTITY) ({ FUNCTION ? FUNCTION ( ENTITY ) : NULL; })
+// #define exec(FUNCTION,ENTITY) ({ FUNCTION ( ENTITY ); })
 
 
 
@@ -42,9 +45,9 @@ void modoManagerDelete ( Manager *manager )
     {
         Entity *entity = node->data;
         
-        execPtrfn ( entity->state->exit, entity );
-        execPtrfn ( entity->exit,        entity );
-        execPtrfn ( entity->Delete,      entity );
+        exec ( entity->state->exit, entity );
+        exec ( entity->exit,        entity );
+        exec ( entity->Delete,      entity );
     }
 
     listptr_destroy ( list );
@@ -71,30 +74,30 @@ void modoManagerAdd ( Manager *manager, Entity *entity )
 static inline void _enterAction ( Entity *entity, Manager *manager, listptrNode *node )
 {
     entity->action = MODO_ENTITY_UPDATE;
-    execPtrfn ( entity->Awake,        entity );
-    execPtrfn ( entity->enter,        entity );
-    execPtrfn ( entity->state->enter, entity );
+    exec ( entity->Awake,        entity );
+    exec ( entity->enter,        entity );
+    exec ( entity->state->enter, entity );
 }
 
 static inline void _updateAction ( Entity *entity, Manager *manager, listptrNode *node )
 {
-    execPtrfn ( entity->Update,        entity );
-    execPtrfn ( entity->state->update, entity );
+    exec ( entity->Update,        entity );
+    exec ( entity->state->update, entity );
 }
 
 static inline void _stateAction ( Entity *entity, Manager *manager, listptrNode *node )
 {
     entity->action = MODO_ENTITY_UPDATE;
-    execPtrfn ( entity->enter,         entity );
-    execPtrfn ( entity->state->enter,  entity );
-    execPtrfn ( entity->Update,        entity );
-    execPtrfn ( entity->state->update, entity );
+    exec ( entity->enter,         entity );
+    exec ( entity->state->enter,  entity );
+    exec ( entity->Update,        entity );
+    exec ( entity->state->update, entity );
 }
 
 static inline void _deleteAction ( Entity *entity, Manager *manager, listptrNode *node )
 {
-    execPtrfn ( entity->state->exit, entity );
-    execPtrfn ( entity->exit,        entity );
-    execPtrfn ( entity->Delete,      entity );
+    exec ( entity->state->exit, entity );
+    exec ( entity->exit,        entity );
+    exec ( entity->Delete,      entity );
     listptr_remove ( &manager->entities, node );
 }

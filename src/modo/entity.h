@@ -1,6 +1,15 @@
 #pragma once
 
 
+enum
+{
+    MODO_ENTITY_INIT, 
+    MODO_ENTITY_UPDATE,
+    MODO_ENTITY_NEWSTATE,
+    MODO_ENTITY_DELETE
+};
+
+
 typedef struct Entity
 {
     struct State *state;

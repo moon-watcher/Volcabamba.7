@@ -1,6 +1,9 @@
 #include <genesis.h>
 #include "modo.h"
 
+#define exec(FUNCTION,ENTITY) ({ FUNCTION ? FUNCTION ( ENTITY ) : NULL; })
+// #define exec(FUNCTION,ENTITY) ({ FUNCTION ( ENTITY ); })
+
 
 static int const Entity_s = sizeof ( Entity  );
 
@@ -30,8 +33,8 @@ void modoEntityDelete ( Entity *entity )
 
 void modoEntityState ( Entity *entity, State const *state )
 {
-    execPtrfn ( entity->state->exit, entity );
-    execPtrfn ( entity->exit,        entity );
+    exec ( entity->state->exit, entity );
+    exec ( entity->exit,        entity );
 
     if ( entity->state->data )
     {
