@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "modo/modo.h"
+#include "inc/modo.h"
 #include "libs/draw.h"
 #include "inc/entities.h"
 #include "inc/managers.h"
@@ -91,7 +91,7 @@ State const screenGameloop_State = { _enter, _update, _exit };
 
 // #include <genesis.h>
 
-// #include "modo/modo.h"
+// #include "inc/modo.h"
 // #include "libs/draw.h"
 // #include "inc/entities.h"
 // #include "inc/managers.h"

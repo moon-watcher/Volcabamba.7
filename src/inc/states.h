@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "modo/modo.h"
+#include "inc/modo.h"
 
 
 State const screenLogo_State;

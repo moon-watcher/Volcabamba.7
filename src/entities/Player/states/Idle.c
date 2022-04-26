@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "modo/modo.h"
+#include "inc/modo.h"
 #include "inc/systems.h"
 #include "inc/entities.h"
 #include "inc/managers.h"

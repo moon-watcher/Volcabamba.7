@@ -1,5 +1,5 @@
 #include <genesis.h>
-#include "modo.h"
+#include "entity.h"
 
 #define exec(FUNCTION,ENTITY) ({ FUNCTION ? FUNCTION ( ENTITY ) : NULL; })
 // #define exec(FUNCTION,ENTITY) ({ FUNCTION ( ENTITY ); })

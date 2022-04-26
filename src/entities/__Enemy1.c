@@ -1,7 +1,7 @@
 /*
 // #include <genesis.h>
 
-// #include "../modo/modo.h"
+// #include "../inc/modo.h"
 // #include "../res/sprites.h"
 // #include "inc/components.h"
 // #include "inc/systems.h"

@@ -1,7 +1,7 @@
 
 #include <genesis.h>
 
-#include "modo/modo.h"
+#include "inc/modo.h"
 #include "libs/draw.h"
 #include "inc/entities.h"
 #include "inc/systems.h"
