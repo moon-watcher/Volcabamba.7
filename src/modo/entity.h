@@ -58,7 +58,12 @@ void    modoEntityDelete     ( Entity * );
     static void STATE##_enter  ( Entity *entity ) ENTER                       \
     static void STATE##_update ( Entity *entity ) UPDATE                      \
     static void STATE##_exit   ( Entity *entity ) EXIT                        \
-    State const STATE = { STATE##_enter, STATE##_update, STATE##_exit };
+    State const STATE = {                                                     \
+        .enter  = STATE##_enter,                                              \
+        .update = STATE##_update,                                             \
+        .exit   = STATE##_exit,                                               \
+        .data   = NULL                                                        \
+    };
 
 
 
@@ -69,14 +74,14 @@ void    modoEntityDelete     ( Entity * );
     static void TPL##_enter  ( Entity *entity ) ENTER                         \
     static void TPL##_exit   ( Entity *entity ) EXIT                          \
     Entity const TPL = {                                                      \
-        .state = (State*) &STATE,                                             \
+        .state      = (State*) &STATE,                                        \
         .components = &(Components) COMPS,                                    \
-        .compsSize = sizeof(Components),                                      \
-        .action = 0,                                                          \
-        .exec = NULL,                                                         \
-        .Awake = TPL##_Awake,                                                 \
-        .Update = TPL##_Update,                                               \
-        .Delete = TPL##_Delete,                                               \
-        .enter = TPL##_enter,                                                 \
-        .exit = TPL##_exit,                                                   \
+        .compsSize  = sizeof(Components),                                     \
+        .action     = 0,                                                      \
+        .exec       = NULL,                                                   \
+        .Awake      = TPL##_Awake,                                            \
+        .Update     = TPL##_Update,                                           \
+        .Delete     = TPL##_Delete,                                           \
+        .enter      = TPL##_enter,                                            \
+        .exit       = TPL##_exit,                                             \
     };
