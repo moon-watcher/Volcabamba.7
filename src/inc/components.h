@@ -11,4 +11,5 @@
 #include "components/Size.h"
 #include "components/Sprite.h"
 #include "components/Timeout.h"
+#include "components/Timer.h"
 #include "components/Velocity.h"
