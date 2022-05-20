@@ -1,128 +1,99 @@
 #include <genesis.h>
 #include "manager.h"
 
-#define exec(FUNCTION,ENTITY)  FUNCTION ? FUNCTION ( ENTITY ) : NULL
-
-
-static inline void _enter  ( Manager*, struct ManagerNode*, Entity* );
-static inline void _update ( Manager*, struct ManagerNode*, Entity* );
-static inline void _state  ( Manager*, struct ManagerNode*, Entity* );
-static inline void _delete ( Manager*, struct ManagerNode*, Entity* );
-
-static void ( *actionsArray [ ] ) ( Manager*, struct ManagerNode*, Entity* ) = { _enter, _update, _state, _delete };
-
 
 Manager *modoManager ( )
 {
     Manager *manager = malloc ( sizeof ( Manager ) );
 
-    manager->length   = 0;
-    manager->entities = ((void*)0);
+    manager->entities = NULL;
 
     return manager;
 }
 
 
+void modoManagerAdd ( Manager *manager, Entity *entity )
+{
+    entity->next = manager->entities;
+    manager->entities = entity;
+}
+
+
 void modoManagerUpdate ( Manager *manager )
 {
-    struct ManagerNode *node = manager->entities;
+    Entity *prev   = NULL;
+    Entity *head   = manager->entities;
+    Entity *entity = head;
 
-    while ( node )
+    while ( entity )
     {
-        Entity *entity = node->data;
+        Entity *next  = entity->next;
+        State  *state = entity->state;
 
-        actionsArray [ entity->action ] ( manager, node, entity );
+        switch ( entity->action )
+        {
+            case MODO_ENTITY_INIT:
+                if ( entity->Awake  ) entity->Awake  ( entity );
+                if ( state->enter   ) state->enter   ( entity );
+                if ( entity->Update ) entity->Update ( entity );
+                if ( state->update  ) state->update  ( entity );
+                
+                entity->action = MODO_ENTITY_UPDATE;
+                prev = entity;
+                
+                break;
 
-        node = node->next;
+            case MODO_ENTITY_UPDATE:
+                if ( state->change )
+                {
+                    if ( state->exit ) state->exit ( entity );
+                    
+                    state = state->change;
+                    state->change = NULL;
+
+                    if ( state->enter ) state->enter ( entity );
+                }
+
+                if ( entity->Update ) entity->Update ( entity );
+                if ( state->update  ) state->update  ( entity );
+                
+                prev = entity;
+                
+                break;
+
+
+            case MODO_ENTITY_DELETE:
+                if ( state->exit    ) state->exit    ( entity );
+                if ( entity->Delete ) entity->Delete ( entity );
+
+                if ( entity == head )
+                    head = next; 
+                else
+                    prev->next = next;
+
+                prev = entity;
+                modoEntityDelete ( entity );
+
+                break;
+        }
+
+        entity = next;
     }
 }
 
 
 void modoManagerDelete ( Manager *manager )
 {
-	while ( manager->entities )
-	{
-		struct ManagerNode *node = manager->entities;
-        Entity *entity = node->data;
+    Entity *entity = manager->entities;
+    
+    while ( entity )
+    {
+        entity->action = MODO_ENTITY_DELETE;
+        entity = entity->next;
+    }
 
-		manager->entities = node->next;
-        
-        _delete ( manager, node, entity );
-	}
+    modoManagerUpdate ( manager );
 
     free ( manager );
     manager = NULL;
-}
-
-
-void modoManagerAdd ( Manager *manager, Entity *entity )
-{
-	struct ManagerNode *node = malloc ( sizeof ( struct ManagerNode ) );
-
-	node->data = entity;
-	node->prev = ((void*)0);
-	node->next = manager->entities;
-
-	manager->entities       = node;
-	manager->entities->prev = node;
-
-	++manager->length;
-
-	return node;
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-static inline void _enter ( Manager *manager, struct ManagerNode *node, Entity *entity )
-{
-    entity->action = MODO_ENTITY_UPDATE;
-    exec ( entity->Awake,        entity );
-    exec ( entity->enter,        entity );
-    exec ( entity->state->enter, entity );
-}
-
-static inline void _update ( Manager *manager, struct ManagerNode *node, Entity *entity )
-{
-    exec ( entity->Update,        entity );
-    exec ( entity->state->update, entity );
-}
-
-static inline void _state ( Manager *manager, struct ManagerNode *node, Entity *entity )
-{
-    entity->action = MODO_ENTITY_UPDATE;
-    exec ( entity->enter,         entity );
-    exec ( entity->state->enter,  entity );
-    exec ( entity->Update,        entity );
-    exec ( entity->state->update, entity );
-}
-
-static inline void _delete ( Manager *manager, struct ManagerNode *node, Entity *entity )
-{
-    exec ( entity->state->exit, entity );
-    exec ( entity->exit,        entity );
-    exec ( entity->Delete,      entity );
-
-    if ( !manager->length )
-    {
-        return;
-    }
-
-    if ( node->prev )
-    {
-        node->prev->next = node->next;
-    }
-    else
-    {
-        manager->entities = node->next;
-    }
-
-    if ( node->next )
-    {
-        node->next->prev = node->prev;
-    }
-
-    --manager->length;
-    free ( node );
 }

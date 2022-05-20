@@ -17,7 +17,7 @@
 
 //     if ( joy_pressed_start ( j ) )
 //     {
-//         modoEntityState ( entity, &screenGameloop_State );
+//         modoEntitySetState ( entity, &screenGameloop_State );
 //     }
 // }
 

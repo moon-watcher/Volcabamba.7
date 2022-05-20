@@ -16,7 +16,7 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
     if ( joy_pressed_dir ( j ) )
     {
-        modoEntityState ( entity, &Player_moveState );
+        modoEntitySetState ( entity, &Player_moveState );
     }
 
     if ( joy_pressed_a ( j ) )
@@ -28,7 +28,7 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
     if ( joy_pressed_c ( j ) )
     {
         drawText ( "muere", 4, 4 );
-        modoEntityState ( entity, &Player_dieState );
+        modoEntitySetState ( entity, &Player_dieState );
     }
 }
 

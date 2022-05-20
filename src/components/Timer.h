@@ -2,17 +2,17 @@
 
 typedef struct
 {
-	unsigned counter;
 	unsigned max;
+	unsigned counter;
 }
 ComponentTimer;
 
 
-struct ComponentTimer
+struct $ComponentTimer
 {
 	void ( *Init    ) ( ComponentTimer*, unsigned );
 	void ( *Reset   ) ( ComponentTimer* );
 	void ( *Update  ) ( ComponentTimer* );
 	int  ( *Timeout ) ( ComponentTimer* );
 }
-$ComponentTimer;
+const $ComponentTimer;

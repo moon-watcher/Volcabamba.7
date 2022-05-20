@@ -14,7 +14,7 @@ static void inputHandler ( Joyreader *j, void *p1, void *p2 )
 
     if ( !joy_active_dir ( j ) )
     {
-        modoEntityState ( entity, &Player_idleState );
+        modoEntitySetState ( entity, &Player_idleState );
 
         return;
     }
@@ -32,8 +32,8 @@ static void inputHandler ( Joyreader *j, void *p1, void *p2 )
         }
     );
 
-    cv->x.dir = h ? ( h == JOY_DIR_LEFT ? -1 : +1 ) : 0;
-    cv->y.dir = v ? ( v == JOY_DIR_UP   ? -1 : +1 ) : 0;
+    cv->x.dir = h ? ( h == JOYDIR_LEFT ? -1 : +1 ) : 0;
+    cv->y.dir = v ? ( v == JOYDIR_UP   ? -1 : +1 ) : 0;
 }
 
 

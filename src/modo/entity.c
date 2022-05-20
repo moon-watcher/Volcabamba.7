@@ -25,24 +25,25 @@ Entity *modoEntity ( Entity const *tpl )
 }
 
 
-void modoEntityDelete ( Entity *entity )
+void modoEntitySetDelete ( Entity *entity )
 {
     entity->action = MODO_ENTITY_DELETE;
 }
 
 
-void modoEntityState ( Entity *entity, State const *state )
+void modoEntitySetState ( Entity *entity, State const *state )
 {
-    exec ( entity->state->exit, entity );
-    exec ( entity->exit,        entity );
-
-    if ( entity->state->data )
-    {
-        free ( entity->state->data );
-        entity->state->data = NULL;
-    }
-
-    entity->state = (State*) state;
-    entity->action = MODO_ENTITY_NEWSTATE;
+    entity->state->change = (State*) state;
 }
 
+
+void modoEntityDelete ( Entity *entity )
+{
+    entity->prev->next = entity->next;
+    free ( entity->whatever );
+    free ( entity->components );
+    free ( entity );
+
+    entity->components = NULL;
+    entity = NULL;
+}

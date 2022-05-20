@@ -12,3 +12,7 @@ State const PlayerBullet_moveState;
 State const Player_dieState;
 State const Player_idleState;
 State const Player_moveState;
+
+State const Test1_unoState;
+State const Test1_dosState;
+State const Test1_tresState;

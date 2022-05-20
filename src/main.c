@@ -67,7 +67,7 @@ void entidades ( )
 }
 
 
-void screens ()
+void screens () 
 {
     Entity *screen = modoEntity ( &screen_Entity_tpl );
     manScreens = modoManager ( );
@@ -80,10 +80,48 @@ void screens ()
 
 
         modoSystemUpdate ( sysInput );
+        modoSystemUpdate ( sysTimer );
 
         SYS_doVBlankProcess();
         JOY_update();
     }
+}
+
+
+void test1()
+{
+    int y=0;
+    drawUInt ( MEM_getFree(), 10, y++, 6);
+    Entity *t1 = modoEntity ( &test1_entity_tpl );
+    drawUInt ( MEM_getFree(), 10, y++, 6);
+    Entity *t2 = modoEntity ( &test1_entity_tpl );
+    drawUInt ( MEM_getFree(), 10, y++, 6);
+    Entity *t3 = modoEntity ( &test1_entity_tpl );
+    drawUInt ( MEM_getFree(), 10, y++, 6);
+    
+    modoEntityDelete     ( t1 );
+    drawUInt ( MEM_getFree(), 10, y++, 6);
+    modoEntityDelete     ( t2 );
+    drawUInt ( MEM_getFree(), 10, y++, 6);
+    modoEntityDelete     ( t3 );
+    drawUInt ( MEM_getFree(), 10, y++, 6);
+
+waitMs(1000);
+    manScreens = modoManager ( );
+
+    drawUInt ( MEM_getFree(), 10, y++, 6);
+    modoManagerAdd ( manScreens, t1 );
+    modoManagerAdd ( manScreens, t2 );
+    modoManagerAdd ( manScreens, t3 );
+
+    while ( 1 ){
+        modoManagerUpdate ( manScreens );
+
+        modoSystemUpdate ( sysInput );
+        modoSystemUpdate ( sysTimer );
+        SYS_doVBlankProcess();
+    }
+
 }
 
 
@@ -92,10 +130,12 @@ void main ( )
     sysMovement = modoSystem ( &system_movement, 160, "sysMovement" );
     sysInput    = modoSystem ( &system_input,      8, "sysInput"    );
     sysSprite   = modoSystem ( &system_sprite,   160, "sysSprite"   );
+    sysTimer    = modoSystem ( &system_timer,     10, "sysTimer"    );
 
     manPlayersBullets = modoManager ( );
     manPlayers        = modoManager ( );
 
     // entidades();
-    screens();
+    // screens();
+    test1();
 }

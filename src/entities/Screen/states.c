@@ -43,7 +43,7 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
     if ( joy_pressed_start ( j ) )
     {
-        modoEntityState ( entity, &screenTitle_State );
+        modoEntitySetState ( entity, &screenTitle_State );
     }
 }
 
@@ -55,7 +55,7 @@ static void inputHandler2 ( Joyreader *j, void *ptr1, void *ptr2 )
 
     if ( joy_pressed_start ( j ) )
     {
-        modoEntityState ( entity, &screenGameloop_State );
+        modoEntitySetState ( entity, &screenGameloop_State );
     }
 }
 
@@ -64,21 +64,45 @@ static void inputHandler2 ( Joyreader *j, void *ptr1, void *ptr2 )
 
 
 
-modoDefineState ( screenLogo_State,
+// modoDefineState ( screenLogo_State,
     
-    { /* enter */
+//     { /* enter */
+//         enter ( entity, &res_logo_sega, 0, 0, inputHandler );
 
-        enter ( entity, &res_logo_sega, 0, 0, inputHandler );
-    },
+//         ComponentTimer t;
+//         $ComponentTimer.Init ( &t, 100 );
 
-    { /* update */
-        update(entity);
-    },
+//         entity->state->data = malloc ( sizeof ( ComponentTimer ) );
+//         entity->state->data = &(ComponentTimer) { 0, 220 };
+//         //memcpy ( entity->state->data, &t, sizeof ( ComponentTimer ) );
+        
+//         drawUInt(t.max, 0,20,3);
 
-    { /* exit */
-        exitFade();
-    }
-);
+//         ComponentTimer *x = entity->state->data;
+//         drawUInt ( x->max, 10, 20, 3 );
+
+//     },
+
+//     { /* update */
+//         update(entity);
+
+//         ComponentTimer *t = (ComponentTimer*) entity->state->data;
+
+//   drawUInt(t->max, 0,21,3);
+//         // $ComponentTimer.Update ( t );
+//         // if ( $ComponentTimer.Timeout(t) )
+//         // {
+//         // drawUInt( t->counter, 3,13,3);
+//         // }
+
+//     },
+
+//     { /* exit */
+//         exitFade();
+
+//         free ( entity->state->data );
+//     }
+// );
 
 
 modoDefineState ( screenTitle_State,

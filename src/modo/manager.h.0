@@ -4,16 +4,18 @@
 #include "entity.h"
 
 
-		
-typedef struct ManagerNode
-	*data;
-	*next;
-	*prev;
-} 
 
-typedef struct 
+
+struct ManagerNode
 {
-	Entity *entities;
+	void *data;
+	struct ManagerNode *next, *prev;
+};
+
+typedef struct Manager
+{
+    int length;
+	struct ManagerNode *entities;
 }
 Manager;
 
