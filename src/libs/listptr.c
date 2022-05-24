@@ -15,15 +15,8 @@ void listptr_init ( listptr *list, listptrFn freeFn )
 
 void listptr_destroy ( listptr *list )
 {
-	listptrNode *node;
-
-	while ( list->head )
-	{
-		node       = list->head;
-		list->head = node->next;
-
+    listptr_foreach ( list, node )
 		listptr_remove ( list, node );
-	}
 }
 
 
@@ -37,13 +30,14 @@ listptrNode *listptr_add ( listptr *list, void *element )
 {
 	listptrNode *node = malloc ( listptrNode_s );
 
-	node->data       = element;
-	node->prev       = ((void*)0);
-	node->next       = list->head;
+	node->data = element;
+	node->prev = ((void*)0);
+	node->next = list->head;
 
-	list->head       = node;
-	list->head->prev = node;
-
+    if ( list->head )
+        list->head->prev = node;
+         
+    list->head = node;
 	++list->length;
 
 	return node;
@@ -52,30 +46,21 @@ listptrNode *listptr_add ( listptr *list, void *element )
 
 void listptr_remove ( listptr *list, listptrNode *node )
 {
-    if ( !list->length )
-    {
+    if ( !(list->length && list->head && node) )
         return;
-    }
 
     if ( list->freeFn )
-    {
         list->freeFn ( node->data );
-    }
 
-    if ( node->prev )
-    {
-        node->prev->next = node->next;
-    }
-    else
-    {
+    if ( list->head == node )
         list->head = node->next;
-    }
 
     if ( node->next )
-    {
         node->next->prev = node->prev;
-    }
 
+    if ( node->prev )
+        node->prev->next = node->next;
+ 
     --list->length;
     free ( node );
 }
@@ -84,9 +69,7 @@ void listptr_remove ( listptr *list, listptrNode *node )
 void listptr_iterate ( listptr *list, listptrFn iterator )
 {
     listptr_foreach ( list, node )
-    {
         iterator ( node->data );
-    }
 }
 
 

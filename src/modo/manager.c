@@ -1,128 +1,99 @@
 #include <genesis.h>
 #include "manager.h"
 
-#define exec(FUNCTION,ENTITY)  FUNCTION ? FUNCTION ( ENTITY ) : NULL
+
+static int const Entity_s  = sizeof ( Entity  );
+static int const Manager_s = sizeof ( Manager );
 
 
-static inline void _enter  ( Manager*, struct ManagerNode*, Entity* );
-static inline void _update ( Manager*, struct ManagerNode*, Entity* );
-static inline void _state  ( Manager*, struct ManagerNode*, Entity* );
-static inline void _delete ( Manager*, struct ManagerNode*, Entity* );
+static inline void init   ( Manager*, listptrNode*, Entity*, State* );
+static inline void change ( Manager*, listptrNode*, Entity*, State* );
+static inline void update ( Manager*, listptrNode*, Entity*, State* );
+static inline void delete ( Manager*, listptrNode*, Entity*, State* );
 
-static void ( *actionsArray [ ] ) ( Manager*, struct ManagerNode*, Entity* ) = { _enter, _update, _state, _delete };
+static void ( *actionsArray [ ] ) ( Manager*, listptrNode*, Entity*, State* ) = { init, change, update, delete };
 
 
-Manager *modoManager ( )
+
+Manager *manager ( )
 {
-    Manager *manager = malloc ( sizeof ( Manager ) );
-
-    manager->length   = 0;
-    manager->entities = ((void*)0);
+    Manager *manager = malloc ( Manager_s );
+    listptr_init ( manager, NULL );
 
     return manager;
 }
 
 
-void modoManagerUpdate ( Manager *manager )
+Entity *managerAdd ( Manager *manager, Entity const *template )
 {
-    struct ManagerNode *node = manager->entities;
+    Entity *e = malloc ( Entity_s );
+    listptrNode *node = listptr_add ( manager, e );
+    node->data = entity ( template );
 
-    while ( node )
-    {
+	return (Entity*) node->data;
+}
+
+int y2 = 0;
+void managerUpdate ( Manager *manager )
+{
+    y2++;
+    int y = 0;
+    listptr_foreach ( manager, node ) {
         Entity *entity = node->data;
+        State  *state  = entity->state;
 
-        actionsArray [ entity->action ] ( manager, node, entity );
-
-        node = node->next;
+        actionsArray [ entity->action ] ( manager, node, entity, state );
+        ++y;
     }
+    drawInt(y, 34, y2, 3);
 }
 
 
-void modoManagerDelete ( Manager *manager )
-{
-	while ( manager->entities )
-	{
-		struct ManagerNode *node = manager->entities;
-        Entity *entity = node->data;
 
-		manager->entities = node->next;
-        
-        _delete ( manager, node, entity );
-	}
+void managerEnd ( Manager *manager )
+{
+    listptr_foreach ( manager, node ) {
+        entityDelete ( node->data );
+    }
+
+    managerUpdate ( manager );
 
     free ( manager );
     manager = NULL;
 }
 
 
-void modoManagerAdd ( Manager *manager, Entity *entity )
-{
-	struct ManagerNode *node = malloc ( sizeof ( struct ManagerNode ) );
 
-	node->data = entity;
-	node->prev = ((void*)0);
-	node->next = manager->entities;
 
-	manager->entities       = node;
-	manager->entities->prev = node;
+#define EXECUTE(F,E) if(F) F(E)
 
-	++manager->length;
+static inline void init ( Manager *manager, listptrNode *node, Entity *entity, State *state ) {
+    EXECUTE ( entity->Awake, entity );
+    EXECUTE ( state->enter, entity );
 
-	return node;
+    update ( manager, node, entity, state );
 }
 
+static inline void change ( Manager *manager, listptrNode *node, Entity *entity, State *state ) {
+    EXECUTE ( state->exit, entity );
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    state = entity->nextState;
+    entity->nextState = NULL;
 
+    EXECUTE ( state->enter, entity );
 
-static inline void _enter ( Manager *manager, struct ManagerNode *node, Entity *entity )
-{
-    entity->action = MODO_ENTITY_UPDATE;
-    exec ( entity->Awake,        entity );
-    exec ( entity->enter,        entity );
-    exec ( entity->state->enter, entity );
+    update ( manager, node, entity, state );
 }
 
-static inline void _update ( Manager *manager, struct ManagerNode *node, Entity *entity )
-{
-    exec ( entity->Update,        entity );
-    exec ( entity->state->update, entity );
+static inline void update ( Manager *manager, listptrNode *node, Entity *entity, State *state ) {
+    EXECUTE ( entity->Update, entity );
+    EXECUTE ( state->update, entity );
 }
 
-static inline void _state ( Manager *manager, struct ManagerNode *node, Entity *entity )
-{
-    entity->action = MODO_ENTITY_UPDATE;
-    exec ( entity->enter,         entity );
-    exec ( entity->state->enter,  entity );
-    exec ( entity->Update,        entity );
-    exec ( entity->state->update, entity );
-}
-
-static inline void _delete ( Manager *manager, struct ManagerNode *node, Entity *entity )
-{
-    exec ( entity->state->exit, entity );
-    exec ( entity->exit,        entity );
-    exec ( entity->Delete,      entity );
-
-    if ( !manager->length )
-    {
-        return;
-    }
-
-    if ( node->prev )
-    {
-        node->prev->next = node->next;
-    }
-    else
-    {
-        manager->entities = node->next;
-    }
-
-    if ( node->next )
-    {
-        node->next->prev = node->prev;
-    }
-
-    --manager->length;
-    free ( node );
+static inline void delete ( Manager *manager, listptrNode *node, Entity *entity, State *state ) {
+    EXECUTE ( state->exit, entity );
+    EXECUTE ( entity->Delete, entity );
+    
+    //entityEnd ( entity );
+    listptr_remove ( manager, node );
 }

@@ -1,48 +1,48 @@
 #include <genesis.h>
 #include "entity.h"
 
-#define exec(FUNCTION,ENTITY) ({ FUNCTION ? FUNCTION ( ENTITY ) : NULL; })
-// #define exec(FUNCTION,ENTITY) ({ FUNCTION ( ENTITY ); })
+// #define exec(FUNCTION,ENTITY) ({ FUNCTION ? FUNCTION ( ENTITY ) : NULL; })
+// // #define exec(FUNCTION,ENTITY) ({ FUNCTION ( ENTITY ); })
 
 
-static int const Entity_s = sizeof ( Entity  );
+static int const Entity_s = sizeof ( Entity );
 
 
-Entity *modoEntity ( Entity const *tpl )
+Entity *entity ( Entity const *template )
 {   
     Entity *entity;    
-    int const Comps_s = tpl->compsSize;
+    int const Comps_s = template->compsSize;
 
-    entity             = malloc ( Entity_s );
-    entity->components = malloc ( Comps_s  );
+    entity = malloc ( Entity_s );
+    memcpy ( entity, template, Entity_s );
 
-    memcpy ( entity,             tpl,             Entity_s );
-    memcpy ( entity->components, tpl->components, Comps_s  );
+    entity->components = malloc ( Comps_s );
+    memcpy ( entity->components, template->components, Comps_s  );
 
-    entity->action = MODO_ENTITY_INIT;
+    entity->action = ENTITY_INIT;
 
     return entity;
 }
 
 
-void modoEntityDelete ( Entity *entity )
+void entityDelete ( Entity *entity )
 {
-    entity->action = MODO_ENTITY_DELETE;
+    entity->action = ENTITY_DELETE;
 }
 
 
-void modoEntityState ( Entity *entity, State const *state )
+void entityState ( Entity *entity, State const *nextState )
 {
-    exec ( entity->state->exit, entity );
-    exec ( entity->exit,        entity );
-
-    if ( entity->state->data )
-    {
-        free ( entity->state->data );
-        entity->state->data = NULL;
-    }
-
-    entity->state = (State*) state;
-    entity->action = MODO_ENTITY_NEWSTATE;
+    entity->action = ENTITY_CHANGE;
+    entity->nextState = (State*) nextState;
 }
 
+
+void entityEnd ( Entity *entity )
+{
+    free(entity->components);
+    entity->components = NULL;
+
+    free(entity);
+    entity = NULL;
+}

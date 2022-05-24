@@ -1,16 +1,16 @@
-#pragma once
+// #pragma once
 
-#include "inc/components.h"
-
-
-#define COMPONENTS(entity)                      \
-    Components     *comps = entity->components; \
-    ComponentInput *ci    = &comps->input;      \
-    Joyreader      *joy   = &ci->joy;
+// #include "inc/components.h"
 
 
-typedef struct
-{
-    ComponentInput input;
-}
-Components;
+// #define COMPONENTS(entity)                      \
+//     Components     *comps = entity->components; \
+//     ComponentInput *ci    = &comps->input;      \
+//     Joyreader      *joy   = &ci->joy;
+
+
+// typedef struct
+// {
+//     ComponentInput input;
+// }
+// Components;

@@ -1,33 +1,33 @@
-#include <genesis.h>
+// #include <genesis.h>
 
-#include "inc/modo.h"
-#include "inc/systems.h"
-#include "inc/entities.h"
-#include "inc/managers.h"
-#include "inc/states.h"
-#include "../components.h"
-
-
-
-static void enter ( Entity *entity )
-{
-    COMPONENTS(entity);
-
-    ci->handler = NULL;
-    SPR_setAnim ( sp->sprite, 3 );
-}
+// #include "inc/modo.h"
+// #include "inc/systems.h"
+// #include "inc/entities.h"
+// #include "inc/managers.h"
+// #include "inc/states.h"
+// #include "../components.h"
 
 
-static void update ( Entity *entity )
-{
-    //
-}
+
+// static void enter ( Entity *entity )
+// {
+//     COMPONENTS(entity);
+
+//     ci->handler = NULL;
+//     SPR_setAnim ( sp->sprite, 3 );
+// }
 
 
-static void exit ( Entity *entity )
-{
-    //
-}
+// static void update ( Entity *entity )
+// {
+//     //
+// }
 
 
-State const Player_dieState = { enter, update, exit };
+// static void exit ( Entity *entity )
+// {
+//     //
+// }
+
+
+// State const Player_dieState = { enter, update, exit };

@@ -1,33 +1,35 @@
 #pragma once
 
+#include <genesis.h>
 
-enum
+typedef enum
 {
-    MODO_ENTITY_INIT, 
-    MODO_ENTITY_UPDATE,
-    MODO_ENTITY_NEWSTATE,
-    MODO_ENTITY_DELETE
-};
+    ENTITY_INIT, 
+    ENTITY_CHANGE, 
+    ENTITY_UPDATE,
+    ENTITY_DELETE,
+}
+EntityAction;
 
 
 typedef struct Entity
 {
     struct State *state;
+    struct State *nextState;
     
     void* components;
     int compsSize;
-    int action;
+    EntityAction action;
     
     struct EntityExecInterface *exec;
 
     void ( *Awake  ) ( struct Entity * );
     void ( *Update ) ( struct Entity * );
     void ( *Delete ) ( struct Entity * );
-    void ( *enter  ) ( struct Entity * ); // state
-    void ( *exit   ) ( struct Entity * ); // state
+
+    void *whatever;
 }
 Entity;
-
 
 typedef struct EntityExecInterface
 {
@@ -41,47 +43,47 @@ typedef struct State
     void ( *enter  ) ( Entity * );
     void ( *update ) ( Entity * );
     void ( *exit   ) ( Entity * );
-    void *data;
 }
 State;
 
-Entity* modoEntity           ( Entity const * );
-void    modoEntityState      ( Entity *, State const * );
-void    modoEntityDelete     ( Entity * );
 
-
-#define modoEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
-
-
-
-#define modoDefineState(STATE,ENTER,UPDATE,EXIT)                              \
-    static void STATE##_enter  ( Entity *entity ) ENTER                       \
-    static void STATE##_update ( Entity *entity ) UPDATE                      \
-    static void STATE##_exit   ( Entity *entity ) EXIT                        \
-    State const STATE = {                                                     \
-        .enter  = STATE##_enter,                                              \
-        .update = STATE##_update,                                             \
-        .exit   = STATE##_exit,                                               \
-        .data   = NULL                                                        \
-    };
+Entity *entity       ( Entity const * );
+void    entityDelete ( Entity * );
+void    entityState  ( Entity *, State const * );
+void    entityEnd    ( Entity * );
 
 
 
-#define modoDefineEntity(TPL,STATE,COMPS,AWAKE,UPDATE,DELETE,ENTER,EXIT)      \
-    static void TPL##_Awake  ( Entity *entity ) AWAKE                         \
-    static void TPL##_Update ( Entity *entity ) UPDATE                        \
-    static void TPL##_Delete ( Entity *entity ) DELETE                        \
-    static void TPL##_enter  ( Entity *entity ) ENTER                         \
-    static void TPL##_exit   ( Entity *entity ) EXIT                          \
-    Entity const TPL = {                                                      \
-        .state      = (State*) &STATE,                                        \
-        .components = &(Components) COMPS,                                    \
-        .compsSize  = sizeof(Components),                                     \
-        .action     = 0,                                                      \
-        .exec       = NULL,                                                   \
-        .Awake      = TPL##_Awake,                                            \
-        .Update     = TPL##_Update,                                           \
-        .Delete     = TPL##_Delete,                                           \
-        .enter      = TPL##_enter,                                            \
-        .exit       = TPL##_exit,                                             \
-    };
+
+// #define modoEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
+
+
+
+// #define DEFINE_STATE(STATE,ENTER,UPDATE,EXIT)                                 \
+//     static void STATE##_enter  ( Entity *entity ) ENTER                       \
+//     static void STATE##_update ( Entity *entity ) UPDATE                      \
+//     static void STATE##_exit   ( Entity *entity ) EXIT                        \
+//     State const STATE = {                                                     \
+//         .enter  = STATE##_enter,                                              \
+//         .update = STATE##_update,                                             \
+//         .exit   = STATE##_exit,                                               \
+//     };
+
+
+
+// #define DEFINE_ENTITY(TPL,STATE,COMPS,AWAKE,UPDATE,DELETE)                    \
+//     static void TPL##_Awake  ( Entity *entity ) AWAKE                         \
+//     static void TPL##_Update ( Entity *entity ) UPDATE                        \
+//     static void TPL##_Delete ( Entity *entity ) DELETE                        \
+//     Entity const TPL = {                                                      \
+//         .state      = (State*) &STATE,                                        \
+//         .nextState  = NULL                                                    \
+//         .components = &(Components) COMPS,                                    \
+//         .compsSize  = sizeof(Components),                                     \
+//         .action     = ENTITY_INIT,                                            \
+//         .exec       = NULL,                                                   \
+//         .Awake      = TPL##_Awake,                                            \
+//         .Update     = TPL##_Update,                                           \
+//         .Delete     = TPL##_Delete,                                           \
+//         .whatever   = NULL,                                                   \
+//     };

@@ -1,26 +1,14 @@
 #pragma once
 
-//#include "libs/listptr.h"
 #include "entity.h"
+#include "libs/listptr.h"
 
+typedef listptr Manager;
 
+Manager *manager       ( );
+Entity  *managerAdd    ( Manager*, Entity const* );
+void     managerUpdate ( Manager* );
+void     managerEnd    ( Manager* );
 
-
-struct ManagerNode
-{
-	void *data;
-	struct ManagerNode *next, *prev;
-};
-
-typedef struct Manager
-{
-    int length;
-	struct ManagerNode *entities;
-}
-Manager;
-
-
-Manager *modoManager        ( );
-void     modoManagerUpdate  ( Manager* );
-void     modoManagerDelete  ( Manager* );
-void     modoManagerAdd     ( Manager*, Entity* );
+// #define managerForeach(M,E) \
+//     for ( listptrNode *n = M->head, E = n->data;  n;  n = n->next, E = n->data )

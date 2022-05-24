@@ -5,7 +5,7 @@
 
 typedef struct
 {
-    bool is_trigger; // If enabled, this Collider is used for triggering events, and is ignored by the physics engine
+    int is_trigger; // If enabled, this Collider is used for triggering events, and is ignored by the physics engine
 
     struct
     {
