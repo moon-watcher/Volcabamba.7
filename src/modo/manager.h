@@ -3,24 +3,17 @@
 #include "entity.h"
 
 
-typedef struct ManagerNode
-{
-	Entity             *entity;
-	struct ManagerNode *next;
-}
-ManagerNode;
-
 typedef struct
 {
-	ManagerNode *entities;
-	ManagerNode *prevNode;
+	Entity *entities;
+	Entity *prevEntity;
 }
 Manager;
 
 
-#define managerForeach( MANAGER, NODE ) \
-    MANAGER->prevNode = NULL; \
-    for ( ManagerNode *NODE = MANAGER->entities; NODE; NODE = NODE->next )
+#define managerForeach( M, E ) \
+    M->prevEntity = NULL; \
+    for ( Entity *E = M->entities; E; E = E->next )
 
 
 

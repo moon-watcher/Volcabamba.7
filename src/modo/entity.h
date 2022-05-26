@@ -28,6 +28,8 @@ typedef struct Entity
     void ( *Delete ) ( struct Entity * );
 
     void *whatever;
+    
+    struct Entity *next;
 }
 Entity;
 

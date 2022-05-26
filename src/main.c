@@ -15,14 +15,11 @@ void showManager ( Manager *manager, int x ) {
     
     int y = 0;
 
-    ManagerNode *node = manager->entities;
+    //Entity *entity = manager->entities;
 
-    while ( node ) {
-        Entity *entity = node->entity;
+    managerForeach ( manager, entity ) {
 
         drawInt ( getIntFromEntity(entity), x, y++, 4 );
-        
-        node = node->next;
     }
 
     //drawInt ( manager->length, x, y++, 2 );
@@ -55,17 +52,10 @@ void mainManager()
     setIntFromEntity ( e4, 4444 );
     showManager ( m1, 0 );
 
-    entityDelete(e4);
-    showManager ( m1, 5 );
-
-    entityDelete(e3);
-    showManager(m1, 10 );
-
-    entityDelete(e1);
-    showManager(m1, 15 );
-
-    entityDelete(e2);
-    showManager(m1, 20 );
+    entityDelete(e3); showManager(m1,  5 );
+    entityDelete(e4); showManager(m1, 10 );
+    entityDelete(e2); showManager(m1, 15 );
+    entityDelete(e1); showManager(m1, 20 );
 
 
 
