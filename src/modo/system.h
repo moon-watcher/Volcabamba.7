@@ -1,11 +1,11 @@
 #pragma once
 
 
-typedef void (*modoSystemUpdateFn) (void*,int);
+typedef void (*systemFn) (void*,int);
 
 typedef struct System
 {
-    modoSystemUpdateFn update;
+    systemFn update;
     void **list;
     unsigned max;
     unsigned length;
@@ -14,10 +14,10 @@ typedef struct System
 System;
 
 
-System* modoSystem       ( modoSystemUpdateFn, unsigned, char* );
-void    modoSystemUpdate ( System* );
-void    modoSystemDelete ( System* );
+System* system       ( systemFn, unsigned, char* );
+void    systemUpdate ( System* );
+void    systemDelete ( System* );
 
 
-#define modoSystemAdd(S,V) \
+#define systemAdd(S,V) \
     S->list [ S->length++ ] = V
