@@ -12,27 +12,32 @@
 void showManager ( Manager *manager, int x ) {
     managerUpdate(manager);
     
+    
     int y = 0;
 
-    listptr_foreach( manager, node )
-    { 
-        Entity *entity = node->data;
+    ManagerNode *node = manager->entities;
+
+    while ( node ) {
+        Entity *entity = node->entity;
+
         drawInt ( getIntFromEntity(entity), x, y++, 4 );
+        
+        node = node->next;
     }
 
-    drawInt ( manager->length, x, y++, 2 );
+    //drawInt ( manager->length, x, y++, 2 );
 }
 
 
 void mainManager()
 {
     Manager *m1 = manager();
-    listptr_init(m1, NULL );
+    
+    drawUInt( MEM_getFree(), 0,21, 8); 
 
     Entity *e1, *e2, *e3, *e4; 
     int y = 0;
 
-    drawUInt( MEM_getFree(), 0,21, 8); 
     
     
 
@@ -53,13 +58,13 @@ void mainManager()
     entityDelete(e4);
     showManager ( m1, 5 );
 
-    entityDelete(e2);
+    entityDelete(e3);
     showManager(m1, 10 );
 
-    entityDelete(e3);
+    entityDelete(e1);
     showManager(m1, 15 );
 
-    entityDelete(e1);
+    entityDelete(e2);
     showManager(m1, 20 );
 
 
@@ -71,7 +76,7 @@ void mainManager()
 
     // entityDelete(e2);
 
-    // managerEnd( m1 );
+    managerEnd( m1 );
     drawUInt( MEM_getFree(), 0,22, 8);
 
 

@@ -2,23 +2,23 @@
 #include "manager.h"
 
 
-static int const Entity_s  = sizeof ( Entity  );
-static int const Manager_s = sizeof ( Manager );
+static int const Manager_s     = sizeof ( Manager     );
+static int const ManagerNode_s = sizeof ( ManagerNode );
 
+static inline void init   ( Manager*, ManagerNode*, Entity*, State* );
+static inline void change ( Manager*, ManagerNode*, Entity*, State* );
+static inline void update ( Manager*, ManagerNode*, Entity*, State* );
+static inline void delete ( Manager*, ManagerNode*, Entity*, State* );
 
-static inline void init   ( Manager*, listptrNode*, Entity*, State* );
-static inline void change ( Manager*, listptrNode*, Entity*, State* );
-static inline void update ( Manager*, listptrNode*, Entity*, State* );
-static inline void delete ( Manager*, listptrNode*, Entity*, State* );
-
-static void ( *actionsArray [ ] ) ( Manager*, listptrNode*, Entity*, State* ) = { init, change, update, delete };
+static void ( *actionsArray [ ] ) ( Manager*, ManagerNode*, Entity*, State* ) = { init, change, update, delete };
 
 
 
 Manager *manager ( )
 {
     Manager *manager = malloc ( Manager_s );
-    listptr_init ( manager, NULL );
+    manager->entities = ((void*)0);
+    manager->prevNode = ((void*)0);
 
     return manager;
 }
@@ -26,35 +26,32 @@ Manager *manager ( )
 
 Entity *managerAdd ( Manager *manager, Entity const *template )
 {
-    Entity *e = malloc ( Entity_s );
-    listptrNode *node = listptr_add ( manager, e );
-    node->data = entity ( template );
+    ManagerNode *node = malloc ( ManagerNode_s );
 
-	return (Entity*) node->data;
+	node->entity = entity ( template );
+	node->next   = manager->entities;
+         
+    manager->entities = node;
+
+	return node->entity;
 }
 
-int y2 = 0;
+
 void managerUpdate ( Manager *manager )
 {
-    y2++;
-    int y = 0;
-    listptr_foreach ( manager, node ) {
-        Entity *entity = node->data;
+    managerForeach ( manager, node ) {
+        Entity *entity = node->entity;
         State  *state  = entity->state;
 
         actionsArray [ entity->action ] ( manager, node, entity, state );
-        ++y;
     }
-    drawInt(y, 34, y2, 3);
 }
-
 
 
 void managerEnd ( Manager *manager )
 {
-    listptr_foreach ( manager, node ) {
-        entityDelete ( node->data );
-    }
+    managerForeach ( manager, node )
+        entityDelete ( node->entity );
 
     managerUpdate ( manager );
 
@@ -63,37 +60,48 @@ void managerEnd ( Manager *manager )
 }
 
 
+#define X(F,E) if(F) F(E)
 
-
-#define EXECUTE(F,E) if(F) F(E)
-
-static inline void init ( Manager *manager, listptrNode *node, Entity *entity, State *state ) {
-    EXECUTE ( entity->Awake, entity );
-    EXECUTE ( state->enter, entity );
+static inline void init ( Manager *manager, ManagerNode *node, Entity *entity, State *state ) {
+    X ( entity->Awake, entity );
+    X ( state->enter, entity );
 
     update ( manager, node, entity, state );
 }
 
-static inline void change ( Manager *manager, listptrNode *node, Entity *entity, State *state ) {
-    EXECUTE ( state->exit, entity );
+static inline void change ( Manager *manager, ManagerNode *node, Entity *entity, State *state ) {
+    X ( state->exit, entity );
 
     state = entity->nextState;
     entity->nextState = NULL;
 
-    EXECUTE ( state->enter, entity );
+    X ( state->enter, entity );
 
     update ( manager, node, entity, state );
 }
 
-static inline void update ( Manager *manager, listptrNode *node, Entity *entity, State *state ) {
-    EXECUTE ( entity->Update, entity );
-    EXECUTE ( state->update, entity );
+static inline void update ( Manager *manager, ManagerNode *node, Entity *entity, State *state ) {
+    X ( entity->Update, entity );
+    X ( state->update, entity );
+
+    manager->prevNode = node;
 }
 
-static inline void delete ( Manager *manager, listptrNode *node, Entity *entity, State *state ) {
-    EXECUTE ( state->exit, entity );
-    EXECUTE ( entity->Delete, entity );
+static inline void delete ( Manager *manager, ManagerNode *node, Entity *entity, State *state ) {
+    X ( state->exit, entity );
+    X ( entity->Delete, entity );
     
-    //entityEnd ( entity );
-    listptr_remove ( manager, node );
+    entityEnd ( entity );
+    
+    if ( manager->entities == node ) {
+        manager->entities = node->next;
+        manager->prevNode = NULL; 
+    }
+    else
+    {
+        manager->prevNode->next = node->next;
+        manager->prevNode = node;
+    }
+
+    free ( node );
 }
