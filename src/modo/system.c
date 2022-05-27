@@ -42,7 +42,7 @@ void systemUpdate ( System *system )
 }
 
 
-void systemDelete ( System *system )
+void systemEnd ( System *system )
 {
     free ( system->list );
     system->list = NULL;

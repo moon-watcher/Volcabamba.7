@@ -11,13 +11,11 @@ typedef struct
 Manager;
 
 
-#define managerForeach( M, E ) \
-    M->prevEntity = NULL; \
-    for ( Entity *E = M->entities; E; E = E->next )
-
-
-
 Manager *manager       ( );
 Entity  *managerAdd    ( Manager*, Entity const* );
 void     managerUpdate ( Manager* );
 void     managerEnd    ( Manager* );
+
+#define managerForeach( M, E ) \
+    M->prevEntity = NULL; \
+    for ( Entity *E = M->entities; E; E = E->next )

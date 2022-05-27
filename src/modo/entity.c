@@ -19,7 +19,7 @@ Entity *entity ( Entity const *template )
     entity->components = malloc ( Comps_s );
     memcpy ( entity->components, template->components, Comps_s  );
 
-    entity->action = ENTITY_INIT;
+    entity->action = ENTITY_ACTION_INIT;
     entity->next   = NULL;
 
     return entity;
@@ -28,14 +28,14 @@ Entity *entity ( Entity const *template )
 
 void entityDelete ( Entity *entity )
 {
-    entity->action = ENTITY_DELETE;
+    entity->action = ENTITY_ACTION_DELETE;
 }
 
 
 void entityState ( Entity *entity, State const *nextState )
 {
-    entity->action = ENTITY_CHANGE;
-    entity->nextState = (State*) nextState;
+    entity->action = ENTITY_ACTION_CHANGE;
+    entity->state->next = (State*) nextState;
 }
 
 

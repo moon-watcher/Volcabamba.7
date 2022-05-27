@@ -16,8 +16,7 @@ System;
 
 System* system       ( systemFn, unsigned, char* );
 void    systemUpdate ( System* );
-void    systemDelete ( System* );
-
+void    systemEnd    ( System* );
 
 #define systemAdd(S,V) \
     S->list [ S->length++ ] = V

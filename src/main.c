@@ -28,17 +28,14 @@ void showManager ( Manager *manager, int x ) {
 
 void mainManager()
 {
+    drawUInt( MEM_getFree(), 0,21, 8);
+
+
     Manager *m1 = manager();
     
-    drawUInt( MEM_getFree(), 0,21, 8); 
-
     Entity *e1, *e2, *e3, *e4; 
     int y = 0;
 
-    
-    
-
-    
     e1 = managerAdd ( m1, &enemy5_Entity_tpl );
     e2 = managerAdd ( m1, &enemy5_Entity_tpl );
     e3 = managerAdd ( m1, &enemy5_Entity_tpl );
@@ -52,10 +49,10 @@ void mainManager()
     setIntFromEntity ( e4, 4444 );
     showManager ( m1, 0 );
 
-    entityDelete(e3); showManager(m1,  5 );
-    entityDelete(e4); showManager(m1, 10 );
-    entityDelete(e2); showManager(m1, 15 );
-    entityDelete(e1); showManager(m1, 20 );
+    entityDelete(e4); showManager(m1,  5 );
+    entityDelete(e2); showManager(m1, 10 );
+    entityDelete(e1); showManager(m1, 15 );
+    entityDelete(e3); showManager(m1, 20 );
 
 
 

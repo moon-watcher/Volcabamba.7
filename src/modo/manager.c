@@ -2,55 +2,16 @@
 #include "manager.h"
 
 
-
 #define X(F,E) if(F) F(E)
 
-static inline void update ( Manager *manager, Entity *entity, State *state ) {
-    X ( entity->Update, entity );
-    X ( state->update, entity );
-
-    manager->prevEntity = entity;
-}
-
-static inline void init ( Manager *manager, Entity *entity, State *state ) {
-    X ( entity->Awake, entity );
-    X ( state->enter, entity );
-
-    update ( manager, entity, state );
-}
-
-static inline void change ( Manager *manager, Entity *entity, State *state ) {
-    X ( state->exit, entity );
-
-    state = entity->nextState;
-    entity->nextState = NULL;
-
-    X ( state->enter, entity );
-
-    update ( manager, entity, state );
-}
-
-static inline void delete ( Manager *manager, Entity *entity, State *state ) {
-    X ( state->exit, entity );
-    X ( entity->Delete, entity );
-    
-    if ( manager->entities == entity ) {
-        manager->entities = entity->next;
-        manager->prevEntity = NULL; 
-    }
-    else
-    {
-        manager->prevEntity->next = entity->next;
-        manager->prevEntity = entity;
-    }
-
-    entityEnd ( entity );
-}
+static inline void init   ( Manager*, Entity* );
+static inline void change ( Manager*, Entity* );
+static inline void update ( Manager*, Entity* );
+static inline void delete ( Manager*, Entity* );
 
 
-static void ( *actionsArray [ ] ) ( Manager*, Entity*, State* ) = { init, change, update, delete };
+static void ( *actionsArray [ ] ) ( Manager*, Entity* ) = { init, change, update, delete };
 static int const Manager_s = sizeof ( Manager );
-
 
 
 Manager *manager ( )
@@ -77,11 +38,8 @@ Entity *managerAdd ( Manager *manager, Entity const *template )
 
 void managerUpdate ( Manager *manager )
 {
-    managerForeach ( manager, entity ) {
-        State *state = entity->state;
-
-        actionsArray [ entity->action ] ( manager, entity, state );
-    }
+    managerForeach ( manager, entity )
+        actionsArray [ entity->action ] ( manager, entity );
 }
 
 
@@ -94,4 +52,51 @@ void managerEnd ( Manager *manager )
 
     free ( manager );
     manager = NULL;
+}
+
+
+
+
+static inline void init ( Manager *manager, Entity *entity ) {
+    X ( entity->Awake, entity );
+    X ( entity->state->enter, entity );
+
+    update ( manager, entity );
+}
+
+static inline void change ( Manager *manager, Entity *entity ) {
+    State *state = entity->state;
+    
+    X ( state->exit, entity );
+
+    state = state->next;
+    state->next = NULL;
+
+    X ( state->enter, entity );
+
+    update ( manager, entity );
+}
+
+static inline void update ( Manager *manager, Entity *entity ) {
+    X ( entity->Update, entity );
+    X ( entity->state->update, entity );
+
+    manager->prevEntity = entity;
+}
+
+static inline void delete ( Manager *manager, Entity *entity ) {
+    X ( entity->state->exit, entity );
+    X ( entity->Delete, entity );
+    
+    if ( manager->entities == entity ) {
+        manager->entities = entity->next;
+        manager->prevEntity = NULL; 
+    }
+    else
+    {
+        manager->prevEntity->next = entity->next;
+        manager->prevEntity = entity;
+    }
+
+    entityEnd ( entity );
 }
