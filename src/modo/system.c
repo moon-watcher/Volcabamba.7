@@ -2,9 +2,11 @@
 #include "system.h"
 
 
+static int const System_s = sizeof ( System );
+
 System *system ( systemFn update, unsigned max, char *name )
 {
-    System *system = malloc ( sizeof ( System  ) );
+    System *system = malloc ( System_s );
 
     system->update = update;
     system->list = malloc ( sizeof(void*) * max );
@@ -30,9 +32,8 @@ void systemUpdate ( System *system )
 
         VDP_resetScreen();
         drawText ( "SYSTEM:", 0, 0 ); drawText ( system->name,   8, 0 );
-        drawText ( "MAX:",    0, 1 ); drawUInt ( system->max,    8, 1, 5 );
-        drawText ( "LENGTH:", 0, 2 ); drawUInt ( system->length, 8, 2, 5 );
-        waitMs(10000);
+        drawText ( "MAX:",    0, 1 ); drawUInt ( system->max,    8, 1, 9 );
+        drawText ( "LENGTH:", 0, 2 ); drawUInt ( system->length, 8, 2, 9 );
         
         return;
     }

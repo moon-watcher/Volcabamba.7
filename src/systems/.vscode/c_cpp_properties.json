@@ -3,7 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "D:/MDDev/Works/Volcabamba.7/game/src"
             ],
             "defines": [
                 "_DEBUG",

@@ -10,17 +10,15 @@
 
 typedef struct
 {
-    fix32      mass; // peso
-    fix32      drag; // resistencia al aire
-    bool       gravity;
-
-    //ComponentBoxCollider collider;
+    fix32 mass;    // peso
+    fix32 drag;    // resistencia al aire
+    bool  gravity; // si/no
 
     ComponentVelocity velocity;
     ComponentPosition position;
+    // ComponentBoxCollider collider;
 
-
-//    void  (*Sleep) (void*);
-//    void  (*WakeUp)(void*);
+    // void  (*Sleep) (void*);
+    // void  (*WakeUp)(void*);
 }
 ComponentRigidbody;

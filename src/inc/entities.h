@@ -7,3 +7,4 @@ Entity const entityPlayer2_tpl;
 Entity const entityPlayerBullet1_tpl;
 Entity const screen_Entity_tpl;
 Entity const enemy5_Entity_tpl;
+Entity const player_Entity_tpl;

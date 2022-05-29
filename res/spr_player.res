@@ -1,0 +1,1 @@
+SPRITE res_sprite_player "../data/spr/player.png" 4 4 0 4 

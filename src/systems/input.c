@@ -20,9 +20,3 @@ void system_input ( void *array[], int length )
         }
     }
 }
-
-
-void system_input_init ( ComponentInput *ci, int port )
-{
-    joyreader_init ( &ci->joy, port );
-}

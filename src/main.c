@@ -98,6 +98,36 @@ void mainManager()
 }
 
 
+
+
+
+
+void ramiro(){
+
+    SPR_init();
+
+    manPlayers = manager();
+
+    sysSprite = system ( &system_sprite, 160, "system sprite" );
+    sysInput = system ( &system_input, 5, "system input" );
+
+    managerAdd ( manPlayers, &player_Entity_tpl);
+
+
+    while(1){
+
+        managerUpdate ( manPlayers );
+
+        systemUpdate( sysSprite );
+        systemUpdate( sysInput );
+
+        SPR_update();
+        SYS_doVBlankProcess();
+        JOY_update();
+    }
+}
+
+
 void main()
 {
 //     listptr l;
@@ -141,7 +171,9 @@ void main()
     // y++;
 
     
-    mainManager();
+    // mainManager();
+
+    ramiro();
 
 }
 

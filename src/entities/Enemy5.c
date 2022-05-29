@@ -6,6 +6,7 @@
 // #include "inc/managers.h"
 #include "inc/components.h"
 
+static void null ( ) { };
 
 #define COMPONENTS(entity)                      \
     Components     *comps = entity->components; \
@@ -64,12 +65,13 @@ void setIntFromEntity ( Entity *entity, int v )
 
 State const enemy5_stand_State_tpl =
 {
-    .enter = enemy5_stand_State_enter,
+    enemy5_stand_State_enter, null, null
 };
 
 Entity const enemy5_Entity_tpl =
 {
-
+    .Awake = null,
+    .Delete = null,
     .Update = enemy5_Entity_update,
     .state = (State*) &enemy5_stand_State_tpl,
     .compsSize = sizeof(Components),

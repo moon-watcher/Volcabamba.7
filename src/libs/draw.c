@@ -40,3 +40,9 @@ void drawMem ( u8 x, u8 y )
 {
     drawUInt ( MEM_getAllocated(), x, y, 5 );
 }
+
+
+
+void Text ( const char *str, u16 x, u16 y ) { drawText ( str, x, y );       }
+void Int  ( u32 nb, u8 x, u8 y, u8 zeros )  { drawInt  ( nb, x, y, zeros ); }
+void UInt ( u32 nb, u8 x, u8 y, u8 zeros )  { drawUInt ( nb, x, y, zeros ); }

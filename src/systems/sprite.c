@@ -15,9 +15,9 @@ void system_sprite ( void *array[], int length )
 }
 
 
-void system_sprite_init ( ComponentSprite *sp, ComponentPosition *cp )
-{
-    sp->sprite = SPR_addSprite ( sp->sd, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y), sp->attr );
-    VDP_setPalette ( sp->attr >> 14,  sp->sprite->definition->palette->data );
-}
+// void system_sprite_init ( ComponentSprite *sp, ComponentPosition *cp )
+// {
+//     sp->sprite = SPR_addSprite ( sp->sd, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y), sp->attr );
+//     VDP_setPalette ( sp->attr >> 14,  sp->sprite->definition->palette->data );
+// }
     
