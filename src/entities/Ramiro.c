@@ -25,23 +25,26 @@ Components;
 
 // stay
 static void state0_enter  ( Entity* );
-static void state0_update ( Entity* );
-static void state0_exit   ( Entity* );
 
 // walk
 static void state1_enter  ( Entity* );
 static void state1_update ( Entity* );
-// static void state1_exit   ( Entity* );
+//
 
 // jump
 static void state2_enter  ( Entity* );
 static void state2_update ( Entity* );
-// static void state2_exit   ( Entity* );
+
+// dorp
+static void state3_enter  ( Entity* );
+static void state3_update ( Entity* );
+
 
 State const player_State_tpl [ ] = {
-    { state0_enter, state0_update, state0_exit, }, // stand
-    { state1_enter, state1_update,              }, // walk
-    { state2_enter, state2_update,              }, // jump
+    { state0_enter, }, // stand
+    { state1_enter, state1_update  }, // walk
+    { state2_enter, state2_update, }, // jump
+    { state3_enter, state3_update, }, // drop
 };
 
 
@@ -105,13 +108,7 @@ static void state0_enter ( Entity *e ) {
     ci->handler = state0_inputHandler;
 }
 
-static void state0_update ( Entity *e ) {
-    COMPS(e);
-}
 
-static void state0_exit ( Entity *e ) {
-    COMPS(e);
-}
 
 
 
@@ -125,15 +122,7 @@ static void state1_inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
     // stay
     if ( joy_released_horizontal ( j ) ) {
         entityState ( e, &player_State_tpl[0] );
-        return;
-    }
-
-    if ( joy_active_left(j) )  {
-        SPR_setHFlip(sp->sprite,1);
-    }
-    else if ( joy_active_right(j) ) 
-    {
-        SPR_setHFlip(sp->sprite,0);
+        //return;
     }
 }
 
@@ -146,6 +135,13 @@ static void state1_enter ( Entity *e ) {
 
 static void state1_update ( Entity *e ) {
     COMPS(e);
+
+    if ( joy_active_left(joy) ) {
+        SPR_setHFlip(sp->sprite,1);
+    }
+    else if ( joy_active_right(joy) ) {
+        SPR_setHFlip(sp->sprite,0);
+    }
 }
 
 
@@ -153,28 +149,14 @@ static void state1_update ( Entity *e ) {
 // jump //////////////////
 static void state2_inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 {
-//     Entity *e = ptr1;
-
-//     COMPS(e);
-
-//     if ( joy_released_horizontal ( j ) ) {
-//         entityState ( e, &player_State_tpl[0] );
-//         return;
-//     }
-
-//     if ( joy_active_left(j) )  {
-//         SPR_setHFlip(sp->sprite,1);
-//     }
-//     else if ( joy_active_right(j) ) 
-//     {
-//         SPR_setHFlip(sp->sprite,0);
-//     }
+    //
 }
-int counter1=100;
+int counter1;
 
 static void state2_enter ( Entity *e ) {
     COMPS(e);
 
+    counter1 = 40;
     SPR_setAnim ( sp->sprite, 2 );
     ci->handler = state2_inputHandler;
 }
@@ -182,12 +164,44 @@ static void state2_enter ( Entity *e ) {
 static void state2_update ( Entity *e ) {
     COMPS(e);
 
-Text("1àsdfa", 3,3);
     --counter1;
     Int(counter1, 0,0,4);
+
     if ( !counter1 ) 
-        entityState ( e, &player_State_tpl[0] ); // down
+        entityState ( e, &player_State_tpl[3] ); // down
 }
+
+
+
+// drop //////////////////
+static void state3_inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
+{
+    //
+}
+
+int counter2;
+
+static void state3_enter ( Entity *e ) {
+    COMPS(e);
+
+    counter2 = 40;
+    SPR_setAnim ( sp->sprite, 3 );
+    ci->handler = state2_inputHandler;
+}
+
+static void state3_update ( Entity *e ) {
+    COMPS(e);
+
+    --counter2;
+    Int(counter2, 0,1,4);
+
+    if ( !counter2 ) 
+        entityState ( e, &player_State_tpl[0] ); // stay
+}
+
+
+
+
 
 
 

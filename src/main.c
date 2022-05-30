@@ -49,10 +49,10 @@ void mainManager()
     setIntFromEntity ( e4, 4444 );
     showManager ( m1, 0 );
 
-    entityDelete(e4); showManager(m1,  5 );
-    entityDelete(e2); showManager(m1, 10 );
-    entityDelete(e1); showManager(m1, 15 );
-    entityDelete(e3); showManager(m1, 20 );
+    entityDelete(e2); showManager(m1,  5 );
+    entityDelete(e4); showManager(m1, 10 );
+    entityDelete(e3); showManager(m1, 15 );
+    entityDelete(e1); showManager(m1, 20 );
 
 
 
@@ -65,31 +65,6 @@ void mainManager()
 
     managerEnd( m1 );
     drawUInt( MEM_getFree(), 0,22, 8);
-
-
-
-    // drawUInt( MEM_getFree(), 0,y++, 8); 
-    // Manager *m1 = manager();
-    // drawUInt( MEM_getFree(), 0,y++, 8); 
-    // managerUpdate( m1 );
-    // drawUInt( MEM_getFree(), 0,y++, 8); 
-    // managerEnd( m1 );
-    // drawUInt( MEM_getFree(), 0,y++, 8);
-
-
-    // drawUInt( MEM_getFree(), 0,y++, 8);                          managerUpdate ( m1 );
-    // drawUInt( MEM_getFree(), 0,y++, 8); Entity *e1 = managerAdd ( m1, &enemy5_Entity_tpl );
-    // drawUInt( MEM_getFree(), 0,y++, 8); Entity *e2 = managerAdd ( m1, &enemy5_Entity_tpl );
-    // drawUInt( MEM_getFree(), 0,y++, 8); Entity *e3 = managerAdd ( m1, &enemy5_Entity_tpl );
-    // drawUInt( MEM_getFree(), 0,y++, 8);                          managerUpdate ( m1 );
-    // drawUInt( MEM_getFree(), 0,y++, 8); entityDelete ( e1 );  managerUpdate ( m1 );
-    // drawUInt( MEM_getFree(), 0,y++, 8); entityDelete ( e2 );  managerUpdate ( m1 );
-    // drawUInt( MEM_getFree(), 0,y++, 8); entityDelete ( e3 );  managerUpdate ( m1 );
-    // drawUInt( MEM_getFree(), 0,y++, 8);
-    // managerEnd( m1 );
-    // drawUInt( MEM_getFree(), 0,y++, 8);
-
-
 
     while (1)
     {

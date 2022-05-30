@@ -6,8 +6,8 @@
 typedef struct Entity {
     struct State *state;
     void* components;
-    int compsSize;
-    void (*function)();
+    int compsSize:10; // 1kB
+    bool delete:1;
 
     void ( *Awake  ) ( struct Entity * );
     void ( *Update ) ( struct Entity * );
