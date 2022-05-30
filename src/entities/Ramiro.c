@@ -131,17 +131,22 @@ static void state1_enter ( Entity *e ) {
 
     SPR_setAnim ( sp->sprite, 1 );
     ci->handler = state1_inputHandler;
+    
+    if ( joy_active_left(joy) )
+        SPR_setHFlip(sp->sprite,1);
+    else if ( joy_active_right(joy) )
+        SPR_setHFlip(sp->sprite,0);
+
 }
 
 static void state1_update ( Entity *e ) {
     COMPS(e);
 
-    if ( joy_active_left(joy) ) {
-        SPR_setHFlip(sp->sprite,1);
-    }
-    else if ( joy_active_right(joy) ) {
-        SPR_setHFlip(sp->sprite,0);
-    }
+    // if ( joy_active_left(joy) )
+    //     SPR_setHFlip(sp->sprite,1);
+    // else if ( joy_active_right(joy) )
+    //     SPR_setHFlip(sp->sprite,0);
+
 }
 
 

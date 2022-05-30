@@ -75,7 +75,7 @@ inline static void _delete ( Manager *manager, Entity *entity ) {
     }
     else {
         manager->prevEntity->next = entity->next;
-        manager->prevEntity = entity;
+        manager->prevEntity       = entity;
     }
 
     free ( entity->components );
