@@ -32,11 +32,11 @@ void managerUpdate ( Manager *manager ) {
 
 
 void managerEnd ( Manager *manager ) {
-    managerForeach ( manager, entity )
+    managerForeach ( manager, entity ) {
         entityDelete ( entity );
-
-    managerUpdate ( manager );
-
+        entity->function ( manager, entity );
+    }
+    
     free ( manager );
     manager = NULL;
 }

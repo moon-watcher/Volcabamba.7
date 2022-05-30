@@ -3,8 +3,8 @@
 #include "manager.h"
 
 
-static inline void _updateEntity_f      ( Manager *, Entity* );
-static inline void _removeFromManager_f ( Manager *, Entity* );
+static inline void _updateEntity      ( Manager *, Entity* );
+static inline void _removeFromManager ( Manager *, Entity* );
 
 static int const Entity_s = sizeof ( Entity );
 static void nullf ( ) { }
@@ -25,9 +25,16 @@ Entity *entity ( Entity const *template ) {
     if ( !entity->Delete       ) entity->Delete       = nullf;
     if ( !entity->state->enter ) entity->state->enter = nullf;
 
+    State *state = entity->state;
+
+    if ( !state->enter  ) state->enter  = nullf;
+    if ( !state->update ) state->update = nullf;
+    if ( !state->exit   ) state->exit   = nullf;
+
     entity->Awake ( entity );
-    entity->state->enter ( entity );
-    entity->function = _updateEntity_f;
+    state->enter ( entity );
+    entity->function = _updateEntity;
+
     entity->next = NULL;
 
     return entity;
@@ -36,13 +43,14 @@ Entity *entity ( Entity const *template ) {
 
 void entityState ( Entity *entity, State const *newState ) {
     State *state = entity->state;
-    
+
+    state->exit ( entity );
+    state = (State*) newState;
+
     if ( !state->enter  ) state->enter  = nullf;
     if ( !state->update ) state->update = nullf;
     if ( !state->exit   ) state->exit   = nullf;
 
-    state->exit ( entity );
-    state = (State*) newState;
     state->enter ( entity );
 }
 
@@ -50,19 +58,20 @@ void entityState ( Entity *entity, State const *newState ) {
 void entityDelete ( Entity *entity ) {
     entity->state->exit ( entity );
     entity->Delete ( entity );
-    entity->function = _removeFromManager_f;
+    entity->function = _removeFromManager;
 }
 
 
-static inline void _updateEntity_f ( Manager *manager, Entity *entity ) {
+static inline void _updateEntity ( Manager *manager, Entity *entity ) {
     entity->Update ( entity );
+
     entity->state->update ( entity );
 
     manager->prevEntity = entity;    
 }
 
 
-static inline void _removeFromManager_f ( Manager *manager, Entity *entity ) {
+static inline void _removeFromManager ( Manager *manager, Entity *entity ) {
     if ( manager->entities == entity ) {
         manager->entities = entity->next;
         manager->prevEntity = NULL; 
