@@ -1,145 +1,47 @@
-// #include <genesis.h>
-
-// #include "inc/modo.h"
-// #include "inc/systems.h"
-// #include "inc/systems.h"
-// #include "inc/states.h"
-// #include "components.h"
-// #include "../res/sprites.h"
-
-
-// static void Awake ( Entity *entity )
-// {
-//     // Se ejecuta una vez cuando se crea la entidad.
-//     // Aquí se inicializan cosas como:
-//     //
-//     // sprites
-//     // paleta
-//     // musica/sfx
-//     // controles
-//     // ...
-    
-//     COMPONENTS(entity);
-
-//     sp->sd = &res_hero1_sprite;
-//     sp->index = 0;
-    
-//     system_sprite_init ( sp, cp );
-//     system_input_init ( ci, ci->joy.port );
-// }
+#include <genesis.h>
+#include "inc/modo.h"
+#include "components.h"
+#include "inc/systems.h"
+#include "inc/states.h"
+#include "../res/spr_player.h"
+#include "libs/joyreader.h"
 
 
-// static void Update ( Entity *entity )
-// {
-//     COMPONENTS(entity);
+static void awake ( Entity *e ) {
+    COMPS(e);
 
-//     modoSystemAdd ( sysMovement, cp     );
-//     modoSystemAdd ( sysMovement, cv     );
-//     modoSystemAdd ( sysSprite,   sp     );
-//     modoSystemAdd ( sysSprite,   cp     );
-//     modoSystemAdd ( sysInput,    ci     );
-//     modoSystemAdd ( sysInput,    entity );
-// }
+    sp->sprite = SPR_addSprite ( sp->sd, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y), sp->attr );
+    VDP_setPalette ( sp->attr >> 14,  sp->sprite->definition->palette->data );
+
+    joyreader_init ( joy, joy->port );
+}
 
 
-// static void Delete ( Entity *entity )
-// {
-//     // Se destruye todo lo inicializado en el Awake
-// }
+static void update ( Entity *e ) {
+    COMPS(e);
+
+    systemAdd ( sysSprite, sp ); systemAdd ( sysSprite, cp );
+    systemAdd ( sysInput,  ci ); systemAdd ( sysInput,   e );
+}
 
 
-// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+static void delete ( Entity *e ) {
+    COMPS(e);
+
+    SPR_releaseSprite ( sp->sprite );
+}
 
 
-// static void setPosition ( Entity *entity, fix32 x, fix32 y )
-// {
-//     COMPONENTS ( entity );
 
-//     cp->x = x;
-//     cp->y = y;
-// }
-
-
-// // static void setPositionFIX32 ( Entity *entity, fix32 x )
-// // {
-// //     //COMPONENTS ( entity );
-// //     Components         *comps = entity->components;
-// //     ComponentRigidbody *rb    = &comps->rigidbody;
-// //     ComponentPosition  *cp    = &rb->position;
-
-// //     cp->x = x;
-// //     cp->y = FIX32 ( 111 );
-// // }
-
-
-// static int getInt ( )
-// {
-//     return 76;
-// }
-
-
-// static void disableInput ( Entity *entity )
-// {
-//     COMPONENTS ( entity );
-//     // Components     *comps = entity->components;
-//     // ComponentInput *ci= &comps->input;
-
-//     ci->handler = NULL;
-// }
-
-
-// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-// Entity const entityPlayer1_tpl = // ( Entity )
-// {
-//     .Awake = Awake,
-//     .Update = Update,
-//     .Delete = Delete,
-//     .state = (State*) &Player_idleState,
-//     .compsSize = sizeof(Components),
-//     .components = &(Components) {
-//         .rigidbody = { 
-//             .position = { 0, 0 },
-//             .velocity = {
-//                 .x = { 0, 0, 0, 0, 0, NULL },
-//                 .y = { 0, 0, 0, 0, 0, NULL }
-//             }
-//         },
-//         .sprite = { .attr = TILE_ATTR ( PAL3, 1, 0, 0 ) },
-//         .attrs  = { 0b00000000000000000000000000000000 },
-//         .input  = { .joy.port = PORT_1 },
-//     },
-//     .exec = &(EntityExecInterface) {
-//         .setPosition  = setPosition,
-//         .getInt       = getInt,
-//         .disableInput = disableInput,
-//     }
-// };
-
-
-// Entity const entityPlayer2_tpl = // ( Entity )
-// {
-//     .Awake = Awake,
-//     .Update = Update,
-//     .Delete = Delete,
-//     .state = (State*) &Player_idleState,
-//     .compsSize = sizeof(Components),
-//     .components = &(Components) {
-//         .rigidbody = { 
-//             .position = { 0, 0 },
-//             .velocity = {
-//                 .x = { 0, 0, 0, 0, 0, NULL },
-//                 .y = { 0, 0, 0, 0, 0, NULL }
-//             }
-//         },
-//         .sprite = { .attr = TILE_ATTR ( PAL3, 1, 0, 0 ) },
-//         .attrs  = { 0b00000000000000000000000000000000 },
-//         .input  = { .joy.port = PORT_2 },
-//     },
-//     .exec = &(EntityExecInterface) {
-//         .setPosition  = setPosition,
-//         .getInt       = getInt,
-//         .disableInput = disableInput,
-//     }
-// };
+Entity const entity_Player_tpl = {
+    .Awake  = awake,
+    .Update = update,
+    .Delete = delete,
+    .state  = (State*) &entity_Player_state_stay,
+    .compsSize  = sizeof(Components),
+    .components = &(Components) {
+        .sprite   = { &res_sprite_player, 0, TILE_ATTR(PAL3,1,0,0) },
+        .position = { FIX32(123), FIX32(11) },
+        .input    = { .joy.port = PORT_1 },
+    },
+};

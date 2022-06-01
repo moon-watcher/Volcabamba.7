@@ -86,7 +86,7 @@ void ramiro(){
     sysSprite = system ( &system_sprite, 160, "system sprite" );
     sysInput = system ( &system_input, 5, "system input" );
 
-    managerAdd ( manPlayers, &player_Entity_tpl);
+    managerAdd ( manPlayers, &entity_Player_tpl);
 
 
     while(1){
