@@ -29,10 +29,11 @@ Entity *managerAdd ( Manager *manager, Entity const *template ) {
 
 
 void managerUpdate ( Manager *manager ) {
-    managerForeach ( manager, entity ) {
-        void (*exec) ( ) = entity->delete ? _delete : _update;
-        exec ( manager, entity );
-    }        
+    managerForeach ( manager, entity )
+        if ( entity->delete )
+            _delete ( manager, entity );
+        else
+            _update ( manager, entity );
 }
 
 
