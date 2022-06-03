@@ -12,14 +12,6 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
     COMPS(e);
 
-    if ( joy_active_left ( j)){
-        SPR_setHFlip( sp->sprite, 1);
-    }
-
-    if ( joy_active_right ( j)){
-        SPR_setHFlip( sp->sprite, 0);
-    }
-
     if ( joy_active_down(j) && joy_pressed_b(j))
         entityState(e, &entity_Player_state_shotdown);
 }
@@ -28,8 +20,8 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 static void enter ( Entity *e ) {
     COMPS(e);
 
-    counter1 = 70;
-    SPR_setAnim ( sp->sprite, 3 );
+    counter1 = 80;
+    SPR_setAnim ( sp->sprite, 2 );
     ci->handler = inputHandler;
 }
 
@@ -41,7 +33,7 @@ static void update ( Entity *e ) {
     sp->sprite->timer= 200;
     SPR_setFrame(sp->sprite, 0);
     
-    if ( counter1 < 65)
+    if ( counter1 < 75)
         SPR_setFrame(sp->sprite, 1);
 
     Int(counter1, 0,0,4);
@@ -52,4 +44,4 @@ static void update ( Entity *e ) {
 
 
 
-State const entity_Player_state_jump = { enter, update };
+State const entity_Player_state_fall = { enter, update };

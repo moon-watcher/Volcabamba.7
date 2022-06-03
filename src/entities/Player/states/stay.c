@@ -9,16 +9,33 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
     COMPS(e);
 
-    if ( joy_pressed_horizontal ( j ) ) {
+    if ( joy_active_horizontal ( j ) ) {
         entityState ( e, &entity_Player_state_walk );
         return;
     }
 
-    if ( joy_pressed_c(j) ) {
+    if ( joy_pressed_c ( j ) ) {
         entityState ( e, &entity_Player_state_jump );
         return;
     }
+
+    if ( joy_pressed_b ( j ) ) {
+        entityState ( e, &entity_Player_state_shot );
+        return;
+    }
+
+    if ( joy_pressed_a ( j ) ) {
+        entityState ( e, &entity_Player_state_fall );
+        return;
+    }
+
+    if ( joy_pressed_down(j)){
+        entityState(e, &entity_Player_state_duck);
+        return;
+    }
 }
+
+
 
 static void enter ( Entity *e ) {
     COMPS(e);
