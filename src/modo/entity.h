@@ -5,6 +5,7 @@
 
 typedef struct Entity {
     struct State *state;
+    struct State *prevState;
     void* components;
     int compsSize:10; // 1kB
     bool delete:1;
@@ -22,6 +23,7 @@ typedef struct State {
     void ( *enter  ) ( Entity * );
     void ( *update ) ( Entity * );
     void ( *exit   ) ( Entity * );
+    char *name;
 }
 State;
 

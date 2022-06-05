@@ -24,7 +24,9 @@ Entity *entity ( Entity const *template ) {
 
 
 void entityState ( Entity *entity, State const *newState ) {
+    entity->prevState = entity->state;
     X ( entity->state->exit,  entity );
+    
     entity->state = (State*) newState;
     X ( entity->state->enter, entity );
 }

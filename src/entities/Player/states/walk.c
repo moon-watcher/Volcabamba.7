@@ -6,8 +6,8 @@
 static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 {
     Entity *e = ptr1;
-
     COMPS(e);
+
     if ( joy_active_left(joy) ) {
         SPR_setHFlip(sp->sprite,1);
     }
@@ -21,6 +21,11 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
         return;
     }
 
+    if ( joy_pressed_down ( j ) ) {
+        entityState ( e, &entity_Player_state_duck );
+        return;
+    }
+    
     if ( joy_pressed_c ( j ) ) {
         entityState ( e, &entity_Player_state_jump );
         return;
@@ -30,9 +35,9 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
         entityState ( e, &entity_Player_state_shot );
         return;
     }
-
-    if ( joy_pressed_down(j)){
-        entityState(e, &entity_Player_state_duck);
+    
+    if ( joy_pressed_a ( j ) ) {
+        entityState ( e, &entity_Player_state_fall );
         return;
     }
 }
@@ -61,4 +66,4 @@ static void update ( Entity *e ) {
 
 
 
-State const entity_Player_state_walk = { enter, };
+State const entity_Player_state_walk = { enter, .name="walk" };

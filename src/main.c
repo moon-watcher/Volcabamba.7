@@ -82,6 +82,7 @@ void ramiro(){
     SPR_init();
 
     manPlayers = manager();
+    manPlayersBullets = manager();
 
     sysSprite = system ( &system_sprite, 160, "system sprite" );
     sysInput = system ( &system_input, 5, "system input" );
@@ -92,6 +93,7 @@ void ramiro(){
     while(1){
 
         managerUpdate ( manPlayers );
+        managerUpdate ( manPlayersBullets );
 
         systemUpdate( sysSprite );
         systemUpdate( sysInput );
@@ -105,6 +107,7 @@ void ramiro(){
 
 void main()
 {
+    VDP_setScreenWidth256();
 //     listptr l;
 //     listptr_init ( &l, NULL );
 

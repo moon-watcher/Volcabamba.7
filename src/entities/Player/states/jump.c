@@ -12,16 +12,23 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
     COMPS(e);
 
-    if ( joy_active_left ( j)){
+    if ( joy_active_left(j)) {
         SPR_setHFlip( sp->sprite, 1);
     }
 
-    if ( joy_active_right ( j)){
+    if ( joy_active_right(j)) {
         SPR_setHFlip( sp->sprite, 0);
     }
 
-    if ( joy_active_down(j) && joy_pressed_b(j))
-        entityState(e, &entity_Player_state_shotdown);
+    if ( joy_active_down(j) && joy_pressed_b(j) ) {
+        entityState ( e, &entity_Player_state_shotdown );
+        return;
+    }
+
+    if ( joy_pressed_b(j) ) {
+        entityState ( e, &entity_Player_state_shot );
+        return;
+    }
 }
 
 
@@ -52,4 +59,4 @@ static void update ( Entity *e ) {
 
 
 
-State const entity_Player_state_jump = { enter, update };
+State const entity_Player_state_jump = { enter, update, .name="jump"  };

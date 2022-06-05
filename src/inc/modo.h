@@ -6,6 +6,7 @@
 #include "../modo/manager.h"
 
 
+/* 
 
 // #define modoEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
 
@@ -82,4 +83,4 @@
 //     }                                      \
 //     ret; })
 
-
+*/

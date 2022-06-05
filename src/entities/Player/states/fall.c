@@ -12,8 +12,9 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
     COMPS(e);
 
-    if ( joy_active_down(j) && joy_pressed_b(j))
+    if ( joy_active_down(j) && joy_pressed_b(j)) {
         entityState(e, &entity_Player_state_shotdown);
+    }
 }
 
 
@@ -44,4 +45,4 @@ static void update ( Entity *e ) {
 
 
 
-State const entity_Player_state_fall = { enter, update };
+State const entity_Player_state_fall = { enter, update, .name="fall"  };

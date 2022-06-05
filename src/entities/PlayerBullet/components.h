@@ -1,20 +1,20 @@
-// #pragma once
+#pragma once
 
-// #include "inc/components.h"
+#include "inc/components.h"
+#include "libs/joyreader.h"
+
+#define COMPS(E)                                 \
+    Components         *C     = E->components;   \
+    ComponentAttribute *attrs = &C->attributes;  \
+    ComponentSprite    *sp    = &C->sprite;      \
+    ComponentPosition  *cp    = &C->position;    \
 
 
-// #define COMPONENTS(entity)                          \
-//     Components         *comps = entity->components; \
-//     ComponentRigidbody *rb    = &comps->rigidbody;  \
-//     ComponentSprite    *sp    = &comps->sprite;     \
-//     ComponentPosition  *cp    = &rb->position;      \
-//     ComponentVelocity  *cv    = &rb->velocity;
 
-
-// typedef struct
-// {
-//     ComponentRigidbody rigidbody;
-//     ComponentSprite    sprite;
-//     ComponentAttribute attrs;
-// }
-// Components;
+typedef struct
+{
+    ComponentAttribute  attributes;
+    ComponentSprite     sprite;
+    ComponentPosition   position;
+}
+Components;

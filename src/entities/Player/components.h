@@ -14,9 +14,9 @@
 
 typedef struct
 {
-    ComponentAttribute attributes;
-    ComponentSprite    sprite;
-    ComponentPosition  position;
-    ComponentInput     input;
+    ComponentAttribute  attributes;
+    ComponentSprite     sprite;
+    ComponentPosition   position;
+    ComponentInput      input;
 }
 Components;

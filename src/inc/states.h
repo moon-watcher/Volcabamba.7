@@ -23,4 +23,5 @@ State const entity_Player_state_stay;
 State const entity_Player_state_walk;
 State const entity_Player_state_shot;
 State const entity_Player_state_shotdown;
+State const entity_Player_state_shotduck;
 State const entity_Player_state_duck;
