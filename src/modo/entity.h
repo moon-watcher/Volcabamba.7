@@ -14,7 +14,7 @@ typedef struct Entity {
     void ( *Update ) ( struct Entity * );
     void ( *Delete ) ( struct Entity * );
     
-    struct Entity *next;
+    void *next;
 }
 Entity;
 

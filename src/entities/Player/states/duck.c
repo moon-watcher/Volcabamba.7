@@ -37,8 +37,6 @@ static void enter ( Entity *e ) {
 
     SPR_setAnim ( sp->sprite, 6 );
     ci->handler = inputHandler;
-    
-
 }
 
 

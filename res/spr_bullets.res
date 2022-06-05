@@ -1,0 +1,1 @@
+SPRITE res_sprite_bullets "../data/spr/bullets.bmp" 2 2 0 4 
