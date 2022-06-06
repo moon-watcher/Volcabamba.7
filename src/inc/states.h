@@ -7,7 +7,6 @@ State const screenLogo_State;
 State const screenTitle_State;
 State const screenGameloop_State;
 
-State const PlayerBullet_moveState;
 
 State const Player_dieState;
 State const Player_idleState;
@@ -22,4 +21,4 @@ State const entity_Player_state_shotdown;
 State const entity_Player_state_shotduck;
 State const entity_Player_state_duck;
 
-State const entity_PlayerBuller_state_move;
+State const entity_Weapon_state_move;

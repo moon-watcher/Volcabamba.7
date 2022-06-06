@@ -3,40 +3,37 @@
 #include "components.h"
 #include "inc/systems.h"
 #include "inc/states.h"
-#include "../res/spr_bullets.h"
+#include "../res/spr_weapon.h"
 
 
-static void awake ( Entity *e ) {
-    COMPS(e);
+static void awake ( Entity *e ) { COMPS(e);
 
-    sp->sprite = SPR_addSprite ( sp->sd, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y), sp->attr );
-    VDP_setPalette ( sp->attr >> 14,  sp->sprite->definition->palette->data );
+    $ComponentSprite.Init( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
 }
 
 
-static void update ( Entity *e ) {
-    COMPS(e);
+static void update ( Entity *e ) { COMPS(e);
 
-    systemAdd ( sysSprite, sp ); systemAdd ( sysSprite, cp );
+    systemAdd ( sysSprite,   sp ); systemAdd ( sysSprite,   cp );
+    systemAdd ( sysMovement, sp ); systemAdd ( sysMovement, cp );
 }
 
 
-static void delete ( Entity *e ) {
-    COMPS(e);
+static void delete ( Entity *e ) { COMPS(e);
 
-    SPR_releaseSprite ( sp->sprite );
+    $ComponentSprite.Release(sp);
 }
 
 
 
-Entity const entity_PlayerBullet_tpl = {
+Entity const entity_Weapon_tpl = {
     .Awake  = awake,
     .Update = update,
     .Delete = delete,
-    .state  = (State*) &entity_PlayerBuller_state_move,
+    .state  = (State*) &entity_Weapon_state_move,
     .compsSize  = sizeof(Components),
     .components = &(Components) {
-        .sprite   = { &res_sprite_bullets, 0, TILE_ATTR(PAL3,1,0,0) },
+        .sprite   = { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
         .position = { FIX32(123), FIX32(11) },
     },
 };
@@ -44,30 +41,11 @@ Entity const entity_PlayerBullet_tpl = {
 
 
 
-
-
-
-
-
-
-
-// #include <genesis.h>
-
-// #include "inc/modo.h"
-// #include "inc/systems.h"
-// #include "inc/managers.h"
-// #include "inc/entities.h"
-// #include "inc/systems.h"
-// #include "inc/states.h"
-// #include "components.h"
-// #include "../res/sprites.h"
-
-
 // void entity_PlayerBullet_create ( int x, int y )
 // {
-//     Entity *bullet = modoEntity ( &entityPlayerBullet1_tpl );
+//     Entity *bullet = modoEntity ( &entityWeapon1_tpl );
         
-//     modoManagerAdd ( &manPlayersBullets, bullet );
+//     modoManagerAdd ( &manWeapons, bullet );
     
 //     modoEntityExec ( setPosition, bullet, 0, 0 );
 // }

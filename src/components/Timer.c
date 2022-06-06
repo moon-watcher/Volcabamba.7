@@ -23,4 +23,4 @@ static int timeout ( ComponentTimer *this )
 }
 
 
-struct ComponentTimer $ComponentTimer = { init, reset, update, timeout };
+struct $ComponentTimer $ComponentTimer = { init, reset, update, timeout };

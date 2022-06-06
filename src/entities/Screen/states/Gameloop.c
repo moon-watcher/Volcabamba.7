@@ -62,7 +62,7 @@
         
 
 //     // modoManagerUpdate ( &manPlayers );
-//     // modoManagerUpdate ( &manPlayersBullets );
+//     // modoManagerUpdate ( &manWeapons );
 //     // // modoManager_update ( manEnemies );
 
 //     // modoSystemUpdate ( &sysMovement );
@@ -157,7 +157,7 @@
         
 
 // //     modoManagerUpdate ( &manPlayers );
-// //     modoManagerUpdate ( &manPlayersBullets );
+// //     modoManagerUpdate ( &manWeapons );
 // //     // modoManager_update ( manEnemies );
 
 // //     modoSystemUpdate ( &sysMovement );

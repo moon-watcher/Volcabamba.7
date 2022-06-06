@@ -22,7 +22,7 @@
 //     if ( joy_pressed_a ( j ) )
 //     {
 //         drawText ( "dispara", 4, 3 );        
-//         entity_PlayerBullet_create ( FIX32(cp->x), FIX32(cp->y) );
+//         entity_Weapon_create ( FIX32(cp->x), FIX32(cp->y) );
 //     }
 
 //     if ( joy_pressed_c ( j ) )

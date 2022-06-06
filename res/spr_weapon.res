@@ -1,0 +1,1 @@
+SPRITE res_sprite_weapon "../data/spr/weapon.png" 3 3 0 5 

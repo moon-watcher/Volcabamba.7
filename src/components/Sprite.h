@@ -5,8 +5,20 @@
 typedef struct
 {
 	const SpriteDefinition* sd;
-	int                     index;
+	//int                     index;
 	unsigned                attr;
 	Sprite*                 sprite;
 }
 ComponentSprite;
+
+
+
+
+struct $ComponentSprite
+{
+	void ( *Init    ) ( ComponentSprite*, int, int );
+	void ( *Release ) ( ComponentSprite* );
+	
+}
+$ComponentSprite;
+

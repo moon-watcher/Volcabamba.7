@@ -4,7 +4,7 @@
 
 
 Manager *manPlayers;
-Manager *manPlayersBullets;
+Manager *manWeapons;
 Manager *manScreens;
 Manager *manEnemies;
-Manager *manPlayersBullets;
+Manager *manWeapons;

@@ -82,10 +82,11 @@ void ramiro(){
     SPR_init();
 
     manPlayers = manager();
-    manPlayersBullets = manager();
+    manWeapons = manager();
 
     sysSprite = system ( &system_sprite, 160, "system sprite" );
     sysInput = system ( &system_input, 5, "system input" );
+    sysMovement = system ( &system_movement, 200, "system movement" );
 
     managerAdd ( manPlayers, &entity_Player_tpl);
 
@@ -93,10 +94,11 @@ void ramiro(){
     while(1){
 
         managerUpdate ( manPlayers );
-        managerUpdate ( manPlayersBullets );
+        managerUpdate ( manWeapons );
 
-        systemUpdate( sysSprite );
-        systemUpdate( sysInput );
+        systemUpdate ( sysMovement );
+        systemUpdate ( sysSprite );
+        systemUpdate ( sysInput );
 
         SPR_update();
         SYS_doVBlankProcess();
@@ -196,7 +198,7 @@ void main()
 //     while ( 1 )
 //     {
 //         modoManagerUpdate ( manPlayers );
-//         // modoManagerUpdate ( manPlayersBullets );
+//         // modoManagerUpdate ( manWeapons );
 //         // modoManager_update ( manEnemies );
 
 //         modoSystemUpdate ( sysMovement );
@@ -241,7 +243,7 @@ void main()
 //     sysInput    = modoSystem ( &system_input,      8, "sysInput"    );
 //     sysSprite   = modoSystem ( &system_sprite,   160, "sysSprite"   );
 
-//     manPlayersBullets = modoManager ( );
+//     manWeapons = modoManager ( );
 //     manPlayers        = modoManager ( );
 
 //     // entidades();

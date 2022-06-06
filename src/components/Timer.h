@@ -8,7 +8,7 @@ typedef struct
 ComponentTimer;
 
 
-struct ComponentTimer
+struct $ComponentTimer
 {
 	void ( *Init    ) ( ComponentTimer*, unsigned );
 	void ( *Reset   ) ( ComponentTimer* );

@@ -40,7 +40,7 @@ Entity const entity_Player_tpl = {
     .state  = (State*) &entity_Player_state_stay,
     .compsSize  = sizeof(Components),
     .components = &(Components) {
-        .sprite   = { &res_sprite_player, 0, TILE_ATTR(PAL3,1,0,0) },
+        .sprite   = { &res_sprite_player, TILE_ATTR(PAL3,1,0,0) },
         .position = { FIX32(123), FIX32(11) },
         .input    = { .joy.port = PORT_1 },
     },

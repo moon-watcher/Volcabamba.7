@@ -6,9 +6,9 @@
 #include "../components.h"
 
 
-static void enter ( Entity *entity )
+static void enter ( Entity *e )
 {
-    COMPONENTS ( entity );
+    COMPS ( e );
     
     cv->x.vel = FIX32(2.0);
     cv->x.dir = 1;
@@ -16,22 +16,30 @@ static void enter ( Entity *entity )
     cv->x.acceleration = FIX32(2.0);
     cv->x.deceleration = FIX32(0.0);
 
-    cv->y.vel = 10;
+    cv->y.vel = FIX32(2.0);
     cv->y.dir = 0;
     cv->y.maximum = FIX32(2.0);
     cv->y.acceleration = FIX32(2.0);
     cv->y.deceleration = FIX32(0.0);
 
-    // drawText("dispara", 3,3);
-    // waitMs(100);
-    // drawText("       ", 3,3);
+    $ComponentTimer.Init(timer, 30 );
+
+    drawText("dispara", 3,3);
+    waitMs(100);
+    drawText("       ", 3,3);
 }
 
 
-static void update ( Entity *entity )
+static void update ( Entity *e )
 {
-    //     COMPONENTS ( entity );
+    COMPS ( e );
     
+
+    $ComponentTimer.Update ( timer );
+    Int(timer->counter, 0,1,4);
+    if ( ! $ComponentTimer.Timeout ( timer ) )
+        entityDelete ( e );
+
     // cv->x.vel = FIX32(2.0);
     // cv->x.dir = 1;
     // cv->x.maximum = FIX32(2.0);
@@ -42,11 +50,6 @@ static void update ( Entity *entity )
 }
 
 
-static void exit ( Entity *entity )
-{
-    //
-}
 
-
-State const entity_PlayerBuller_state_move = { enter, update, exit };
+State const entity_Weapon_state_move = { enter, update, };
 
