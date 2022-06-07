@@ -3,12 +3,20 @@
 #include <genesis.h>
 
 
+enum EntityAction {
+    ENTITY_ACTION_CREATE,
+    ENTITY_ACTION_UPDATE,
+    ENTITY_ACTION_CHANGE,
+    ENTITY_ACTION_DELETE,
+};
+
+
 typedef struct Entity {
     struct State *state;
     struct State *prevState;
     void* components;
     int compsSize:10; // 1kB
-    bool delete:1;
+    enum EntityAction action;
 
     void ( *Awake  ) ( struct Entity * );
     void ( *Update ) ( struct Entity * );

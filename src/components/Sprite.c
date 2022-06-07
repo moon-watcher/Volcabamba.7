@@ -14,4 +14,10 @@ static void release ( ComponentSprite *this )
 }
 
 
-struct $ComponentSprite $ComponentSprite = { init, release };
+static int isLastFrame ( ComponentSprite *this ) {
+    Sprite *s = this->sprite;
+    return ( s->timer == 2  &&  s->frameInd == s->animation->numFrame-1 );
+}
+
+
+struct $ComponentSprite $ComponentSprite = { init, release, isLastFrame };

@@ -9,3 +9,10 @@ typedef struct
     //fix32 z;
 }
 ComponentPosition;
+
+
+struct $ComponentPosition {
+	void ( *setX ) ( ComponentPosition*, int );
+	void ( *setY ) ( ComponentPosition*, int );
+}
+$ComponentPosition;

@@ -11,15 +11,16 @@ static void enter ( Entity *e ) {
     SPR_setAnim ( sp->sprite, 4 );
 
 
-    managerAdd ( manWeapons, &entity_Weapon_tpl );
+    Entity *weapon = managerAdd ( manWeapons, &entity_Weapon_tpl );
+
+    entity_Weapon_setXY ( weapon, 100, 100 );
 }
 
 
 static void update ( Entity *e ) {
     COMPS(e);
 
-    Sprite *s = sp->sprite;
-    if ( s->timer == 1  &&  s->frameInd == s->animation->numFrame-1)
+    if ( $ComponentSprite.isLastFrame ( sp ) )
         entityState ( e, e->prevState );
 }
 

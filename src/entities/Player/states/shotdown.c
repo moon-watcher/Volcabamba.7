@@ -12,10 +12,8 @@ static void enter ( Entity *e ) {
 static void update ( Entity *e ) {
     COMPS(e);
 
-    Sprite *s = sp->sprite;
-    if ( s->timer == 1  &&  s->frameInd == s->animation->numFrame-1){
+    if ( $ComponentSprite.isLastFrame ( sp ) )
         entityState ( e, e->prevState  );
-    }
 }
 
 

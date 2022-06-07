@@ -2,7 +2,7 @@
 #include "entity.h"
 
 
-#define X(F,E) if(F)F(E)
+
 static int const Entity_s = sizeof ( Entity );
 
 
@@ -16,8 +16,7 @@ Entity *entity ( Entity const *template ) {
     entity->components = malloc ( Comps_s );
     memcpy ( entity->components, template->components, Comps_s  );
 
-    X ( entity->Awake,        entity );
-    X ( entity->state->enter, entity );
+    entity->action = ENTITY_ACTION_CREATE;
 
     return entity;
 }
@@ -25,13 +24,11 @@ Entity *entity ( Entity const *template ) {
 
 void entityState ( Entity *entity, State const *newState ) {
     entity->prevState = entity->state;
-    X ( entity->state->exit,  entity );
-    
-    entity->state = (State*) newState;
-    X ( entity->state->enter, entity );
+    entity->state     = (State*) newState;
+    entity->action    = ENTITY_ACTION_CHANGE;
 }
 
 
 void entityDelete ( Entity *entity ) {
-    entity->delete = TRUE;
+    entity->action = ENTITY_ACTION_DELETE;
 }

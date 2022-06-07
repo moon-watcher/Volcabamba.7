@@ -23,10 +23,6 @@ static void enter ( Entity *e )
     cv->y.deceleration = FIX32(0.0);
 
     $ComponentTimer.Init(timer, 30 );
-
-    drawText("dispara", 3,3);
-    waitMs(100);
-    drawText("       ", 3,3);
 }
 
 

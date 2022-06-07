@@ -22,5 +22,5 @@ void     managerEnd    ( Manager* );
     for ( Entity *E = M->entities; E; E = E->next )
 
 
-void managerEntityUpdate ( Manager*, Entity* );
-void managerEntityDelete ( Manager*, Entity* );
+// void managerEntityUpdate ( Manager*, Entity* );
+// void managerEntityDelete ( Manager*, Entity* );

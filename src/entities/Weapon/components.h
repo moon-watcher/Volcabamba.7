@@ -7,6 +7,7 @@
     ComponentAttribute *attrs = &C->attributes;  \
     ComponentSprite    *sp    = &C->sprite;      \
     ComponentPosition  *cp    = &C->position;    \
+    ComponentVelocity  *cv    = &C->velocity;    \
     ComponentTimer     *timer = &C->timer;
 
 
@@ -17,5 +18,6 @@ typedef struct
     ComponentSprite     sprite;
     ComponentPosition   position;
     ComponentTimer      timer;
+    ComponentVelocity   velocity;
 }
 Components;

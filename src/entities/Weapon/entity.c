@@ -6,13 +6,15 @@
 #include "../res/spr_weapon.h"
 
 
-static void awake ( Entity *e ) { COMPS(e);
+static void awake ( Entity *e ) {
+    COMPS(e);
 
     $ComponentSprite.Init( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
 }
 
 
-static void update ( Entity *e ) { COMPS(e);
+static void update ( Entity *e ) {
+    COMPS(e);
 
     systemAdd ( sysSprite,   sp ); systemAdd ( sysSprite,   cp );
     systemAdd ( sysMovement, sp ); systemAdd ( sysMovement, cp );
@@ -37,6 +39,15 @@ Entity const entity_Weapon_tpl = {
         .position = { FIX32(123), FIX32(11) },
     },
 };
+
+
+
+void entity_Weapon_setXY ( Entity *e, int x, int y ) {
+    COMPS(e);
+
+    $ComponentPosition.setX ( cp, x );
+    $ComponentPosition.setY ( cp, y );
+}
 
 
 

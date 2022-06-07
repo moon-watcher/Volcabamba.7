@@ -12,13 +12,11 @@ typedef struct
 ComponentSprite;
 
 
-
-
 struct $ComponentSprite
 {
-	void ( *Init    ) ( ComponentSprite*, int, int );
-	void ( *Release ) ( ComponentSprite* );
-	
+	void ( *Init        ) ( ComponentSprite*, int, int );
+	void ( *Release     ) ( ComponentSprite* );
+	int  ( *isLastFrame ) ( ComponentSprite* );	
 }
 $ComponentSprite;
 
