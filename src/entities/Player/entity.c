@@ -10,8 +10,7 @@
 static void awake ( Entity *e ) {
     COMPS(e);
 
-    sp->sprite = SPR_addSprite ( sp->sd, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y), sp->attr );
-    VDP_setPalette ( sp->attr >> 14,  sp->sprite->definition->palette->data );
+    $ComponentSprite.Init ( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
 
     joyreader_init ( joy, joy->port );
 }

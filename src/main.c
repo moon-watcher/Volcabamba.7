@@ -84,8 +84,8 @@ void ramiro(){
     manPlayers = manager();
     manWeapons = manager();
 
-    sysSprite = system ( &system_sprite, 160, "system sprite" );
-    sysInput = system ( &system_input, 5, "system input" );
+    sysSprite   = system ( &system_sprite,   160, "system sprite"   );
+    sysInput    = system ( &system_input,      5, "system input"    );
     sysMovement = system ( &system_movement, 200, "system movement" );
 
     managerAdd ( manPlayers, &entity_Player_tpl);

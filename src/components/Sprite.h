@@ -16,7 +16,7 @@ struct $ComponentSprite
 {
 	void ( *Init        ) ( ComponentSprite*, int, int );
 	void ( *Release     ) ( ComponentSprite* );
-	int  ( *isLastFrame ) ( ComponentSprite* );	
+	int  ( *IsLastFrame ) ( ComponentSprite* );	
 }
 $ComponentSprite;
 

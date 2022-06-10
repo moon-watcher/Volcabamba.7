@@ -5,7 +5,7 @@
 typedef struct
 {
     fix32  vel;
-    char   dir;
+    char   dir:2;
     fix32  maximum;
     fix32  acceleration;
     fix32  deceleration;

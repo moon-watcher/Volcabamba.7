@@ -23,6 +23,10 @@ Entity *entity ( Entity const *template ) {
 
 
 void entityState ( Entity *entity, State const *newState ) {
+    
+    if ( newState == entity->state )
+        return;
+
     entity->prevState = entity->state;
     entity->state     = (State*) newState;
     entity->action    = ENTITY_ACTION_CHANGE;

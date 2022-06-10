@@ -12,7 +12,7 @@ ComponentPosition;
 
 
 struct $ComponentPosition {
-	void ( *setX ) ( ComponentPosition*, int );
-	void ( *setY ) ( ComponentPosition*, int );
+	void ( *SetX ) ( ComponentPosition*, int );
+	void ( *SetY ) ( ComponentPosition*, int );
 }
 $ComponentPosition;

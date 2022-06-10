@@ -9,7 +9,7 @@
 static void awake ( Entity *e ) {
     COMPS(e);
 
-    $ComponentSprite.Init( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
+    $ComponentSprite.Init ( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
 }
 
 
@@ -17,7 +17,7 @@ static void update ( Entity *e ) {
     COMPS(e);
 
     systemAdd ( sysSprite,   sp ); systemAdd ( sysSprite,   cp );
-    systemAdd ( sysMovement, sp ); systemAdd ( sysMovement, cp );
+    systemAdd ( sysMovement, cp ); systemAdd ( sysMovement, cv );
 }
 
 
@@ -36,7 +36,19 @@ Entity const entity_Weapon_tpl = {
     .compsSize  = sizeof(Components),
     .components = &(Components) {
         .sprite   = { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
-        .position = { FIX32(123), FIX32(11) },
+        //.position = { FIX32(1), FIX32(11) },
+        .velocity = {
+            .x = {
+                .vel=FIX32(4),
+                .dir=1,
+                .maximum=FIX32(4),
+                //.acceleration=FIX32(0.5),
+                .deceleration=FIX32(2.4),
+                .accel_fn=NULL
+            },
+            //.y = { },
+        }
+
     },
 };
 
@@ -45,8 +57,8 @@ Entity const entity_Weapon_tpl = {
 void entity_Weapon_setXY ( Entity *e, int x, int y ) {
     COMPS(e);
 
-    $ComponentPosition.setX ( cp, x );
-    $ComponentPosition.setY ( cp, y );
+    $ComponentPosition.SetX ( cp, x );
+    $ComponentPosition.SetY ( cp, y );
 }
 
 
