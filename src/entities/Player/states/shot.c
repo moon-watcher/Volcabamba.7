@@ -8,10 +8,11 @@
 
 static void enter ( Entity *e ) {
     COMPS(e);
-    SPR_setAnim ( sp->sprite, 4 );
 
+    $ComponentSprite.SetAnim ( sp, 4 );
+    $ComponentBoxCollider2D.Init ( collider, &collider_stand );
 
-    Entity *weapon = managerAdd ( manWeapons, &entity_Weapon_tpl );
+    Entity * const weapon = managerAdd ( manWeapons, &entity_Weapon_tpl );
 
     entity_Weapon_setXY ( weapon, 100, 100 );
 }

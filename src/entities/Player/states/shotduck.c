@@ -5,7 +5,9 @@
 
 static void enter ( Entity *e ) {
     COMPS(e);
-    SPR_setAnim ( sp->sprite, 7 );
+
+    $ComponentSprite.SetAnim ( sp, 7 );
+    $ComponentBoxCollider2D.Init ( collider, &collider_duck );
 }
 
 
@@ -17,4 +19,4 @@ static void update ( Entity *e ) {
 }
 
 
-State const entity_Player_state_shotduck = { enter, update, .name="shotduck"  };
+State const entity_Player_state_shotduck = { enter, update, .name="shotduck" };

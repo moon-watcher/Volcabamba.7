@@ -57,8 +57,8 @@ Entity const entity_Weapon_tpl = {
 void entity_Weapon_setXY ( Entity *e, int x, int y ) {
     COMPS(e);
 
-    $ComponentPosition.SetX ( cp, x );
-    $ComponentPosition.SetY ( cp, y );
+    $ComponentPosition.SetIntX ( cp, x );
+    $ComponentPosition.SetIntY ( cp, y );
 }
 
 
@@ -67,41 +67,8 @@ void entity_Weapon_setXY ( Entity *e, int x, int y ) {
 // void entity_PlayerBullet_create ( int x, int y )
 // {
 //     Entity *bullet = modoEntity ( &entityWeapon1_tpl );
-        
 //     modoManagerAdd ( &manWeapons, bullet );
-    
 //     modoEntityExec ( setPosition, bullet, 0, 0 );
-// }
-
-
-// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-// static void Awake ( Entity *entity )
-// {
-//     COMPONENTS(entity);
-
-//     sp->sd = &player_bullets;
-//     sp->index = 0;
-    
-//     system_sprite_init ( sp, cp );
-// }
-
-
-// static void Update ( Entity *entity )
-// {
-//     COMPONENTS(entity);
-
-//     modoSystemAdd ( sysMovement, cp     );
-//     modoSystemAdd ( sysMovement, cv     );
-//     modoSystemAdd ( sysSprite,   sp     );
-//     modoSystemAdd ( sysSprite,   cp     );
-// }
-
-
-// static void Delete ( Entity *entity )
-// {
-//     // Se destruye todo lo inicializado en el Awake
 // }
 
 
@@ -111,7 +78,7 @@ void entity_Weapon_setXY ( Entity *e, int x, int y ) {
 // static void setPosition ( Entity *entity, fix32 x, fix32 y )
 // {
 //     COMPONENTS ( entity );
-
+//
 //     cp->x = x;
 //     cp->y = y;
 // }

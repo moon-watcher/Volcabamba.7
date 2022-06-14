@@ -1,24 +1,20 @@
 #include "Timer.h"
 
 
-static void init ( ComponentTimer *this, unsigned max )
-{
+static inline void init ( ComponentTimer *this, unsigned max ) {
 	this->counter = 0;
 	this->max = max;
 }
 
-static void reset ( ComponentTimer *this )
-{
+static inline void reset ( ComponentTimer *this ) {
 	this->counter = 0;
 }
 
-static void update ( ComponentTimer *this )
-{
+static inline void update ( ComponentTimer *this ) {
 	++this->counter;
 }
 
-static int timeout ( ComponentTimer *this )
-{
+static inline int timeout ( ComponentTimer *this ) {
 	return (int) (this->counter > this->max);
 }
 

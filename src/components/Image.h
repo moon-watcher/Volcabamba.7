@@ -3,8 +3,7 @@
 #include <genesis.h>
 
 
-typedef struct
-{
+typedef struct {
     VDPPlane     plane;
     Image const *image;
     u16          attributes;

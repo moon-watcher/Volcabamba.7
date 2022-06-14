@@ -110,6 +110,10 @@ void ramiro(){
 void main()
 {
     VDP_setScreenWidth256();
+
+    // mainManager();
+    ramiro();
+
 //     listptr l;
 //     listptr_init ( &l, NULL );
 
@@ -149,12 +153,6 @@ void main()
     //     drawInt ( *show, 0, y++, 3 );
     // }
     // y++;
-
-    
-    // mainManager();
-
-    ramiro();
-
 }
 
 

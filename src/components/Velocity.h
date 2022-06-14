@@ -2,8 +2,7 @@
 
 #include <genesis.h>
 
-typedef struct
-{
+typedef struct {
     fix32  vel;
     char   dir:2;
     fix32  maximum;
@@ -14,10 +13,16 @@ typedef struct
 ComponentVelocity_Inner;
 
 
-typedef struct
-{
+typedef struct {
     ComponentVelocity_Inner x;
     ComponentVelocity_Inner y;
     //ComponentVelocity_Inner z;
 }
 ComponentVelocity;
+
+
+
+
+struct $ComponentVelocity {
+    void ( *Update  ) ( ComponentVelocity* );
+} $ComponentVelocity;

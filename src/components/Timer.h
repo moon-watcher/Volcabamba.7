@@ -1,15 +1,13 @@
 #pragma once
 
-typedef struct
-{
+typedef struct {
 	unsigned counter;
 	unsigned max;
 }
 ComponentTimer;
 
 
-struct $ComponentTimer
-{
+struct $ComponentTimer {
 	void ( *Init    ) ( ComponentTimer*, unsigned );
 	void ( *Reset   ) ( ComponentTimer* );
 	void ( *Update  ) ( ComponentTimer* );

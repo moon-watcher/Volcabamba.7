@@ -9,10 +9,10 @@ void system_input ( void *array[], int length )
 {
     for ( int i = 0; i < length; )
     {
-        ComponentInput *ci     = array [ i++ ];
-        Entity         *entity = array [ i++ ];
+        ComponentInput * const ci     = array [ i++ ];
+        Entity         * const entity = array [ i++ ];
         
-        joyreader_update ( &ci->joy );
+        $ComponentInput.Update ( ci );
 
         if ( ci->handler )
         {

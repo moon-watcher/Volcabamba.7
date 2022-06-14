@@ -18,4 +18,4 @@ static void update ( Entity *e ) {
 
 
 
-State const entity_Player_state_shotdown = { enter, update, .name="shotdown"  };
+State const entity_Player_state_shotdown = { enter, update, .name="shotdown" };

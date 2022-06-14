@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "D:/MDDev/Works/Volcabamba.7/game/src"
+                "D:/MDDev/Works/Volcabamba.7/game/src",
+                "D:/MDDev/Works/Volcabamba.7/SGDK/inc"
             ],
             "defines": [
                 "_DEBUG",

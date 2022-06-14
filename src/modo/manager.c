@@ -6,28 +6,28 @@
 
 #define X(F,E) if(F)F(E)
 
-inline static void create ( Manager *manager, Entity *entity ) {
+inline static void create ( Manager * const manager, Entity *entity ) {
     X ( entity->Awake,        entity );
     X ( entity->state->enter, entity );
 
     entity->action = ENTITY_ACTION_UPDATE;
 }
 
-inline static void update ( Manager *manager, Entity *entity ) {
+inline static void update ( Manager * const manager, Entity *entity ) {
     X ( entity->Update,        entity );
     X ( entity->state->update, entity );
 
     manager->prevEntity = entity;
 }
 
-inline static void change ( Manager *manager, Entity *entity ) {
+inline static void change ( Manager * const manager, Entity *entity ) {
     X ( entity->prevState->exit, entity );
     X ( entity->state->enter,    entity );
 
     entity->action = ENTITY_ACTION_UPDATE;
 }
 
-inline static void delete ( Manager *manager, Entity *entity ) {
+inline static void delete ( Manager * const manager, Entity *entity ) {
     X ( entity->state->exit, entity );
     X ( entity->Delete,      entity );
 
@@ -48,7 +48,7 @@ inline static void delete ( Manager *manager, Entity *entity ) {
 }
 
 
-static void ( *actions [ ] ) ( Manager*, Entity* ) = { create, update, change, delete };
+static void ( *actions [ ] ) ( Manager * const, Entity* ) = { create, update, change, delete };
 
 
 static int const Manager_s = sizeof ( Manager );
@@ -77,7 +77,7 @@ Entity *managerAdd ( Manager *manager, Entity const *template ) {
 
 void managerUpdate ( Manager *manager ) {
     managerForeach ( manager, entity )
-        actions [ entity->action ]  ( manager, entity );
+        actions [ entity->action ] ( manager, entity );
 }
 
 
@@ -88,7 +88,7 @@ void managerEnd ( Manager *manager ) {
     managerUpdate ( manager );
 
     free ( manager );
-    manager = NULL;
+    // manager = NULL;
 }
 
 

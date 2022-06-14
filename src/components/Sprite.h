@@ -2,21 +2,18 @@
 
 #include <genesis.h>
 
-typedef struct
-{
+typedef struct {
 	const SpriteDefinition* sd;
-	//int                     index;
 	unsigned                attr;
 	Sprite*                 sprite;
 }
 ComponentSprite;
 
 
-struct $ComponentSprite
-{
+struct $ComponentSprite {
 	void ( *Init        ) ( ComponentSprite*, int, int );
 	void ( *Release     ) ( ComponentSprite* );
-	int  ( *IsLastFrame ) ( ComponentSprite* );	
+	int  ( *IsLastFrame ) ( ComponentSprite* );
+	void ( *SetAnim     ) ( ComponentSprite*, int );
 }
 $ComponentSprite;
-

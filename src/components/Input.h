@@ -2,9 +2,16 @@
 
 #include "../libs/joyreader.h"
 
-typedef struct ComponentInput
-{
+typedef struct ComponentInput {
     Joyreader joy;
-    void ( *handler ) ( Joyreader *joy, void *ptr1, void *ptr2 );
+    void ( *handler ) ( Joyreader*, void*, void* );
 }
 ComponentInput;
+
+
+struct $ComponentInput {
+    void ( *Init    ) ( ComponentInput* );
+    void ( *Update  ) ( ComponentInput* );
+    void ( *Handler ) ( ComponentInput*, void (*)() );
+}
+$ComponentInput;
