@@ -22,7 +22,7 @@ static void enter ( Entity *e )
     // cv->y.acceleration = FIX32(2.0);
     // cv->y.deceleration = FIX32(0.0);
 
-    $ComponentTimer.Init ( timer, 50 );
+    ComponentTimer_Init ( timer, 50 );
 }
 
 
@@ -30,9 +30,9 @@ static void update ( Entity *e )
 {
     COMPS ( e );
     
-    $ComponentTimer.Update ( timer );
+    ComponentTimer_Update ( timer );
 
-    if ( $ComponentTimer.Timeout ( timer ) )
+    if ( ComponentTimer_Timeout ( timer ) )
         entityDelete ( e );
 
     // cv->x.vel = FIX32(2.0);

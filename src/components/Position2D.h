@@ -6,11 +6,8 @@ typedef struct {
 	fix32 x;
 	fix32 y;
 }
-ComponentPosition;
+ComponentPosition2D;
 
 
-struct $ComponentPosition {
-	void ( *SetIntX ) ( ComponentPosition*, int );
-	void ( *SetIntY ) ( ComponentPosition*, int );
-}
-$ComponentPosition;
+void ComponentPosition2D_SetIntX ( ComponentPosition2D*, int );
+void ComponentPosition2D_SetIntY ( ComponentPosition2D*, int );

@@ -7,7 +7,7 @@
     Components             *C        = E->components;  \
     ComponentAttribute     *attrs    = &C->attributes; \
     ComponentSprite        *sp       = &C->sprite;     \
-    ComponentPosition      *cp       = &C->position;   \
+    ComponentPosition2D      *cp       = &C->position;   \
     ComponentInput         *ci       = &C->input;      \
     ComponentBoxCollider2D *collider = &C->collider;   \
     Joyreader              *joy      = &ci->joy;
@@ -16,7 +16,7 @@
 typedef struct {
     ComponentAttribute     attributes;
     ComponentSprite        sprite;
-    ComponentPosition      position;
+    ComponentPosition2D      position;
     ComponentBoxCollider2D collider;
     ComponentInput         input;
 }

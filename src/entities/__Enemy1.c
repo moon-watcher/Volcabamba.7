@@ -33,7 +33,7 @@
 //     ComponentTimeout   *to    = &comps->timeout;    \
 //     ComponentRigidbody *rb    = &comps->rigidbody;  \
 //     ComponentSprite    *sp    = &comps->sprite;     \
-//     ComponentPosition  *cp    = &rb->position;      \
+//     ComponentPosition2D  *cp    = &rb->position;      \
 //     ComponentVelocity  *cv    = &rb->velocity;
 
 

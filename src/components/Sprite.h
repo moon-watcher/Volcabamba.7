@@ -10,10 +10,7 @@ typedef struct {
 ComponentSprite;
 
 
-struct $ComponentSprite {
-	void ( *Init        ) ( ComponentSprite*, int, int );
-	void ( *Release     ) ( ComponentSprite* );
-	int  ( *IsLastFrame ) ( ComponentSprite* );
-	void ( *SetAnim     ) ( ComponentSprite*, int );
-}
-$ComponentSprite;
+void ComponentSprite_Init        ( ComponentSprite*, int, int );
+void ComponentSprite_Release     ( ComponentSprite* );
+int  ComponentSprite_IsLastFrame ( ComponentSprite* );
+void ComponentSprite_SetAnim     ( ComponentSprite*, int );

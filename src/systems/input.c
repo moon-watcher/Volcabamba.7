@@ -12,7 +12,7 @@ void system_input ( void *array[], int length )
         ComponentInput * const ci     = array [ i++ ];
         Entity         * const entity = array [ i++ ];
         
-        $ComponentInput.Update ( ci );
+        ComponentInput_Update ( ci );
 
         if ( ci->handler )
         {

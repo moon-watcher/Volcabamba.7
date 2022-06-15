@@ -5,10 +5,10 @@
 
 void system_movement ( void *array[], int length ) {
     for ( int i = 0; i < length; ) {
-        ComponentPosition * const cp = array [ i++ ];
+        ComponentPosition2D * const cp = array [ i++ ];
         ComponentVelocity * const cv = array [ i++ ];
 
-        $ComponentVelocity.Update ( cv );
+        ComponentVelocity_Update ( cv );
         
         cp->x = fix32Add ( cp->x, cv->x.vel );
         cp->y = fix32Add ( cp->y, cv->y.vel );
@@ -19,18 +19,18 @@ void system_movement ( void *array[], int length ) {
 
 // for ( int i = 0; i < length; )
 // {
-//     ComponentPosition *cp = array [ i++ ];
+//     ComponentPosition2D *cp = array [ i++ ];
 //     ComponentVelocity *cv = array [ i++ ];
 
 //     ComponentVelocity_Inner *velArray [ 2 ] = { &cv->x, &cv->y };
-//     ComponentPosition       *posArray [ 2 ] = { &cp->x, &cp->y };
+//     ComponentPosition2D       *posArray [ 2 ] = { &cp->x, &cp->y };
     
 //     fix32 fv;
 
 //     for ( int j = 0; j < 2; j++ )
 //     {
 //         ComponentVelocity_Inner *velocity = velArray [ j ];
-//         ComponentPosition       *position = posArray [ j ];
+//         ComponentPosition2D       *position = posArray [ j ];
 
 //         fix32 vel          = velocity->vel;
 //         char  dir          = velocity->dir;

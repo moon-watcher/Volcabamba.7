@@ -9,7 +9,7 @@
 static void awake ( Entity *e ) {
     COMPS(e);
 
-    $ComponentSprite.Init ( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
+    ComponentSprite_Init ( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
 }
 
 
@@ -23,7 +23,7 @@ static void update ( Entity *e ) {
 
 static void delete ( Entity *e ) { COMPS(e);
 
-    $ComponentSprite.Release(sp);
+    ComponentSprite_Release(sp);
 }
 
 
@@ -57,8 +57,8 @@ Entity const entity_Weapon_tpl = {
 void entity_Weapon_setXY ( Entity *e, int x, int y ) {
     COMPS(e);
 
-    $ComponentPosition.SetIntX ( cp, x );
-    $ComponentPosition.SetIntY ( cp, y );
+    ComponentPosition2D_SetIntX ( cp, x );
+    ComponentPosition2D_SetIntY ( cp, y );
 }
 
 

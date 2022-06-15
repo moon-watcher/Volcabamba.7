@@ -65,7 +65,7 @@
 // //     //COMPONENTS ( entity );
 // //     Components         *comps = entity->components;
 // //     ComponentRigidbody *rb    = &comps->rigidbody;
-// //     ComponentPosition  *cp    = &rb->position;
+// //     ComponentPosition2D  *cp    = &rb->position;
 
 // //     cp->x = x;
 // //     cp->y = FIX32 ( 111 );
