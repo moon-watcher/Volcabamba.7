@@ -7,10 +7,7 @@ typedef struct {
 ComponentTimer;
 
 
-struct $ComponentTimer {
-	void ( *Init    ) ( ComponentTimer*, unsigned );
-	void ( *Reset   ) ( ComponentTimer* );
-	void ( *Update  ) ( ComponentTimer* );
-	int  ( *Timeout ) ( ComponentTimer* );
-}
-$ComponentTimer;
+void ComponentTimer_Init    ( ComponentTimer*, unsigned );
+void ComponentTimer_Reset   ( ComponentTimer* );
+void ComponentTimer_Update  ( ComponentTimer* );
+int  ComponentTimer_Timeout ( ComponentTimer* );

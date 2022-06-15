@@ -10,8 +10,8 @@
 static void awake ( Entity *e ) {
     COMPS(e);
 
-    $ComponentSprite.Init ( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
-    $ComponentInput.Init ( ci );
+    ComponentSprite_Init ( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
+    ComponentInput_Init ( ci );
 }
 
 
@@ -26,7 +26,7 @@ static void update ( Entity *e ) {
 static void delete ( Entity *e ) {
     COMPS(e);
 
-    $ComponentSprite.Release ( sp );
+    ComponentSprite_Release ( sp );
 }
 
 

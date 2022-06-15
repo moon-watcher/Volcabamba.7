@@ -21,8 +21,4 @@ typedef struct {
 ComponentVelocity;
 
 
-
-
-struct $ComponentVelocity {
-    void ( *Update  ) ( ComponentVelocity* );
-} $ComponentVelocity;
+void ComponentVelocity_Update ( ComponentVelocity* );

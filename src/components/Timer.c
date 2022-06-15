@@ -1,22 +1,19 @@
 #include "Timer.h"
 
 
-static inline void init ( ComponentTimer *this, unsigned max ) {
+inline void ComponentTimer_Init ( ComponentTimer *this, unsigned max ) {
 	this->counter = 0;
 	this->max = max;
 }
 
-static inline void reset ( ComponentTimer *this ) {
+inline void ComponentTimer_Reset ( ComponentTimer *this ) {
 	this->counter = 0;
 }
 
-static inline void update ( ComponentTimer *this ) {
+inline void ComponentTimer_Update ( ComponentTimer *this ) {
 	++this->counter;
 }
 
-static inline int timeout ( ComponentTimer *this ) {
+inline int ComponentTimer_Timeout ( ComponentTimer *this ) {
 	return (int) (this->counter > this->max);
 }
-
-
-struct $ComponentTimer $ComponentTimer = { init, reset, update, timeout };

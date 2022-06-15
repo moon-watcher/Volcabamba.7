@@ -21,7 +21,5 @@ typedef struct {
 ComponentBoxCollider2D;
 
 
-struct $ComponentBoxCollider2D {
-    void (*Init) ( ComponentBoxCollider2D*, ComponentBoxCollider2D* const );
-}
-$ComponentBoxCollider2D;
+
+void ComponentBoxCollider2D_Init ( ComponentBoxCollider2D *, ComponentBoxCollider2D * const );

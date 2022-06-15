@@ -9,8 +9,8 @@
 static void enter ( Entity *e ) {
     COMPS(e);
 
-    $ComponentSprite.SetAnim ( sp, 4 );
-    $ComponentBoxCollider2D.Init ( collider, &collider_stand );
+    ComponentSprite_SetAnim ( sp, 4 );
+    ComponentBoxCollider2D_Init ( collider, &collider_stand );
 
     Entity * const weapon = managerAdd ( manWeapons, &entity_Weapon_tpl );
 
@@ -21,7 +21,7 @@ static void enter ( Entity *e ) {
 static void update ( Entity *e ) {
     COMPS(e);
 
-    if ( $ComponentSprite.IsLastFrame ( sp ) )
+    if ( ComponentSprite_IsLastFrame ( sp ) )
         entityState ( e, e->prevState );
 }
 

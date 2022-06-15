@@ -15,13 +15,10 @@ static inline fix32 _update ( ComponentVelocity_Inner * const x ) {
 }
 
 
-static inline void update ( ComponentVelocity *this ) {
+inline void ComponentVelocity_Update ( ComponentVelocity *this ) {
     ComponentVelocity_Inner * const x = &this->x;
     ComponentVelocity_Inner * const y = &this->y;
 
     x->vel = _update ( x );
     y->vel = _update ( y );
 }
-
-
-struct $ComponentVelocity $ComponentVelocity = { update };

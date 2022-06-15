@@ -12,7 +12,7 @@ static void enter ( Entity *e ) {
 static void update ( Entity *e ) {
     COMPS(e);
 
-    if ( $ComponentSprite.IsLastFrame ( sp ) )
+    if ( ComponentSprite_IsLastFrame ( sp ) )
         entityState ( e, e->prevState  );
 }
 

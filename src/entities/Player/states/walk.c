@@ -47,9 +47,9 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 static void enter ( Entity *e ) {
     COMPS(e);
 
-    $ComponentSprite.SetAnim ( sp, 1 );
-    $ComponentInput.Handler ( ci, inputHandler );
-    $ComponentBoxCollider2D.Init ( collider, &collider_stand );
+    ComponentSprite_SetAnim ( sp, 1 );
+    ComponentInput_Handler ( ci, inputHandler );
+    ComponentBoxCollider2D_Init ( collider, &collider_stand );
 }
 
 

@@ -6,15 +6,15 @@
 static void enter ( Entity *e ) {
     COMPS(e);
 
-    $ComponentSprite.SetAnim ( sp, 7 );
-    $ComponentBoxCollider2D.Init ( collider, &collider_duck );
+    ComponentSprite_SetAnim ( sp, 7 );
+    ComponentBoxCollider2D_Init ( collider, &collider_duck );
 }
 
 
 static void update ( Entity *e ) {
     COMPS(e);
 
-    if ( $ComponentSprite.IsLastFrame ( sp ) )
+    if ( ComponentSprite_IsLastFrame ( sp ) )
         entityState ( e, &entity_Player_state_duck );
 }
 

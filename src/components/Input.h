@@ -9,9 +9,6 @@ typedef struct ComponentInput {
 ComponentInput;
 
 
-struct $ComponentInput {
-    void ( *Init    ) ( ComponentInput* );
-    void ( *Update  ) ( ComponentInput* );
-    void ( *Handler ) ( ComponentInput*, void (*)() );
-}
-$ComponentInput;
+void ComponentInput_Init    ( ComponentInput* );
+void ComponentInput_Update  ( ComponentInput* );
+void ComponentInput_Handler ( ComponentInput*, void (*)() );
