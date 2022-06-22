@@ -7,7 +7,7 @@
 //     Components         *comps = entity->components; \
 //     ComponentRigidbody *rb    = &comps->rigidbody;  \
 //     ComponentSprite    *sp    = &comps->sprite;     \
-//     ComponentPosition2D  *cp    = &rb->position;      \
+//     ComponentPosition  *cp    = &rb->position;      \
 //     ComponentVelocity  *cv    = &rb->velocity;      \
 //     ComponentInput     *ci    = &comps->input;      \
 //     Joyreader          *joy   = &ci->joy;

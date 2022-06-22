@@ -8,13 +8,18 @@
 
 static void enter ( Entity *e )
 {
-    COMPS ( e );
+    Components     *C  = e->components;
+    ComponentTimer *ct = &C->timer;
+
+    C->dir.x = 1;
     
-    cv->x.vel = FIX32(7.0);
-    cv->x.dir = -1;
-    cv->x.maximum = FIX32(7.0);
-    cv->x.acceleration = FIX32(0.2);
-    cv->x.deceleration = FIX32(0.0);
+    //dx->dir = -1;
+    //ComponentVelocity_DirectionX ( cv, -1 );
+
+    // cv->x.vel = FIX32(7.0);
+    // cv->x.maximum = FIX32(7.0);
+    // cv->x.acceleration = FIX32(0.2);
+    // cv->x.deceleration = FIX32(0.0);
 
     // cv->y.vel = FIX32(2.0);
     // cv->y.dir = 0;
@@ -22,18 +27,29 @@ static void enter ( Entity *e )
     // cv->y.acceleration = FIX32(2.0);
     // cv->y.deceleration = FIX32(0.0);
 
-    ComponentTimer_Init ( timer, 50 );
+    ComponentTimer_Init ( ct, 30 );
 }
 
 
 static void update ( Entity *e )
 {
     COMPS ( e );
-    
-    ComponentTimer_Update ( timer );
 
-    if ( ComponentTimer_Timeout ( timer ) )
-        entityDelete ( e );
+    //ComponentVelocity_DirectionX ( cv, 0 );
+    //ComponentTimer_Update ( timer );
+
+    if ( ComponentTimer_Timeout ( timer ) ) {
+        //entityDelete ( e );
+        C->dir.x = 0;
+        
+        if ( ! C->vel.x.vel )
+            entityDelete ( e );
+
+        Text( "asdfa", 4,4);
+    }
+
+
+       //ComponentVelocity_DirectionX ( vx, 0 ); // entityDelete ( e );
 
     // cv->x.vel = FIX32(2.0);
     // cv->x.dir = 1;
@@ -47,4 +63,5 @@ static void update ( Entity *e )
 
 
 State const entity_Weapon_state_move = { enter, update, };
+// State const entity_Weapon_state_move = { 0 };
 

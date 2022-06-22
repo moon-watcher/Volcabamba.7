@@ -1,17 +1,23 @@
 #include <genesis.h>
 
+#include "inc/modo.h"
 #include "inc/components.h"
 
 
-void system_movement ( void *array[], int length ) {
-    for ( int i = 0; i < length; ) {
-        ComponentPosition2D * const cp = array [ i++ ];
-        ComponentVelocity * const cv = array [ i++ ];
+void system_movement ( System * const system ) {
+    void ** const array = system->list;
+    int length = system->length; 
 
-        ComponentVelocity_Update ( cv );
+    for ( int i = 0; i < length; ) {
+        ComponentPosition  * const pos = array [ i++ ];
+        ComponentVelocity  * const vel = array [ i++ ];
+        ComponentDirection * const dir = array [ i++ ];
+
+        ComponentVelocity_Update ( vel->x, dir->x );
+        ComponentVelocity_Update ( vel->y, dir->y );
         
-        cp->x = fix32Add ( cp->x, cv->x.vel );
-        cp->y = fix32Add ( cp->y, cv->y.vel );
+        pos->x += vel->x.vel;
+        pos->y += vel->y.vel;
     }
 }
 
@@ -19,18 +25,18 @@ void system_movement ( void *array[], int length ) {
 
 // for ( int i = 0; i < length; )
 // {
-//     ComponentPosition2D *cp = array [ i++ ];
+//     ComponentPosition *cp = array [ i++ ];
 //     ComponentVelocity *cv = array [ i++ ];
 
 //     ComponentVelocity_Inner *velArray [ 2 ] = { &cv->x, &cv->y };
-//     ComponentPosition2D       *posArray [ 2 ] = { &cp->x, &cp->y };
+//     ComponentPosition       *posArray [ 2 ] = { &cp->x, &cp->y };
     
 //     fix32 fv;
 
 //     for ( int j = 0; j < 2; j++ )
 //     {
 //         ComponentVelocity_Inner *velocity = velArray [ j ];
-//         ComponentPosition2D       *position = posArray [ j ];
+//         ComponentPosition       *position = posArray [ j ];
 
 //         fix32 vel          = velocity->vel;
 //         char  dir          = velocity->dir;

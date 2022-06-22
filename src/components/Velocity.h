@@ -2,23 +2,24 @@
 
 #include <genesis.h>
 
-typedef struct {
-    fix32  vel;
-    char   dir:2;
-    fix32  maximum;
-    fix32  acceleration;
-    fix32  deceleration;
-    void  (*accel_fn)(void*,void*);
-}
-ComponentVelocity_Inner;
+
+#define ComponentVelocity_Update( A, B ) \
+         if ( B     ) A.vel = clamp ( A.vel + A.acceleration, 0, A.maximum ); \
+    else if ( A.vel ) A.vel = clamp ( A.vel - A.deceleration, 0, A.maximum )
 
 
+#define ComponentVelocity_Stop( A ) \
+    A.vel = 0
+
+
+
 typedef struct {
-    ComponentVelocity_Inner x;
-    ComponentVelocity_Inner y;
-    //ComponentVelocity_Inner z;
+    struct {
+        fix32 vel;
+        fix32 maximum;
+        fix32 acceleration;
+        fix32 deceleration;
+    } 
+    x, y;
 }
 ComponentVelocity;
-
-
-void ComponentVelocity_Update ( ComponentVelocity* );

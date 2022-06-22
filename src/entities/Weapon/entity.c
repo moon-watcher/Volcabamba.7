@@ -9,19 +9,21 @@
 static void awake ( Entity *e ) {
     COMPS(e);
 
-    ComponentSprite_Init ( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
+    ComponentSprite_Init ( sp, fix32ToRoundedInt( pos->x), fix32ToRoundedInt(pos->y) );
 }
 
 
 static void update ( Entity *e ) {
     COMPS(e);
-
-    systemAdd ( sysSprite,   sp ); systemAdd ( sysSprite,   cp );
-    systemAdd ( sysMovement, cp ); systemAdd ( sysMovement, cv );
+    
+    systemAdd2 ( sysSprite, sp, pos );
+    systemAdd3 ( sysMovement, pos, vel, dir );
+    systemAdd1 ( sysTimer, timer );
 }
 
 
-static void delete ( Entity *e ) { COMPS(e);
+static void delete ( Entity *e ) {
+    COMPS(e);
 
     ComponentSprite_Release(sp);
 }
@@ -35,30 +37,19 @@ Entity const entity_Weapon_tpl = {
     .state  = (State*) &entity_Weapon_state_move,
     .compsSize  = sizeof(Components),
     .components = &(Components) {
-        .sprite   = { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
-        //.position = { FIX32(1), FIX32(11) },
-        .velocity = {
-            .x = {
-                .vel=FIX32(4),
-                .dir=1,
-                .maximum=FIX32(4),
-                //.acceleration=FIX32(0.5),
-                .deceleration=FIX32(2.4),
-                .accel_fn=NULL
-            },
-            //.y = { },
-        }
-
+        .sprite = { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
+        .vel.x  = { FIX32(0), FIX32(4), FIX32(0.1), FIX32(0.1) }
     },
 };
 
 
 
 void entity_Weapon_setXY ( Entity *e, int x, int y ) {
-    COMPS(e);
+    Components          *C  = e->components;
+    ComponentPosition *cp = &C->pos;
 
-    ComponentPosition2D_SetIntX ( cp, x );
-    ComponentPosition2D_SetIntY ( cp, y );
+    ComponentPosition_SetIntX ( cp, x );
+    ComponentPosition_SetIntY ( cp, y );
 }
 
 

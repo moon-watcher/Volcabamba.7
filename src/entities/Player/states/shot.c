@@ -10,7 +10,7 @@ static void enter ( Entity *e ) {
     COMPS(e);
 
     ComponentSprite_SetAnim ( sp, 4 );
-    ComponentBoxCollider2D_Init ( collider, &collider_stand );
+    ComponentBoxCollider_Init ( collider, &collider_stand );
 
     Entity * const weapon = managerAdd ( manWeapons, &entity_Weapon_tpl );
 

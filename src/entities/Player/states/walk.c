@@ -49,7 +49,7 @@ static void enter ( Entity *e ) {
 
     ComponentSprite_SetAnim ( sp, 1 );
     ComponentInput_Handler ( ci, inputHandler );
-    ComponentBoxCollider2D_Init ( collider, &collider_stand );
+    ComponentBoxCollider_Init ( collider, &collider_stand );
 }
 
 

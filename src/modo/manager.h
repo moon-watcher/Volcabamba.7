@@ -12,9 +12,9 @@ Manager;
 
 
 Manager *manager       ( );
-Entity  *managerAdd    ( Manager*, Entity const* );
-void     managerUpdate ( Manager* );
-void     managerEnd    ( Manager* );
+Entity  *managerAdd    ( Manager* const , Entity const* );
+void     managerUpdate ( Manager* const  );
+void     managerEnd    ( Manager* const  );
 
 
 #define managerForeach( M, E ) \
@@ -22,5 +22,5 @@ void     managerEnd    ( Manager* );
     for ( Entity *E = M->entities; E; E = E->next )
 
 
-// void managerEntityUpdate ( Manager*, Entity* );
-// void managerEntityDelete ( Manager*, Entity* );
+// void managerEntityUpdate ( Manager * const, Entity * const );
+// void managerEntityDelete ( Manager * const, Entity * const );

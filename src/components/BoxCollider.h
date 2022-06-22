@@ -1,5 +1,14 @@
 #pragma once
 
+// inline void ComponentBoxCollider_Init ( ComponentBoxCollider* const this, ComponentBoxCollider const *tpl ) {
+//     memcpy ( this, tpl, sizeof(ComponentBoxCollider) );
+// }
+
+#define ComponentBoxCollider_Init( A, B ) \
+    memcpy ( A, B, sizeof(ComponentBoxCollider) )
+
+
+
 // https://docs.unity3d.com/Manual/class-BoxCollider2D.html
 // https://docs.unity3d.com/ScriptReference/BoxCollider2D.html
 
@@ -18,8 +27,4 @@ typedef struct {
     }
     size;
 }
-ComponentBoxCollider2D;
-
-
-
-void ComponentBoxCollider2D_Init ( ComponentBoxCollider2D *, ComponentBoxCollider2D * const );
+ComponentBoxCollider;

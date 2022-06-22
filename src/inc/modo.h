@@ -6,6 +6,14 @@
 #include "../modo/manager.h"
 
 
+
+#define systemAdd1( S, A )          systemAdd(S,A);
+#define systemAdd2( S, A, B )       systemAdd(S,A); systemAdd(S,B);
+#define systemAdd3( S, A, B, C )    systemAdd(S,A); systemAdd(S,B); systemAdd(S,C);
+#define systemAdd4( S, A, B, C, D ) systemAdd(S,A); systemAdd(S,B); systemAdd(S,C); systemAdd(S,D);
+
+
+
 /* 
 
 // #define modoEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })

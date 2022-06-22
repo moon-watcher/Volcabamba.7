@@ -7,7 +7,7 @@ static void enter ( Entity *e ) {
     COMPS(e);
 
     ComponentSprite_SetAnim ( sp, 7 );
-    ComponentBoxCollider2D_Init ( collider, &collider_duck );
+    ComponentBoxCollider_Init ( collider, &collider_duck );
 }
 
 
