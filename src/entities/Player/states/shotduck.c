@@ -3,6 +3,7 @@
 #include "../components.h"
 
 
+
 static void enter ( Entity *e ) {
     COMPS(e);
 
@@ -19,4 +20,5 @@ static void update ( Entity *e ) {
 }
 
 
-State const entity_Player_state_shotduck = { enter, update, .name="shotduck" };
+
+State const entity_Player_state_shotduck = { enter, update };

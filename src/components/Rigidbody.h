@@ -14,7 +14,7 @@ typedef struct {
     fix32 drag;    // resistencia al aire
     bool  gravity; // si/no
 
-    // ComponentVelocity      velocity;
+    // ComponentMovement      velocity;
     // ComponentPosition    position;
     // ComponentBoxCollider2D collider;
 

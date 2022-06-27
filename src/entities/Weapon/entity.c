@@ -4,12 +4,15 @@
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../res/spr_weapon.h"
+#include "inc/entities.h"
+#include "inc/managers.h"
+
 
 
 static void awake ( Entity *e ) {
     COMPS(e);
 
-    ComponentSprite_Init ( sp, fix32ToRoundedInt( pos->x), fix32ToRoundedInt(pos->y) );
+    ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
 }
 
 
@@ -17,7 +20,7 @@ static void update ( Entity *e ) {
     COMPS(e);
     
     systemAdd2 ( sysSprite, sp, pos );
-    systemAdd3 ( sysMovement, pos, vel, dir );
+    systemAdd2 ( sysMovement, pos, movement );
     systemAdd1 ( sysTimer, timer );
 }
 
@@ -38,18 +41,34 @@ Entity const entity_Weapon_tpl = {
     .compsSize  = sizeof(Components),
     .components = &(Components) {
         .sprite = { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
-        .vel.x  = { FIX32(0), FIX32(4), FIX32(0.1), FIX32(0.1) }
+        .movement.x  = { FIX32(2), FIX32(2) }
     },
 };
 
 
 
+//////////////////////////////////////////////////////////////////////////////
+
+
 void entity_Weapon_setXY ( Entity *e, int x, int y ) {
     Components          *C  = e->components;
-    ComponentPosition *cp = &C->pos;
+    ComponentPosition2D *cp = &C->pos;
 
-    ComponentPosition_SetIntX ( cp, x );
-    ComponentPosition_SetIntY ( cp, y );
+    ComponentPosition2D$SetX ( cp, x );
+    ComponentPosition2D$SetY ( cp, y );
+}
+
+void entity_Weapon_setDirH ( Entity *e, int dir  ) {
+    if ( !dir )
+        return;
+
+    Components *C = e->components;
+    ComponentMovement2D reff cm = &C->movement;
+    
+    cm->x.dir = dir;
+
+    if ( dir > 0 )
+        cm->x.vel = -cm->x.vel;
 }
 
 

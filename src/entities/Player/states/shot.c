@@ -11,12 +11,7 @@ static void enter ( Entity *e ) {
 
     ComponentSprite_SetAnim ( sp, 4 );
     ComponentBoxCollider_Init ( collider, &collider_stand );
-
-    Entity * const weapon = managerAdd ( manWeapons, &entity_Weapon_tpl );
-
-    entity_Weapon_setXY ( weapon, 100, 100 );
 }
-
 
 static void update ( Entity *e ) {
     COMPS(e);
@@ -25,5 +20,15 @@ static void update ( Entity *e ) {
         entityState ( e, e->prevState );
 }
 
+static void exit ( Entity *e ) {
+    COMPS(e);
 
-State const entity_Player_state_shot = { enter, update, .name="shot" };
+    int x = C->dirH > 0 ? 25: -2;
+
+    Entity reff weapon = managerAdd ( manWeapons, &entity_Weapon_tpl );
+    entity_Weapon_setXY ( weapon, cp->x.rounded + x, cp->y.rounded + 20 );
+    entity_Weapon_setDirH ( weapon, C->dirH );
+}
+
+
+State const entity_Player_state_shot = { enter, update, exit };

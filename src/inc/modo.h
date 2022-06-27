@@ -7,6 +7,15 @@
 
 
 
+#define reff \
+    * const
+
+#define refference \
+    reff
+
+#define noreff
+
+
 #define systemAdd1( S, A )          systemAdd(S,A);
 #define systemAdd2( S, A, B )       systemAdd(S,A); systemAdd(S,B);
 #define systemAdd3( S, A, B, C )    systemAdd(S,A); systemAdd(S,B); systemAdd(S,C);

@@ -18,6 +18,6 @@ void joyreader_update ( Joyreader *joy )
 
 void joyreader_reset ( Joyreader *joy )
 {
-    joy->active  = 0;
     joy->changed = 0;
+    joy->active  = 0;
 }

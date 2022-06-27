@@ -6,15 +6,35 @@
 #include "../components.h"
 
 
-static void enter ( Entity *e )
-{
-    Components     *C  = e->components;
-    ComponentTimer *ct = &C->timer;
 
-    C->dir.x = 1;
-    
+static void enter ( Entity *e ) {
+    Components          *C  = e->components;
+    ComponentTimer      *ct = &C->timer;
+    ComponentMovement2D *cm = &C->movement;
+
+    ComponentTimer_Init ( ct, 30 );
+
+    cm->x.vel = -cm->x.vel;
+}
+
+
+static void update ( Entity *e ) {
+    COMPS ( e );
+
+    if ( ComponentTimer_Timeout ( timer ) )
+        entityDelete ( e );
+}
+
+
+State const entity_Weapon_state_move = { enter, update, };
+// State const entity_Weapon_state_move = { 0 };
+
+
+
+
+   
     //dx->dir = -1;
-    //ComponentVelocity_DirectionX ( cv, -1 );
+    //ComponentMovement_DirectionX ( cv, -1 );
 
     // cv->x.vel = FIX32(7.0);
     // cv->x.maximum = FIX32(7.0);
@@ -27,29 +47,20 @@ static void enter ( Entity *e )
     // cv->y.acceleration = FIX32(2.0);
     // cv->y.deceleration = FIX32(0.0);
 
-    ComponentTimer_Init ( ct, 30 );
-}
+    
 
 
-static void update ( Entity *e )
-{
-    COMPS ( e );
-
-    //ComponentVelocity_DirectionX ( cv, 0 );
+    //ComponentMovement_DirectionX ( cv, 0 );
     //ComponentTimer_Update ( timer );
 
-    if ( ComponentTimer_Timeout ( timer ) ) {
+
         //entityDelete ( e );
-        C->dir.x = 0;
+       // C->vel.x.dir = 0;
         
-        if ( ! C->vel.x.vel )
-            entityDelete ( e );
-
-        Text( "asdfa", 4,4);
-    }
+       // if ( ! C->vel.x.vel )
 
 
-       //ComponentVelocity_DirectionX ( vx, 0 ); // entityDelete ( e );
+       //ComponentMovement_DirectionX ( vx, 0 ); // entityDelete ( e );
 
     // cv->x.vel = FIX32(2.0);
     // cv->x.dir = 1;
@@ -58,10 +69,3 @@ static void update ( Entity *e )
     // drawText("update", 3,3);
     // waitMs(100);
     // drawText("       ", 3,3);
-}
-
-
-
-State const entity_Weapon_state_move = { enter, update, };
-// State const entity_Weapon_state_move = { 0 };
-

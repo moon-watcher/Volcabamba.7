@@ -34,7 +34,7 @@
 //     ComponentRigidbody *rb    = &comps->rigidbody;  \
 //     ComponentSprite    *sp    = &comps->sprite;     \
 //     ComponentPosition  *cp    = &rb->position;      \
-//     ComponentVelocity  *cv    = &rb->velocity;
+//     ComponentMovement  *cv    = &rb->velocity;
 
 
 
