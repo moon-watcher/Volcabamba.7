@@ -10,7 +10,10 @@
 static void awake ( Entity *e ) {
     COMPS(e);
 
-    ComponentSprite_Init ( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
+    ComponentPosition$Set ( cp->x, 100 );
+    ComponentPosition$Set ( cp->y, 100 );
+
+    ComponentSprite_Init ( sp, cp->x.rounded, cp->y.rounded );
     ComponentInput_Init ( ci );
 }
 
@@ -18,8 +21,11 @@ static void awake ( Entity *e ) {
 static void update ( Entity *e ) {
     COMPS(e);
 
-    systemAdd ( sysSprite, sp ); systemAdd ( sysSprite, cp );
-    systemAdd ( sysInput,  ci ); systemAdd ( sysInput,   e );
+    systemAdd2 ( sysSprite, sp, cp );
+    systemAdd2 ( sysInput,  ci,  e );
+
+    if ( joy_active_left(joy)  ) C->dirH = -1;
+    if ( joy_active_right(joy) ) C->dirH = +1;
 }
 
 
@@ -38,8 +44,8 @@ Entity const entity_Player_tpl = {
     .state  = (State*) &entity_Player_state_stay,
     .compsSize  = sizeof(Components),
     .components = &(Components) {
-        .sprite   = { &res_sprite_player, TILE_ATTR(PAL3,1,0,0) },
-        .position = { FIX32(123), FIX32(11) },
-        .input    = { .joy.port = PORT_1 },
+        .sprite = { &res_sprite_player, TILE_ATTR(PAL3,1,0,0) },
+        .input  = { .joy.port = PORT_1 },
+        .dirH = 1,
     },
 };

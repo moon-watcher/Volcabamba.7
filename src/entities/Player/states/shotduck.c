@@ -3,11 +3,12 @@
 #include "../components.h"
 
 
+
 static void enter ( Entity *e ) {
     COMPS(e);
 
     ComponentSprite_SetAnim ( sp, 7 );
-    ComponentBoxCollider2D_Init ( collider, &collider_duck );
+    ComponentBoxCollider_Init ( collider, &collider_duck );
 }
 
 
@@ -19,4 +20,5 @@ static void update ( Entity *e ) {
 }
 
 
-State const entity_Player_state_shotduck = { enter, update, .name="shotduck" };
+
+State const entity_Player_state_shotduck = { enter, update };

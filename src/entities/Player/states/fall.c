@@ -18,6 +18,8 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 }
 
 
+
+
 static void enter ( Entity *e ) {
     COMPS(e);
 
@@ -45,4 +47,4 @@ static void update ( Entity *e ) {
 
 
 
-State const entity_Player_state_fall = { enter, update, .name="fall"  };
+State const entity_Player_state_fall = { enter, update };

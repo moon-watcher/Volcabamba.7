@@ -6,11 +6,10 @@
 System *sysMovement;
 System *sysInput;
 System *sysSprite;
+System *sysTimer;
 
 
-void system_movement ( void*, int );
-void system_input    ( void*, int );
-void system_sprite   ( void*, int );
-
-//void system_input_init  ( ComponentInput *input, int port );
-//void system_sprite_init ( ComponentSprite *sp, ComponentPosition2D *cp );
+void system_movement   ( System reff );
+void system_input      ( System reff );
+void system_sprite     ( System reff );
+void system_timer      ( System reff );

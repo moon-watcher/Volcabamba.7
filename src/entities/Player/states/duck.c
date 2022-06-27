@@ -6,28 +6,12 @@
 static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 {
     Entity *e = ptr1;
-
     COMPS(e);
 
-    if ( joy_released_down ( j ) ) {
-        entityState ( e, &entity_Player_state_stay );
-        return;
-    }
-
-    if ( joy_pressed_horizontal ( j ) ) {
-        entityState ( e, &entity_Player_state_walk );
-        return;
-    }
-
-    if ( joy_pressed_c ( j ) ) {
-        entityState ( e, &entity_Player_state_jump );
-        return;
-    }
-
-    if ( joy_pressed_b ( j ) ) {
-        entityState ( e, &entity_Player_state_shotduck );
-        return;
-    }
+    JOY ( joy_released_down,      entity_Player_state_stay     );
+    JOY ( joy_pressed_horizontal, entity_Player_state_walk     );
+    JOY ( joy_pressed_c,          entity_Player_state_jump     );
+    JOY ( joy_pressed_b,          entity_Player_state_shotduck );
 }
 
 
@@ -52,4 +36,4 @@ static void enter ( Entity *e ) {
 
 
 
-State const entity_Player_state_duck = { enter, .name="duck" };
+State const entity_Player_state_duck = { enter };

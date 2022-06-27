@@ -4,24 +4,29 @@
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../res/spr_weapon.h"
+#include "inc/entities.h"
+#include "inc/managers.h"
+
 
 
 static void awake ( Entity *e ) {
     COMPS(e);
 
-    ComponentSprite_Init ( sp, fix32ToRoundedInt(cp->x), fix32ToRoundedInt(cp->y) );
+    ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
 }
 
 
 static void update ( Entity *e ) {
     COMPS(e);
-
-    systemAdd ( sysSprite,   sp ); systemAdd ( sysSprite,   cp );
-    systemAdd ( sysMovement, cp ); systemAdd ( sysMovement, cv );
+    
+    systemAdd2 ( sysSprite, sp, pos );
+    systemAdd2 ( sysMovement, pos, movement );
+    systemAdd1 ( sysTimer, timer );
 }
 
 
-static void delete ( Entity *e ) { COMPS(e);
+static void delete ( Entity *e ) {
+    COMPS(e);
 
     ComponentSprite_Release(sp);
 }
@@ -35,30 +40,35 @@ Entity const entity_Weapon_tpl = {
     .state  = (State*) &entity_Weapon_state_move,
     .compsSize  = sizeof(Components),
     .components = &(Components) {
-        .sprite   = { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
-        //.position = { FIX32(1), FIX32(11) },
-        .velocity = {
-            .x = {
-                .vel=FIX32(4),
-                .dir=1,
-                .maximum=FIX32(4),
-                //.acceleration=FIX32(0.5),
-                .deceleration=FIX32(2.4),
-                .accel_fn=NULL
-            },
-            //.y = { },
-        }
-
+        .sprite = { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
+        .movement.x  = { FIX32(2), FIX32(2) }
     },
 };
 
 
 
-void entity_Weapon_setXY ( Entity *e, int x, int y ) {
-    COMPS(e);
+//////////////////////////////////////////////////////////////////////////////
 
-    ComponentPosition2D_SetIntX ( cp, x );
-    ComponentPosition2D_SetIntY ( cp, y );
+
+void entity_Weapon_setXY ( Entity *e, int x, int y ) {
+    Components          *C  = e->components;
+    ComponentPosition2D *cp = &C->pos;
+
+    ComponentPosition2D$SetX ( cp, x );
+    ComponentPosition2D$SetY ( cp, y );
+}
+
+void entity_Weapon_setDirH ( Entity *e, int dir  ) {
+    if ( !dir )
+        return;
+
+    Components *C = e->components;
+    ComponentMovement2D reff cm = &C->movement;
+    
+    cm->x.dir = dir;
+
+    if ( dir > 0 )
+        cm->x.vel = -cm->x.vel;
 }
 
 
