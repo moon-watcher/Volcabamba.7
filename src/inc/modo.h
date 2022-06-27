@@ -4,16 +4,8 @@
 #include "../modo/system.h"
 #include "../modo/entity.h"
 #include "../modo/manager.h"
+#include "../modo/config/reff.inc"
 
-
-
-#define reff \
-    * const
-
-#define refference \
-    reff
-
-#define noreff
 
 
 #define systemAdd1( S, A )          systemAdd(S,A);
