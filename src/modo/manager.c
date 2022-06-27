@@ -3,12 +3,12 @@
 
 
 
-inline static void create ( Manager reff, Entity reff );
-inline static void change ( Manager reff, Entity reff );
-inline static void update ( Manager reff, Entity reff );
-inline static void delete ( Manager reff, Entity reff );
+inline static void create ( Manager ref, Entity ref );
+inline static void change ( Manager ref, Entity ref );
+inline static void update ( Manager ref, Entity ref );
+inline static void delete ( Manager ref, Entity ref );
 
-static void ( *actions [ ] ) ( Manager reff, Entity reff ) = { create, update, change, delete };
+static void ( *actions [ ] ) ( Manager ref, Entity ref ) = { create, update, change, delete };
 static int const Manager_s = sizeof ( Manager );
 
 
@@ -23,7 +23,7 @@ Manager *manager ( ) {
 }
 
 
-Entity *managerAdd ( Manager reff manager, Entity const *template ) {
+Entity *managerAdd ( Manager ref manager, Entity const *template ) {
     Entity *e = entity ( template );
 	
     e->next = manager->entities;
@@ -33,13 +33,13 @@ Entity *managerAdd ( Manager reff manager, Entity const *template ) {
 }
 
 
-void managerUpdate ( Manager reff  manager ) {
+void managerUpdate ( Manager ref  manager ) {
     managerForeach ( manager, entity )
         actions [ entity->action ] ( manager, entity );
 }
 
 
-void managerEnd ( Manager reff manager ) {
+void managerEnd ( Manager ref manager ) {
     managerForeach ( manager, entity )
         delete ( manager, entity );
 
@@ -47,12 +47,12 @@ void managerEnd ( Manager reff manager ) {
 }
 
 
-// void managerEntityUpdate ( Manager  reff manager, Entity  reff entity ) {
+// void managerEntityUpdate ( Manager  ref manager, Entity  ref entity ) {
 //     update ( manager, entity );
 // }
 
 
-// void managerEntityDelete ( Manager  reff manager, Entity  reff entity ) {
+// void managerEntityDelete ( Manager  ref manager, Entity  ref entity ) {
 //     delete ( manager, entity );
 //}
 
@@ -60,7 +60,7 @@ void managerEnd ( Manager reff manager ) {
 
 #define X(F,E) if(F)F(E)
 
-inline static void create ( Manager reff manager, Entity reff entity ) {
+inline static void create ( Manager ref manager, Entity ref entity ) {
     X ( entity->Awake,        entity );
     X ( entity->state->enter, entity );
 
@@ -69,14 +69,14 @@ inline static void create ( Manager reff manager, Entity reff entity ) {
     update ( manager, entity );
 }
 
-inline static void update ( Manager reff manager, Entity reff entity ) {
+inline static void update ( Manager ref manager, Entity ref entity ) {
     X ( entity->Update,        entity );
     X ( entity->state->update, entity );
 
     manager->prevEntity = entity;
 }
 
-inline static void change ( Manager reff manager, Entity reff entity ) {
+inline static void change ( Manager ref manager, Entity ref entity ) {
     X ( entity->prevState->exit, entity );
     X ( entity->state->enter,    entity );
 
@@ -85,7 +85,7 @@ inline static void change ( Manager reff manager, Entity reff entity ) {
     update ( manager, entity );
 }
 
-inline static void delete ( Manager reff manager, Entity reff entity ) {
+inline static void delete ( Manager ref manager, Entity ref entity ) {
     X ( entity->state->exit, entity );
     X ( entity->Delete,      entity );
 
