@@ -4,7 +4,7 @@
 #include "inc/components.h"
 
 
-inline static void _update ( ComponentMovement * const cm ) {
+inline static void _update ( ComponentMovement reff cm ) {
     fix32 v            = cm->vel;
     fix32 acceleration = cm->acceleration;
     fix32 deceleration = cm->deceleration;
@@ -20,8 +20,8 @@ inline static void _update ( ComponentMovement * const cm ) {
 }
 
 
-void system_movement ( System * const system ) {
-    void ** const array = system->list;
+void system_movement ( System reff system ) {
+    void *reff array = system->list;
     int length = system->length; 
 
     for ( int i = 0; i < length; ) {

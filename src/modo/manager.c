@@ -3,14 +3,12 @@
 
 
 
+inline static void create ( Manager reff, Entity reff );
+inline static void change ( Manager reff, Entity reff );
+inline static void update ( Manager reff, Entity reff );
+inline static void delete ( Manager reff, Entity reff );
 
-
-inline static void create ( Manager* const, Entity* const );
-inline static void change ( Manager* const, Entity* const );
-inline static void update ( Manager* const, Entity* const );
-inline static void delete ( Manager* const, Entity* const );
-
-static void ( *actions [ ] ) ( Manager* const, Entity* const ) = { create, update, change, delete };
+static void ( *actions [ ] ) ( Manager reff, Entity reff ) = { create, update, change, delete };
 static int const Manager_s = sizeof ( Manager );
 
 
@@ -25,7 +23,7 @@ Manager *manager ( ) {
 }
 
 
-Entity *managerAdd ( Manager* const manager, Entity const *template ) {
+Entity *managerAdd ( Manager reff manager, Entity const *template ) {
     Entity *e = entity ( template );
 	
     e->next = manager->entities;
@@ -35,13 +33,13 @@ Entity *managerAdd ( Manager* const manager, Entity const *template ) {
 }
 
 
-void managerUpdate ( Manager* const  manager ) {
+void managerUpdate ( Manager reff  manager ) {
     managerForeach ( manager, entity )
         actions [ entity->action ] ( manager, entity );
 }
 
 
-void managerEnd ( Manager* const manager ) {
+void managerEnd ( Manager reff manager ) {
     managerForeach ( manager, entity )
         delete ( manager, entity );
 
@@ -49,12 +47,12 @@ void managerEnd ( Manager* const manager ) {
 }
 
 
-// void managerEntityUpdate ( Manager * const manager, Entity * const entity ) {
+// void managerEntityUpdate ( Manager  reff manager, Entity  reff entity ) {
 //     update ( manager, entity );
 // }
 
 
-// void managerEntityDelete ( Manager * const manager, Entity * const entity ) {
+// void managerEntityDelete ( Manager  reff manager, Entity  reff entity ) {
 //     delete ( manager, entity );
 //}
 
@@ -62,7 +60,7 @@ void managerEnd ( Manager* const manager ) {
 
 #define X(F,E) if(F)F(E)
 
-inline static void create ( Manager* const manager, Entity* const entity ) {
+inline static void create ( Manager reff manager, Entity reff entity ) {
     X ( entity->Awake,        entity );
     X ( entity->state->enter, entity );
 
@@ -71,14 +69,14 @@ inline static void create ( Manager* const manager, Entity* const entity ) {
     update ( manager, entity );
 }
 
-inline static void update ( Manager* const manager, Entity* const entity ) {
+inline static void update ( Manager reff manager, Entity reff entity ) {
     X ( entity->Update,        entity );
     X ( entity->state->update, entity );
 
     manager->prevEntity = entity;
 }
 
-inline static void change ( Manager* const manager, Entity* const entity ) {
+inline static void change ( Manager reff manager, Entity reff entity ) {
     X ( entity->prevState->exit, entity );
     X ( entity->state->enter,    entity );
 
@@ -87,7 +85,7 @@ inline static void change ( Manager* const manager, Entity* const entity ) {
     update ( manager, entity );
 }
 
-inline static void delete ( Manager* const manager, Entity* const entity ) {
+inline static void delete ( Manager reff manager, Entity reff entity ) {
     X ( entity->state->exit, entity );
     X ( entity->Delete,      entity );
 

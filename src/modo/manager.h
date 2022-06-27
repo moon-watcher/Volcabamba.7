@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entity.h"
+#include "config/reff.inc"
 
 
 typedef struct
@@ -12,9 +13,9 @@ Manager;
 
 
 Manager *manager       ( );
-Entity  *managerAdd    ( Manager* const , Entity const* );
-void     managerUpdate ( Manager* const  );
-void     managerEnd    ( Manager* const  );
+Entity  *managerAdd    ( Manager reff, Entity const* );
+void     managerUpdate ( Manager reff );
+void     managerEnd    ( Manager reff );
 
 
 #define managerForeach( M, E ) \
@@ -22,5 +23,5 @@ void     managerEnd    ( Manager* const  );
     for ( Entity *E = M->entities; E; E = E->next )
 
 
-// void managerEntityUpdate ( Manager * const, Entity * const );
-// void managerEntityDelete ( Manager * const, Entity * const );
+// void managerEntityUpdate ( Manager  reff, Entity  reff );
+// void managerEntityDelete ( Manager  reff, Entity  reff );

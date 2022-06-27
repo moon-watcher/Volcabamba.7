@@ -4,13 +4,13 @@
 #include "inc/components.h"
 
 
-void system_sprite ( System * const system ) {
-    void ** const array = system->list;
+void system_sprite ( System reff system ) {
+    void *reff array = system->list;
     int length = system->length; 
 
     for ( int i = 0; i < length; ) {
-        ComponentSprite     * const sp = array [ i++ ];
-        ComponentPosition2D * const cp = array [ i++ ];
+        ComponentSprite     reff sp = array [ i++ ];
+        ComponentPosition2D reff cp = array [ i++ ];
     
         SPR_setPosition ( sp->sprite, cp->x.rounded, cp->y.rounded );
     }
