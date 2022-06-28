@@ -4,7 +4,7 @@
 #include "../modo/system.h"
 #include "../modo/entity.h"
 #include "../modo/manager.h"
-#include "../modo/config/reff.inc"
+#include "../modo/config/ref.inc"
 
 
 

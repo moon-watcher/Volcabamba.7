@@ -9,20 +9,18 @@
 
 static void enter ( Entity *e ) {
     Components          *C  = e->components;
-    ComponentTimer      *ct = &C->timer;
     ComponentMovement2D *cm = &C->movement;
+    //ComponentTimer      *ct = &C->timer;
 
-    ComponentTimer_Init ( ct, 30 );
-
-    cm->x.vel = -cm->x.vel;
+    // ComponentTimer_Init ( ct, 30 );
 }
 
 
 static void update ( Entity *e ) {
     COMPS ( e );
 
-    if ( ComponentTimer_Timeout ( timer ) )
-        entityDelete ( e );
+    // if ( ComponentTimer_Timeout ( timer ) )
+    //     entityDelete ( e );
 }
 
 

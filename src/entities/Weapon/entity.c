@@ -59,15 +59,14 @@ void entity_Weapon_setXY ( Entity *e, int x, int y ) {
 }
 
 void entity_Weapon_setDirH ( Entity *e, int dir  ) {
-    if ( !dir )
-        return;
+    if ( !dir ) return;
 
     Components *C = e->components;
-    ComponentMovement2D reff cm = &C->movement;
+    ComponentMovement2D ref cm = &C->movement;
     
     cm->x.dir = dir;
 
-    if ( dir > 0 )
+    if ( dir < 0 )
         cm->x.vel = -cm->x.vel;
 }
 

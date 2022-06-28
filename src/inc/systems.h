@@ -9,7 +9,7 @@ System *sysSprite;
 System *sysTimer;
 
 
-void system_movement   ( System reff );
-void system_input      ( System reff );
-void system_sprite     ( System reff );
-void system_timer      ( System reff );
+void system_movement   ( System ref );
+void system_input      ( System ref );
+void system_sprite     ( System ref );
+void system_timer      ( System ref );

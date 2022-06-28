@@ -5,13 +5,13 @@
 #include "../libs/joyreader.h"
 
 
-void system_input ( System reff system ) {
-    void *reff array = system->list;
+void system_input ( System ref system ) {
+    void *ref array = system->list;
     int length = system->length; 
 
     for ( int i = 0; i < length; ) {
-        ComponentInput reff ci     = array [ i++ ];
-        Entity         reff entity = array [ i++ ];
+        ComponentInput ref ci     = array [ i++ ];
+        Entity         ref entity = array [ i++ ];
         
         ComponentInput_Update ( ci );
 

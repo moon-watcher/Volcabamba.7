@@ -1,6 +1,6 @@
 #include <genesis.h>
 #include "system.h"
-#include "config/reff.inc"
+#include "config/ref.inc"
 
 
 static int const System_s  = sizeof ( System );
@@ -21,7 +21,7 @@ System *system ( systemFn update, unsigned max, char *name ) {
 }
 
 
-void systemUpdate ( System reff system ) {
+void systemUpdate ( System ref system ) {
     if ( !system->length  ||  !system->update )
         return;
 
@@ -45,7 +45,7 @@ void systemUpdate ( System reff system ) {
 }
 
 
-void systemEnd ( System reff system ) {
+void systemEnd ( System ref system ) {
     free ( system->list );
     free ( system );
 }

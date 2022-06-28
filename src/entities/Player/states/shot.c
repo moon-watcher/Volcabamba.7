@@ -25,7 +25,7 @@ static void exit ( Entity *e ) {
 
     int x = C->dirH > 0 ? 25: -2;
 
-    Entity reff weapon = managerAdd ( manWeapons, &entity_Weapon_tpl );
+    Entity ref weapon = managerAdd ( manWeapons, &entity_Weapon_tpl );
     entity_Weapon_setXY ( weapon, cp->x.rounded + x, cp->y.rounded + 20 );
     entity_Weapon_setDirH ( weapon, C->dirH );
 }
