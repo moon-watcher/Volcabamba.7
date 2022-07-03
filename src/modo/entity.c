@@ -2,11 +2,10 @@
 #include "entity.h"
 
 
-
 static int const Entity_s = sizeof ( Entity );
 
 
-Entity *entity ( Entity const *template ) {
+Entity *entity ( Entity const* template ) {
     Entity *entity;    
     int const Comps_s = template->compsSize;
 
@@ -22,7 +21,7 @@ Entity *entity ( Entity const *template ) {
 }
 
 
-void entityState ( Entity *entity, State const *newState ) {
+void entityState ( Entity *const entity, State const* newState ) {
     
     if ( newState == entity->state )
         return;
@@ -33,6 +32,6 @@ void entityState ( Entity *entity, State const *newState ) {
 }
 
 
-void entityDelete ( Entity *entity ) {
+void entityDelete ( Entity *const entity ) {
     entity->action = ENTITY_ACTION_DELETE;
 }

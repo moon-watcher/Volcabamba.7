@@ -9,14 +9,14 @@
 
 
 
-static void awake ( Entity *e ) {
+static void awake ( Entity *const e ) {
     COMPS(e);
 
     ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
 }
 
 
-static void update ( Entity *e ) {
+static void update ( Entity *const e ) {
     COMPS(e);
     
     systemAdd2 ( sysSprite, sp, pos );
@@ -25,7 +25,7 @@ static void update ( Entity *e ) {
 }
 
 
-static void delete ( Entity *e ) {
+static void delete ( Entity *const e ) {
     COMPS(e);
 
     ComponentSprite_Release(sp);
@@ -50,19 +50,19 @@ Entity const entity_Weapon_tpl = {
 //////////////////////////////////////////////////////////////////////////////
 
 
-void entity_Weapon_setXY ( Entity *e, int x, int y ) {
+void entity_Weapon_setXY ( Entity *const e, int x, int y ) {
     Components          *C  = e->components;
     ComponentPosition2D *cp = &C->pos;
 
-    ComponentPosition2D$SetX ( cp, x );
-    ComponentPosition2D$SetY ( cp, y );
+    ComponentPosition2D_SetX ( cp, x );
+    ComponentPosition2D_SetY ( cp, y );
 }
 
-void entity_Weapon_setDirH ( Entity *e, int dir  ) {
+void entity_Weapon_setDirH ( Entity *const e, int dir  ) {
     if ( !dir ) return;
 
     Components *C = e->components;
-    ComponentMovement2D ref cm = &C->movement;
+    ComponentMovement2D *const cm = &C->movement;
     
     cm->x.dir = dir;
 

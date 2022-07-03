@@ -7,7 +7,7 @@
 
 
 
-static void enter ( Entity *e ) {
+static void enter ( Entity *const e ) {
     Components          *C  = e->components;
     ComponentMovement2D *cm = &C->movement;
     //ComponentTimer      *ct = &C->timer;
@@ -16,7 +16,7 @@ static void enter ( Entity *e ) {
 }
 
 
-static void update ( Entity *e ) {
+static void update ( Entity *const e ) {
     COMPS ( e );
 
     // if ( ComponentTimer_Timeout ( timer ) )

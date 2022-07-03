@@ -4,7 +4,6 @@
 #include "../modo/system.h"
 #include "../modo/entity.h"
 #include "../modo/manager.h"
-#include "../modo/config/ref.inc"
 
 
 
@@ -14,6 +13,19 @@
 #define systemAdd4( S, A, B, C, D ) systemAdd(S,A); systemAdd(S,B); systemAdd(S,C); systemAdd(S,D);
 
 
+#define systemFnDefine( FUNCTION, CODE )   \
+    void FUNCTION ( System *const s ) {       \
+        void *const* array = (void*) s->list; \
+        int length = s->length;            \
+                                           \
+        for ( int i = 0; i < length; )     \
+            CODE                           \
+    }
+
+#define systemFnGet \
+    array [ i++ ]
+
+
 
 /* 
 
@@ -21,7 +33,7 @@
 
 
 
-// #define DEFINE_STATE(STATE,ENTER,UPDATE,EXIT)                                 \
+// #define defineState(STATE,ENTER,UPDATE,EXIT)                                 \
 //     static void STATE##_enter  ( Entity *entity ) ENTER                       \
 //     static void STATE##_update ( Entity *entity ) UPDATE                      \
 //     static void STATE##_exit   ( Entity *entity ) EXIT                        \
@@ -33,13 +45,13 @@
 
 
 
-// #define DEFINE_ENTITY(TPL,STATE,COMPS,AWAKE,UPDATE,DELETE)                    \
+// #define defineEntity(TPL,STATE,COMPS,AWAKE,UPDATE,DELETE)                     \
 //     static void TPL##_Awake  ( Entity *entity ) AWAKE                         \
 //     static void TPL##_Update ( Entity *entity ) UPDATE                        \
 //     static void TPL##_Delete ( Entity *entity ) DELETE                        \
 //     Entity const TPL = {                                                      \
 //         .state      = (State*) &STATE,                                        \
-//         .newState  = NULL                                                    \
+//         .newState   = NULL                                                    \
 //         .components = &(Components) COMPS,                                    \
 //         .compsSize  = sizeof(Components),                                     \
 //         .action     = ENTITY_ACTION_INIT,                                     \

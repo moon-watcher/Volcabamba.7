@@ -11,56 +11,41 @@ enum EntityAction {
 };
 
 
+// typedef struct ExecInterface
+// {
+//     #include "config/ExecInterface.inc"
+// }
+// ExecInterface;
+
+
 typedef struct Entity {
     struct State *state;
     struct State *prevState;
     void* components;
-    int compsSize:10; // 1kB
+    int compsSize:8;
     enum EntityAction action;
 
-    void ( *Awake  ) ( struct Entity * );
-    void ( *Update ) ( struct Entity * );
-    void ( *Delete ) ( struct Entity * );
+    void ( *Awake  ) ( );
+    void ( *Update ) ( );
+    void ( *Delete ) ( );
     
+    // struct ExecInterface *exec;
+    // void *whatever;
+
     void *next;
 }
 Entity;
 
 
 typedef struct State {
-    void ( *enter  ) ( Entity * );
-    void ( *update ) ( Entity * );
-    void ( *exit   ) ( Entity * );
+    void ( *enter  ) ( );
+    void ( *update ) ( );
+    void ( *exit   ) ( );
     char *name;
 }
 State;
 
 
-Entity *entity       ( Entity const * );
-void    entityState  ( Entity *, State const * );
-void    entityDelete ( Entity * );
-
-
-
-// typedef struct Entity {
-//     struct State *state;
-//     void* components;
-//     int compsSize;
-//     bool delete;
-
-//     void ( *Awake  ) ( struct Entity * );
-//     void ( *Update ) ( struct Entity * );
-//     void ( *Delete ) ( struct Entity * );
-    
-//     struct Entity *next;
-    
-//     struct EntityExecInterface *exec;
-//     void *whatever;   
-// }
-// Entity;
-
-// typedef struct EntityExecInterface
-// {
-//     #include "config/EntityExecInterface.inc"
-// }
-// EntityExecInterface;
+Entity *entity       ( Entity const* );
+void    entityState  ( Entity *const, State const* );
+void    entityDelete ( Entity *const );

@@ -25,7 +25,7 @@ Components;
 ////////////////////////////////////////////////////////////////////////////////////////
 
 
-static void enemy5_stand_State_enter ( Entity *entity )
+static void enemy5_stand_State_enter ( Entity *const entity )
 {
     COMPONENTS(entity);
 
@@ -34,7 +34,7 @@ static void enemy5_stand_State_enter ( Entity *entity )
 
 
 
-static void enemy5_Entity_update ( Entity *entity )
+static void enemy5_Entity_update ( Entity *const entity )
 {
     COMPONENTS(entity);
 
@@ -45,14 +45,14 @@ static void enemy5_Entity_update ( Entity *entity )
 ////////////////////////////////////////////////////////////////////////////////////////
 
 
-int getIntFromEntity ( Entity *entity )
+int getIntFromEntity ( Entity *const entity )
 {
     COMPONENTS(entity);
 
     return ct->max;
 }
 
-void setIntFromEntity ( Entity *entity, int v )
+void setIntFromEntity ( Entity *const entity, int v )
 {
     COMPONENTS(entity);
 

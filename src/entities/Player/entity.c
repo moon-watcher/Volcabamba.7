@@ -7,18 +7,18 @@
 #include "libs/joyreader.h"
 
 
-static void awake ( Entity *e ) {
+static void awake ( Entity *const e ) {
     COMPS(e);
 
-    ComponentPosition$Set ( cp->x, 100 );
-    ComponentPosition$Set ( cp->y, 100 );
+    ComponentPosition_Set ( cp->x, 100 );
+    ComponentPosition_Set ( cp->y, 100 );
 
     ComponentSprite_Init ( sp, cp->x.rounded, cp->y.rounded );
     ComponentInput_Init ( ci );
 }
 
 
-static void update ( Entity *e ) {
+static void update ( Entity *const e ) {
     COMPS(e);
 
     systemAdd2 ( sysSprite, sp, cp );
@@ -29,7 +29,7 @@ static void update ( Entity *e ) {
 }
 
 
-static void delete ( Entity *e ) {
+static void delete ( Entity *const e ) {
     COMPS(e);
 
     ComponentSprite_Release ( sp );

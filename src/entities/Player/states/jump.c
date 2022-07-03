@@ -6,9 +6,9 @@
 int counter1;
 
 
-static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
+static void inputHandler ( Joyreader *const j, void *const ptr1, void *const ptr2 )
 {
-    Entity *e = ptr1;
+    Entity *const e = ptr1;
     COMPS(e);
 
     if ( joy_active_left(j) ) SPR_setHFlip ( sp->sprite, 1 );
@@ -25,7 +25,7 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
 
 
-static void enter ( Entity *e ) {
+static void enter ( Entity *const e ) {
     COMPS(e);
 
     counter1 = 70;
@@ -34,7 +34,7 @@ static void enter ( Entity *e ) {
 }
 
 
-static void update ( Entity *e ) {
+static void update ( Entity *const e ) {
     COMPS(e);
     --counter1;
 

@@ -5,14 +5,14 @@
 
 
 #define COMPS(E)                                     \
-    Components           *C        = E->components;  \
-    ComponentAttribute   *attrs    = &C->attributes; \
-    ComponentSprite      *sp       = &C->sprite;     \
-    ComponentPosition2D  *cp       = &C->position;   \
-    ComponentBoxCollider *collider = &C->collider;   \
-    ComponentRigidbody   *rb       = &C->rigidbody;  \
-    ComponentInput       *ci       = &C->input;      \
-    Joyreader            *joy      = &ci->joy;
+    Components           *const C        = E->components;  \
+    ComponentAttribute   *const attrs    = &C->attributes; \
+    ComponentSprite      *const sp       = &C->sprite;     \
+    ComponentPosition2D  *const cp       = &C->position;   \
+    ComponentBoxCollider *const collider = &C->collider;   \
+    ComponentRigidbody   *const rb       = &C->rigidbody;  \
+    ComponentInput       *const ci       = &C->input;      \
+    Joyreader            *const joy      = &ci->joy;
 
 
 typedef struct {
@@ -29,8 +29,8 @@ Components;
 
 
 
-#define JOY( A, B ) \ 
-    if ( A ( j ) ) { \
+#define JOY( A, B )            \
+    if ( A ( j ) ) {           \
         entityState ( e, &B ); \
         return; \
     }

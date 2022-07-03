@@ -1,6 +1,6 @@
 #pragma once
 
-// inline void ComponentBoxCollider_Init ( ComponentBoxCollider* const this, ComponentBoxCollider const *tpl ) {
+// inline void ComponentBoxCollider_Init ( ComponentBoxCollider* const this, ComponentBoxCollider const* tpl ) {
 //     memcpy ( this, tpl, sizeof(ComponentBoxCollider) );
 // }
 
