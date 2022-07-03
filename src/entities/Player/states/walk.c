@@ -3,9 +3,9 @@
 #include "../components.h"
 
 
-static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
+static void inputHandler ( Joyreader *const j, void *const ptr1, void *const ptr2 )
 {
-    Entity *e = ptr1;
+    Entity *const e = ptr1;
     COMPS(e);
 
     if ( joy_active_left(joy)  ) SPR_setHFlip(sp->sprite,1);
@@ -19,8 +19,7 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 }
 
 
-
-static void enter ( Entity *e ) {
+static void enter ( Entity *const e ) {
     COMPS(e);
 
     ComponentSprite_SetAnim ( sp, 1 );

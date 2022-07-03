@@ -5,7 +5,7 @@
 
 typedef struct {
     VDPPlane     plane;
-    Image const *image;
+    Image const* image;
     u16          attributes;
 }
 ComponentImage;

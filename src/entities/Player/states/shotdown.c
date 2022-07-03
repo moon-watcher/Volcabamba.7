@@ -4,14 +4,14 @@
 
 
 
-static void enter ( Entity *e ) {
+static void enter ( Entity *const e ) {
     COMPS(e);
 
     SPR_setAnim ( sp->sprite, 5 );
 }
 
 
-static void update ( Entity *e ) {
+static void update ( Entity *const e ) {
     COMPS(e);
 
     if ( ComponentSprite_IsLastFrame ( sp ) )

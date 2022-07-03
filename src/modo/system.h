@@ -6,7 +6,7 @@ typedef void (*systemFn) ( );
 typedef struct System
 {
     systemFn update;
-    void **list;
+    void const* *list;
     unsigned max;
     unsigned length;
     unsigned max_length;
@@ -16,8 +16,8 @@ System;
 
 
 System* system       ( systemFn, unsigned, char* );
-// void    systemUpdate ( System const * );
-// void    systemEnd    ( System const * );
+void    systemUpdate ( System *const );
+void    systemEnd    ( System *const );
 
 #define systemAdd( S, V ) \
     S->list [ S->length++ ] = V

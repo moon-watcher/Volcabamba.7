@@ -3,9 +3,9 @@
 #include "../components.h"
 
 
-static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
+static void inputHandler ( Joyreader *const j, void *const ptr1, void *const ptr2 )
 {
-    Entity *e = ptr1;
+    Entity *const e = ptr1;
     COMPS(e);
 
     JOY ( joy_active_horizontal, entity_Player_state_walk );
@@ -17,12 +17,13 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
 
 
-static void enter ( Entity *e ) {
+static void enter ( Entity *const e ) {
     COMPS(e);
 
     ComponentSprite_SetAnim ( sp, 0 );
     ComponentInput_Handler ( ci, inputHandler );
     ComponentBoxCollider_Init ( collider, &collider_stand );
+    e->action = 0;
 }
 
 

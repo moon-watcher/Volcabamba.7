@@ -3,9 +3,9 @@
 #include "../components.h"
 
 
-static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
+static void inputHandler ( Joyreader *const j, void *const ptr1, void *const ptr2 )
 {
-    Entity *e = ptr1;
+    Entity *const e = ptr1;
     COMPS(e);
 
     JOY ( joy_released_down,      entity_Player_state_stay     );
@@ -16,7 +16,7 @@ static void inputHandler ( Joyreader *j, void *ptr1, void *ptr2 )
 
 
 
-static void enter ( Entity *e ) {
+static void enter ( Entity *const e ) {
     COMPS(e);
 
     SPR_setAnim ( sp->sprite, 6 );

@@ -4,19 +4,35 @@
 #include "inc/components.h"
 #include "../libs/joyreader.h"
 
+/**
+ * Use:
+ *  - ComponentInput
+ *  - Entity
+ */
+systemFnDefine ( system_input, {
+    ComponentInput *const ci     = systemFnGet;
+    Entity         *const entity = systemFnGet;
 
-void system_input ( System ref system ) {
-    void *ref array = system->list;
-    int length = system->length; 
+    ComponentInput_Update ( ci );
 
-    for ( int i = 0; i < length; ) {
-        ComponentInput ref ci     = array [ i++ ];
-        Entity         ref entity = array [ i++ ];
-        
-        ComponentInput_Update ( ci );
-
-        if ( ci->handler ) {
-            ci->handler ( &ci->joy, entity, NULL );
-        }
+    if ( ci->handler ) {
+        ci->handler ( &ci->joy, entity, NULL );
     }
-}
+});
+
+
+// void system_input ( System *const system ) {
+//     void *ref array = system->list;
+//     int length = system->length; 
+
+//     for ( int i = 0; i < length; ) {
+//         ComponentInput *const ci     = array [ i++ ];
+//         Entity         *const entity = array [ i++ ];
+        
+//         ComponentInput_Update ( ci );
+
+//         if ( ci->handler ) {
+//             ci->handler ( &ci->joy, entity, NULL );
+//         }
+//     }
+// }
