@@ -13,22 +13,7 @@
 #define systemAdd4( S, A, B, C, D ) systemAdd(S,A); systemAdd(S,B); systemAdd(S,C); systemAdd(S,D);
 
 
-#define systemFnDefine( FUNCTION, CODE )   \
-    void FUNCTION ( System *const s ) {       \
-        void *const* array = (void*) s->list; \
-        int length = s->length;            \
-                                           \
-        for ( int i = 0; i < length; )     \
-            CODE                           \
-    }
-
-#define systemFnGet \
-    array [ i++ ]
-
-
-
 /* 
-
 // #define modoEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
 
 

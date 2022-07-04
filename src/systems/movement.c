@@ -1,7 +1,7 @@
 #include <genesis.h>
-
-#include "inc/modo.h"
-#include "inc/components.h"
+#include "modo/system.h"
+#include "components/Movement.h"
+#include "components/Position.h"
 
 
 inline static void _update ( ComponentMovement *const cm ) {
@@ -21,8 +21,8 @@ inline static void _update ( ComponentMovement *const cm ) {
 
 
 systemFnDefine ( system_movement, {
-    ComponentPosition2D *p = systemFnGet;
-    ComponentMovement2D *v = systemFnGet;
+    ComponentPosition2D *const p = systemFnGet;
+    ComponentMovement2D *const v = systemFnGet;
     
     _update ( &v->x );
     _update ( &v->y );
@@ -30,21 +30,3 @@ systemFnDefine ( system_movement, {
     p->x.rounded = fix32ToInt ( p->x.pos += v->x.vel );
     p->y.rounded = fix32ToInt ( p->y.pos += v->y.vel );
 });
-
-
-
-// void system_movement ( System *const system ) {
-//     void *ref array = system->list;
-//     int length = system->length; 
-
-//     for ( int i = 0; i < length; ) {
-//         ComponentPosition2D *p = array [ i++ ];
-//         ComponentMovement2D *v = array [ i++ ];
-        
-//         _update ( &v->x );
-//         _update ( &v->y );
-
-//         p->x.rounded = fix32ToInt ( p->x.pos += v->x.vel );
-//         p->y.rounded = fix32ToInt ( p->y.pos += v->y.vel );
-//     }
-// }
