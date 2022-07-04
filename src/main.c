@@ -109,52 +109,57 @@ void ramiro(){
 }
 
 
+
+void listtest(){
+    #include "libs/listptr.h"
+
+    listptr l;
+    listptr_init ( &l, NULL );
+
+    int *a = &(int) {1};
+    int *b = &(int) {2};
+    int *c = &(int) {3};
+
+    listptrNode* n1 = listptr_add( &l, a );
+    listptrNode* n2 = listptr_add( &l, b );
+    listptrNode* n3 = listptr_add( &l, c );
+
+
+    listptr_remove ( &l, n3 );
+    listptr_destroy( &l );
+    
+    int y = 0;
+    for ( listptrNode const* node = l.head; node; node = node->next )
+    {
+        int *show = node->data;
+        drawInt ( *show, 0, y++, 3 );
+    }
+    y++;
+
+    listptr_remove ( &l, n1 );
+    for ( listptrNode const* node = l.head; node; node = node->next )
+    {
+        int *show = node->data;
+        drawInt ( *show, 0, y++, 3 );
+    }
+    y++;
+
+    listptr_remove ( &l, n3 );
+    for ( listptrNode const* node = l.head; node; node = node->next )
+    {
+        int *show = node->data;
+        drawInt ( *show, 0, y++, 3 );
+    }
+    y++;
+}
+
 void main()
 {
     VDP_setScreenWidth256();
 
     // mainManager();
+    // listtest();
     ramiro();
-
-//     listptr l;
-//     listptr_init ( &l, NULL );
-
-//     int *a = &(int) {1};
-//     int *b = &(int) {2};
-//     int *c = &(int) {3};
-
-//     listptrNode* n1 = listptr_add( &l, a );
-//     listptrNode* n2 = listptr_add( &l, b );
-//     listptrNode* n3 = listptr_add( &l, c );
-
-
-//     int y = 0;
-
-//     listptr_remove ( &l, n3 );
-//     for ( listptrNode *node = l.head; node; node = node->next )
-//     {
-//         int *show = node->data;
-//         drawInt ( *show, 0, y++, 3 );
-//     }
-//     y++;
-
-
-    // listptr_remove ( &l, n1 );
-    // for ( listptrNode *node = l.head; node; node = node->next )
-    // {
-    //     int *show = node->data;
-    //     drawInt ( *show, 0, y++, 3 );
-    // }
-    // y++;
-
-
-    // listptr_remove ( &l, n3 );
-    // for ( listptrNode *node = l.head; node; node = node->next )
-    // {
-    //     int *show = node->data;
-    //     drawInt ( *show, 0, y++, 3 );
-    // }
-    // y++;
 }
 
 
