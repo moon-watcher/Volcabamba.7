@@ -21,3 +21,16 @@ void    systemEnd    ( System *const );
 
 #define systemAdd( S, V ) \
     S->list [ S->length++ ] = V
+
+
+#define systemFnDefine( FUNCTION, CODE )   \
+    void FUNCTION ( System *const s ) {       \
+        void *const* array = (void*) s->list; \
+        int length = s->length;            \
+                                           \
+        for ( int i = 0; i < length; )     \
+            CODE                           \
+    }
+
+#define systemFnGet \
+    array [ i++ ]
