@@ -2,49 +2,82 @@
 #include "system.h"
 
 
-static int const System_s  = sizeof ( System );
-static int const voidptr_s = sizeof ( void* );
+// https://algorithmtutor.com/Data-Structures/Basic/Doubly-Linked-Lists/
 
 
-System *system ( systemFn update, unsigned max, char *name ) {
-    System *system = malloc ( System_s );
+static int const system_s     = sizeof ( System );
+static int const systemNode_s = sizeof ( SystemNode );
 
+
+System* system ( void (*update) (), char *const name ) {
+    System *system = malloc ( system_s );
+    
     system->update = update;
-    system->list = malloc ( voidptr_s * max );
-    system->max = max;
-    system->name = name;
-    system->length = 0;
-    system->max_length = 0;
+    system->name   = name;
+    system->head   = ((void*)0);
+    system->tail   = ((void*)0);
 
     return system;
 }
 
 
 void systemUpdate ( System *const system ) {
-    if ( !system->length  ||  !system->update )
-        return;
-
-    if ( system->length > system->max_length )
-        system->max_length = system->length;
-
-    // En lugar de un mensaje de error hacer algo aquí para que se redimensione system->list.
-    // Luego, por ejemplo: al finalizar una fase, sería ideal que mostrara el system->max de cada sistema
-    if ( system->length >= system->max ) {
-        VDP_resetScreen();
-        drawText ( "SYSTEM:",   0, 0 ); drawText ( system->name,       10, 0 );
-        drawText ( "MAX:",      0, 1 ); drawUInt ( system->max,        10, 1, 9 );
-        drawText ( "LENGTH:",   0, 2 ); drawUInt ( system->length,     10, 2, 9 );
-        drawText ( "M-LENGTH:", 0, 3 ); drawUInt ( system->max_length, 10, 3, 9 );
-        
-        while(1);
-    }
-
-    system->update ( system );
-    system->length = 0;
+    if ( system->update )
+        system->update ( system );
 }
 
 
-void systemEnd ( System *const system ) {
-    free ( system->list );
-    free ( system );
+SystemNode *systemAdd ( System *const s, void *data ) {
+    SystemNode *node = malloc ( systemNode_s );
+
+    node->data = data;
+    node->next = NULL;
+    node->prev = NULL;    
+    
+    if ( s->head ) {
+        s->tail->next = node;
+        node->prev = s->tail;
+    } else
+        s->head = node;
+
+    s->tail = node;
+
+    return node;
+}
+
+
+void systemDelete ( System *const s, SystemNode *const node ) {
+    if ( !node->prev ) { // popFront
+        if ( s->head->next )
+            s->head->next->prev = NULL;
+
+        SystemNode *next = s->head->next;
+
+        free ( s->head );
+
+        s->head = next;
+    }
+    else if ( !node->next ) { // popBack
+        if ( s->tail->prev )
+            s->tail->prev->next = NULL;
+
+        SystemNode *prev = s->tail->prev;
+        s->tail->prev = NULL;
+
+        free ( s->tail );
+
+        s->tail = prev;
+    }
+    else { // middle
+        SystemNode* next = node->next;
+        SystemNode* prev = node->prev;
+        
+        next->prev = prev;
+        prev->next = next;
+
+        node->next = NULL;
+        node->prev = NULL;
+
+        free ( node );
+    }
 }

@@ -3,7 +3,7 @@
 #include "inc/modo.h"
 #include "inc/systems.h"
 #include "inc/states.h"
-#include "../components.h"
+#include "../inc.h"
 
 
 
@@ -18,6 +18,10 @@ static void enter ( Entity *const e ) {
 
 static void update ( Entity *const e ) {
     COMPS ( e );
+
+    if ( pos->x.rounded > screenWidth  ||  pos->x.rounded < - 16 )
+        entityDelete ( e );
+
 
     // if ( ComponentTimer_Timeout ( timer ) )
     //     entityDelete ( e );

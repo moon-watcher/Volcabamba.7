@@ -1,5 +1,6 @@
 #include <genesis.h>
 #include "modo/system.h"
+#include "modo/system.h"
 #include "modo/entity.h"
 #include "components/Input.h"
 
@@ -8,13 +9,33 @@
  *  - ComponentInput
  *  - Entity
  */
-systemFnDefine ( system_input, {
-    ComponentInput *const ci     = systemFnGet;
-    Entity         *const entity = systemFnGet;
+// systemFnDefine ( system_input, {
+//     systemFnGet ( ComponentInput, ci     );
+//     systemFnGet ( Entity,         entity );
 
-    ComponentInput_Update ( ci );
+//     if ( ci->joy.port < 0 )
+//         continue;
 
-    if ( ci->handler ) {
-        ci->handler ( &ci->joy, entity, NULL );
+//     ComponentInput_Update ( ci );
+
+//     if ( ci->handler ) {
+//         ci->handler ( &ci->joy, entity, NULL );
+//     }
+// });
+
+
+void system_input  ( System *const s ){
+    for ( SystemNode *n = s->head; n;  ){
+        ComponentInput *const ci     = n->data; n = n->next;
+        Entity         *const entity = n->data; n = n->next;
+
+        if ( ci->joy.port < 0 )
+            continue;
+
+        ComponentInput_Update ( ci );
+
+        if ( ci->handler ) {
+            ci->handler ( &ci->joy, entity, NULL );
+        }
     }
-});
+}

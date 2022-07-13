@@ -22,7 +22,7 @@
 
 
 typedef struct {
-	const SpriteDefinition* sd;
+	const SpriteDefinition *sd;
 	unsigned                attr;
 	Sprite*                 sprite;
 }

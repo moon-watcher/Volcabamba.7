@@ -16,13 +16,13 @@ Entity *entity ( Entity const* template ) {
     memcpy ( entity->components, template->components, Comps_s  );
 
     entity->action = ENTITY_ACTION_CREATE;
+    entity->sysvars = NULL;
 
     return entity;
 }
 
 
 void entityState ( Entity *const entity, State const* newState ) {
-    
     if ( newState == entity->state )
         return;
 

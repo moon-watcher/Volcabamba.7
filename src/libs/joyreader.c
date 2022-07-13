@@ -10,6 +10,9 @@ void joyreader_init ( Joyreader *joy, int port )
 
 void joyreader_update ( Joyreader *joy )
 {
+    if ( joy->port < 0 )
+        return;
+
     unsigned active = JOY_readJoypad ( joy->port );
 
     joy->changed = active ^ joy->active;

@@ -2,7 +2,7 @@
 
 typedef struct
 {
-    unsigned port:1;
+    int      port:2;
     unsigned changed;
     unsigned active;
 }

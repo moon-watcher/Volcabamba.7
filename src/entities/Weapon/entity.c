@@ -1,6 +1,6 @@
 #include <genesis.h>
 #include "inc/modo.h"
-#include "components.h"
+#include "inc.h"
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../res/spr_weapon.h"
@@ -8,27 +8,41 @@
 #include "inc/managers.h"
 
 
-
 static void awake ( Entity *const e ) {
     COMPS(e);
 
     ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
+
+    struct sysvars *const a = malloc ( sizeof(struct sysvars) );
+
+    a->sprite_sp    = systemAdd ( sysSprite,   sp       );
+    a->sprite_pos   = systemAdd ( sysSprite,   pos      );
+    a->movement_pos = systemAdd ( sysMovement, pos      );
+    a->movement_mov = systemAdd ( sysMovement, movement );
+    a->timer        = systemAdd ( sysTimer,    timer    );
+
+    e->sysvars = a;
 }
 
 
 static void update ( Entity *const e ) {
     COMPS(e);
-    
-    systemAdd2 ( sysSprite, sp, pos );
-    systemAdd2 ( sysMovement, pos, movement );
-    systemAdd1 ( sysTimer, timer );
 }
 
 
 static void delete ( Entity *const e ) {
     COMPS(e);
 
-    ComponentSprite_Release(sp);
+    ComponentSprite_Release ( sp );
+
+
+    struct sysvars *const a = e->sysvars;
+
+    systemDelete ( sysSprite,   ((struct sysvars *const) e->sysvars)->sprite_sp);
+    systemDelete ( sysSprite,   a->sprite_pos );
+    systemDelete ( sysMovement, a->movement_mov );
+    systemDelete ( sysMovement, a->movement_pos );
+    systemDelete ( sysTimer,    a->timer );
 }
 
 

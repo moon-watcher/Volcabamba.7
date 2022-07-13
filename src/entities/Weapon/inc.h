@@ -1,5 +1,6 @@
 #pragma once
 
+#include "modo/system.h"
 #include "inc/components.h"
 
 #define COMPS(E)                                    \
@@ -19,3 +20,13 @@ typedef struct {
     ComponentPosition2D  pos;
 }
 Components;
+
+
+
+struct sysvars {
+    SystemNode *sprite_sp;
+    SystemNode *sprite_pos;
+    SystemNode *movement_pos;
+    SystemNode *movement_mov;
+    SystemNode *timer;
+};

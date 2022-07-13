@@ -6,6 +6,7 @@
 #include "inc/entities.h"
 #include "inc/systems.h"
 #include "inc/managers.h"
+#include "interfaces/common.h"
 
 
 
@@ -79,18 +80,31 @@ void mainManager()
 
 void ramiro(){
 
-    SPR_init();
+    SPR_initEx(1200); //SPR_init();
 
     manPlayers = manager();
     manWeapons = manager();
 
-    sysSprite   = system ( &system_sprite,   160, "system sprite"   );
-    sysInput    = system ( &system_input,      5, "system input"    );
-    sysMovement = system ( &system_movement, 200, "system movement" );
-    sysTimer    = system ( &system_timer,    100, "system Timer"    );
+    sysSprite   = system ( &system_sprite,   "system sprite"   );
+    sysInput    = system ( &system_input,    "system input"    );
+    sysMovement = system ( &system_movement, "system movement" );
+    sysTimer    = system ( &system_timer,    "system Timer"    );
 
-    managerAdd ( manPlayers, &entity_Player_tpl);
+    Entity *const e0 = managerAdd ( manPlayers, &entity_Player_tpl);
+    Entity *const e1 = managerAdd ( manPlayers, &entity_Player_tpl);
+    // Entity *const e2 = managerAdd ( manPlayers, &entity_Player_tpl);
+    // Entity *const e3 = managerAdd ( manPlayers, &entity_Player_tpl);
 
+            
+    entityExec ( InterfaceCommon, enableInput, e0, 0 );
+    entityExec ( InterfaceCommon, setX, e0, 30 );
+    entityExec ( InterfaceCommon, setY, e0, 30 );
+    entityExec ( InterfaceCommon, setX, e1, 70 );
+    entityExec ( InterfaceCommon, setY, e1, 70 );
+    // entityExec ( InterfaceCommon, setX, e2, 130 );
+    // entityExec ( InterfaceCommon, setY, e2, 130 );
+    // entityExec ( InterfaceCommon, setX, e3, 160 );
+    // entityExec ( InterfaceCommon, setY, e3, 160 );
 
     while(1){
 
@@ -101,6 +115,8 @@ void ramiro(){
         systemUpdate ( sysSprite );
         systemUpdate ( sysInput );
         systemUpdate ( sysTimer );
+
+        Int( MEM_getFree(), 0,0,5);
 
         SPR_update();
         SYS_doVBlankProcess();
