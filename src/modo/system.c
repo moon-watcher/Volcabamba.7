@@ -27,18 +27,19 @@ void systemUpdate ( System *const system ) {
 }
 
 
-SystemNode *systemAdd ( System *const s, void *data ) {
+SystemNode *systemAdd ( System *const s, void *const data ) {
     SystemNode *node = malloc ( systemNode_s );
 
     node->data = data;
     node->next = NULL;
     node->prev = NULL;    
     
-    if ( s->head ) {
+    if ( s->head == NULL )
+        s->head = node;
+    else {
         s->tail->next = node;
         node->prev = s->tail;
-    } else
-        s->head = node;
+    }
 
     s->tail = node;
 
@@ -47,30 +48,26 @@ SystemNode *systemAdd ( System *const s, void *data ) {
 
 
 void systemDelete ( System *const s, SystemNode *const node ) {
-    if ( !node->prev ) { // popFront
-        if ( s->head->next )
+    if ( node->prev == NULL ) {
+        if ( s->head->next != NULL )
             s->head->next->prev = NULL;
-
+        
         SystemNode *next = s->head->next;
-
         free ( s->head );
-
         s->head = next;
     }
-    else if ( !node->next ) { // popBack
-        if ( s->tail->prev )
+    else if ( node->next == NULL ) {
+        if ( s->tail->prev != NULL )
             s->tail->prev->next = NULL;
-
+        
         SystemNode *prev = s->tail->prev;
         s->tail->prev = NULL;
-
         free ( s->tail );
-
         s->tail = prev;
     }
-    else { // middle
-        SystemNode* next = node->next;
-        SystemNode* prev = node->prev;
+    else { 
+        SystemNode *next = node->next;
+        SystemNode *prev = node->prev;
         
         next->prev = prev;
         prev->next = next;

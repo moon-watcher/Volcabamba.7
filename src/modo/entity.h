@@ -22,12 +22,12 @@ State;
 
 
 typedef struct {
-    char *name;
+    char  *name;
     State *state;
     State *prevState;
-    void *components;
-    int compsSize:13;
-    int action:3;
+    void  *components;
+    int   compsSize:13;
+    int   action:3;
 
     void ( *Awake  ) ( );
     void ( *Update ) ( );

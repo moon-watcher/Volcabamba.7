@@ -20,5 +20,5 @@ System;
 
 System     *system       ( void (*update) ( ), char *const );
 void        systemUpdate ( System *const );
-SystemNode *systemAdd    ( System *const, void* );
+SystemNode *systemAdd    ( System *const, void *const );
 void        systemDelete ( System *const, SystemNode *const );
