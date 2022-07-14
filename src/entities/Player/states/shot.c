@@ -1,7 +1,7 @@
 #include <genesis.h>
 #include "inc/modo.h"
 #include "inc/states.h"
-#include "../components.h"
+#include "../inc.h"
 #include "inc/entities.h"
 #include "inc/managers.h"
 

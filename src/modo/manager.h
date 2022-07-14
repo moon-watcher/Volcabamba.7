@@ -7,6 +7,7 @@ typedef struct
 {
 	Entity *entities;
 	Entity *prevEntity;
+    char *name;
 }
 Manager;
 

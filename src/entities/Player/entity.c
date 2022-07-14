@@ -1,6 +1,6 @@
 #include <genesis.h>
 #include "inc/modo.h"
-#include "components.h"
+#include "inc.h"
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../res/spr_player.h"
@@ -17,19 +17,14 @@ static void awake ( Entity *const e ) {
     ComponentSprite_Init ( sp, cp->x.rounded, cp->y.rounded );
     ComponentInput_Init ( ci );
 
-    // struct sysvars *a = malloc ( sizeof(struct sysvars) );
+    struct sysvars *a = malloc ( sizeof(struct sysvars) );
     
-    // a->input_ci  = systemAdd ( sysInput,  ci );
-    // a->input_e   = systemAdd ( sysInput,  e  );
-    // a->sprite_sp = systemAdd ( sysSprite, sp );
-    // a->sprite_cp = systemAdd ( sysSprite, cp );
+    a->input[0]  = systemAdd ( sysInput,  ci );
+    a->input[1]  = systemAdd ( sysInput,  e  );
+    a->sprite[0] = systemAdd ( sysSprite, sp );
+    a->sprite[1] = systemAdd ( sysSprite, cp );
 
-    // e->sysvars = a;
-    
-    systemAdd ( sysInput,  ci );
-    systemAdd ( sysInput,  e  );
-    systemAdd ( sysSprite, sp );
-    systemAdd ( sysSprite, cp );
+    e->sysvars = a;
 }
 
 
@@ -46,10 +41,12 @@ static void delete ( Entity *const e ) {
 
     ComponentSprite_Release ( sp );
 
-    // systemDelete ( sysInput,  &e->sysvars[0] );
-    // systemDelete ( sysInput,  &e->sysvars[1] );
-    // systemDelete ( sysSprite, &e->sysvars[2] );
-    // systemDelete ( sysSprite, &e->sysvars[3] );
+    struct sysvars *const a = e->sysvars;
+
+    systemDelete ( sysInput,  a->input[0]  );
+    systemDelete ( sysInput,  a->input[1]  );
+    systemDelete ( sysSprite, a->sprite[0] );
+    systemDelete ( sysSprite, a->sprite[1] );
 }
 
 
@@ -93,6 +90,6 @@ Entity const entity_Player_tpl = {
     .exec = &(InterfaceCommon) {
         .setX = &setX,
         .setY = &setY,
-        .enableInput = &enableInput,
+        .enableInput = enableInput,
     }
 };

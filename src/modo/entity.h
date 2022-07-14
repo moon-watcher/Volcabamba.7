@@ -4,7 +4,7 @@
 #include "system.h"
 
 
-enum EntityAction {
+enum {
     ENTITY_ACTION_CREATE,
     ENTITY_ACTION_UPDATE,
     ENTITY_ACTION_CHANGE,
@@ -26,8 +26,8 @@ typedef struct {
     State *state;
     State *prevState;
     void *components;
-    int compsSize:8;
-    enum EntityAction action;
+    int compsSize:13;
+    int action:3;
 
     void ( *Awake  ) ( );
     void ( *Update ) ( );

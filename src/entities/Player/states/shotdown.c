@@ -1,6 +1,6 @@
 #include "inc/modo.h"
 #include "inc/states.h"
-#include "../components.h"
+#include "../inc.h"
 
 
 

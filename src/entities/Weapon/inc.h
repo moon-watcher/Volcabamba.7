@@ -24,9 +24,7 @@ Components;
 
 
 struct sysvars {
-    SystemNode *sprite_sp;
-    SystemNode *sprite_pos;
-    SystemNode *movement_pos;
-    SystemNode *movement_mov;
+    SystemNode *sprite[2];
+    SystemNode *movement[2];
     SystemNode *timer;
 };

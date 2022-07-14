@@ -1,6 +1,6 @@
 #include "inc/modo.h"
 #include "inc/states.h"
-#include "../components.h"
+#include "../inc.h"
 
 
 static void inputHandler ( Joyreader *const j, void *const ptr1, void *const ptr2 )

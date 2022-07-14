@@ -13,13 +13,13 @@ static void awake ( Entity *const e ) {
 
     ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
 
-    struct sysvars *const a = malloc ( sizeof(struct sysvars) );
+    struct sysvars *a = malloc ( sizeof(struct sysvars) );
 
-    a->sprite_sp    = systemAdd ( sysSprite,   sp       );
-    a->sprite_pos   = systemAdd ( sysSprite,   pos      );
-    a->movement_pos = systemAdd ( sysMovement, pos      );
-    a->movement_mov = systemAdd ( sysMovement, movement );
-    a->timer        = systemAdd ( sysTimer,    timer    );
+    a->sprite[0]   = systemAdd ( sysSprite,   sp       );
+    a->sprite[1]   = systemAdd ( sysSprite,   pos      );
+    a->movement[0] = systemAdd ( sysMovement, pos      );
+    a->movement[1] = systemAdd ( sysMovement, movement );
+    a->timer       = systemAdd ( sysTimer,    timer    );
 
     e->sysvars = a;
 }
@@ -38,10 +38,10 @@ static void delete ( Entity *const e ) {
 
     struct sysvars *const a = e->sysvars;
 
-    systemDelete ( sysSprite,   ((struct sysvars *const) e->sysvars)->sprite_sp);
-    systemDelete ( sysSprite,   a->sprite_pos );
-    systemDelete ( sysMovement, a->movement_mov );
-    systemDelete ( sysMovement, a->movement_pos );
+    systemDelete ( sysSprite,   ((struct sysvars *const) e->sysvars)->sprite[0] );
+    systemDelete ( sysSprite,   a->sprite[1] );
+    systemDelete ( sysMovement, a->movement[0] );
+    systemDelete ( sysMovement, a->movement[1] );
     systemDelete ( sysTimer,    a->timer );
 }
 
