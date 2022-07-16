@@ -20,11 +20,3 @@ typedef struct {
     ComponentPosition2D  pos;
 }
 Components;
-
-
-
-struct sysvars {
-    SystemNode *sprite[2];
-    SystemNode *movement[2];
-    SystemNode *timer;
-};

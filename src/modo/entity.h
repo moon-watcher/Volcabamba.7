@@ -35,7 +35,7 @@ typedef struct {
     
     void *exec;
     void *next;
-    void *sysvars;
+    void *sysnodes;
 }
 Entity;
 

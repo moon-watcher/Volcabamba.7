@@ -98,8 +98,8 @@ inline static void delete ( Manager *const manager, Entity *const entity ) {
         manager->prevEntity       = entity;
     }
 
-    if ( entity->sysvars )
-        free ( entity->sysvars );
+    if ( entity->sysnodes )
+        free ( entity->sysnodes );
         
     free ( entity->components );
     free ( entity );
