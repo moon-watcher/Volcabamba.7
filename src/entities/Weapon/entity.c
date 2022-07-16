@@ -33,7 +33,6 @@ static void delete ( Entity *const e ) {
 
     ComponentSprite_Release ( sp );
 
-    //SystemNode *const *a = e->sysnodes;
     systemNodeGet ( e, a );
     systemDelete ( sysSprite,   a[0] );
     systemDelete ( sysSprite,   a[1] );

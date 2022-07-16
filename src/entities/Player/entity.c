@@ -15,7 +15,7 @@ static void awake ( Entity *const e ) {
     ComponentSprite_Init ( sp, cp->x.rounded, cp->y.rounded );
     ComponentInput_Init ( ci );
    
-    systemNodeStructSet ( e, sysnodes, a );
+    systemNodeStructSet ( e, struct sysnodes, a );
     a->input_ci  = systemAdd ( sysInput,  ci );
     a->input_e   = systemAdd ( sysInput,  e  );
     a->sprite_sp = systemAdd ( sysSprite, sp );
@@ -36,7 +36,7 @@ static void delete ( Entity *const e ) {
 
     ComponentSprite_Release ( sp );
 
-    systemNodeStructGet ( e, sysnodes, a );
+    systemNodeStructGet ( e, struct sysnodes, a );
     systemDelete ( sysInput,  a->input_ci  );
     systemDelete ( sysInput,  a->input_e   );
     systemDelete ( sysSprite, a->sprite_sp );

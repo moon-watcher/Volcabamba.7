@@ -32,7 +32,7 @@ Components;
 #define JOY( A, B )            \
     if ( A ( j ) ) {           \
         entityState ( e, &B ); \
-        return; \
+        return;                \
     }
 
 

@@ -19,8 +19,8 @@ SystemNode;
 
 
 #define systemNodeStructSet( E, T, V ) \
-    struct T *V = malloc ( sizeof(struct T) ); \
+    T *V = malloc ( sizeof(T) ); \
     E->sysnodes = V;
     
 #define systemNodeStructGet( E, T, V ) \
-    struct T *const V = E->sysnodes;
+    T *const V = E->sysnodes;
