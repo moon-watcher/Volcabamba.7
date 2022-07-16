@@ -9,28 +9,17 @@
 
 
 
-#define XX(...) \
-
-
-// struct sysvar{
-//     System *s;
-//     void *d;
-// };
-
 static void awake ( Entity *const e ) {
     COMPS(e);
 
     ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
 
-    SystemNode **a = malloc ( sizeof(SystemNode) * 5 );
-
+    systemNodeSet ( e, 5, a );
     a[0] = systemAdd ( sysSprite,   sp       );
     a[1] = systemAdd ( sysSprite,   pos      );
     a[2] = systemAdd ( sysMovement, pos      );
     a[3] = systemAdd ( sysMovement, movement );
     a[4] = systemAdd ( sysTimer,    timer    );
-
-    e->sysnodes = a;
 }
 
 
@@ -44,8 +33,8 @@ static void delete ( Entity *const e ) {
 
     ComponentSprite_Release ( sp );
 
-    SystemNode *const *a = e->sysnodes;
-
+    //SystemNode *const *a = e->sysnodes;
+    systemNodeGet ( e, a );
     systemDelete ( sysSprite,   a[0] );
     systemDelete ( sysSprite,   a[1] );
     systemDelete ( sysMovement, a[2] );

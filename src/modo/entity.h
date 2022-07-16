@@ -2,6 +2,7 @@
 
 #include <genesis.h>
 #include "system.h"
+#include "state.h"
 
 
 enum {
@@ -10,15 +11,6 @@ enum {
     ENTITY_ACTION_CHANGE,
     ENTITY_ACTION_DELETE,
 };
-
-
-typedef struct {
-    void ( *enter  ) ( );
-    void ( *update ) ( );
-    void ( *exit   ) ( );
-    char *name;
-}
-State;
 
 
 typedef struct {

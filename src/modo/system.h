@@ -1,12 +1,6 @@
 #pragma once
 
-
-typedef struct SystemNode {
-	void *data;
-	struct SystemNode *next;
-	struct SystemNode *prev;
-}
-SystemNode;
+#include "systemNode.h"
 
 typedef struct {
 	 void (*update)(); 
