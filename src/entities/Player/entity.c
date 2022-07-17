@@ -14,12 +14,6 @@ static void awake ( Entity *const e ) {
 
     ComponentSprite_Init ( sp, cp->x.rounded, cp->y.rounded );
     ComponentInput_Init ( ci );
-   
-    systemNodeStructSet ( e, struct sysnodes, a );
-    a->input_ci  = systemAdd ( sysInput,  ci );
-    a->input_e   = systemAdd ( sysInput,  e  );
-    a->sprite_sp = systemAdd ( sysSprite, sp );
-    a->sprite_cp = systemAdd ( sysSprite, cp );
 }
 
 
@@ -28,6 +22,9 @@ static void update ( Entity *const e ) {
 
     if ( joy_active_left(joy)  ) C->dirH = -1;
     if ( joy_active_right(joy) ) C->dirH = +1;
+
+    systemAdd2 ( sysInput,  ci, e );
+    systemAdd2 ( sysSprite, sp, cp );
 }
 
 
@@ -35,12 +32,6 @@ static void delete ( Entity *const e ) {
     COMPS(e);
 
     ComponentSprite_Release ( sp );
-
-    systemNodeStructGet ( e, struct sysnodes, a );
-    systemDelete ( sysInput,  a->input_ci  );
-    systemDelete ( sysInput,  a->input_e   );
-    systemDelete ( sysSprite, a->sprite_sp );
-    systemDelete ( sysSprite, a->sprite_cp );
 }
 
 

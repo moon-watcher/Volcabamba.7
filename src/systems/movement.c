@@ -20,28 +20,13 @@ inline static void _update ( ComponentMovement *const cm ) {
 }
 
 
-// systemFnDefine ( system_movement, {
-//     systemFnGet ( ComponentPosition2D, p );
-//     systemFnGet ( ComponentMovement2D, v );
+systemFnDefine ( system_movement, {
+    systemFnGet ( ComponentPosition2D, p );
+    systemFnGet ( ComponentMovement2D, v );
     
-//     _update ( &v->x );
-//     _update ( &v->y );
+    _update ( &v->x );
+    _update ( &v->y );
 
-//     p->x.rounded = fix32ToInt ( p->x.pos += v->x.vel );
-//     p->y.rounded = fix32ToInt ( p->y.pos += v->y.vel );
-// });
-
-
-void system_movement ( System *const s ){
-
-    for ( SystemNode *n = s->head; n;  ){
-        ComponentPosition2D *const p = n->data; n = n->next;
-        ComponentMovement2D *const v = n->data; n = n->next;
-        
-        _update ( &v->x );
-        _update ( &v->y );
-
-        p->x.rounded = fix32ToInt ( p->x.pos += v->x.vel );
-        p->y.rounded = fix32ToInt ( p->y.pos += v->y.vel );
-    }
-}
+    p->x.rounded = fix32ToInt ( p->x.pos += v->x.vel );
+    p->y.rounded = fix32ToInt ( p->y.pos += v->y.vel );
+});

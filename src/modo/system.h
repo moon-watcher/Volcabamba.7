@@ -1,18 +1,38 @@
 #pragma once
 
-#include "systemNode.h"
+
+typedef void (*systemFn) ( );
 
 typedef struct {
-	 void (*update)(); 
-     char *name;
-	    
-	SystemNode *head;
-	SystemNode *tail;
+    systemFn update;
+    unsigned max;
+	void const **list;
+    unsigned length;
 }
 System;
 
 
-System     *system       ( void (*update) ( ), char *const );
-void        systemUpdate ( System *const );
-SystemNode *systemAdd    ( System *const, void *const );
-void        systemDelete ( System *const, SystemNode *const );
+System* system       ( systemFn );
+void    systemUpdate ( System *const );
+void    systemEnd    ( System *const );
+void    systemInfo   ( System *const );
+
+
+#define systemAdd( S, V )                \
+	if ( S->length >= S->max )           \
+		systemResize ( S );              \
+    S->list [ S->length++ ] = V
+
+
+#define systemFnDefine( FUNCTION, CODE )      \
+    void FUNCTION ( System *const s ) {       \
+        void *const *array = (void*) s->list; \
+        int length = s->length;               \
+                                              \
+        for ( int i = 0; i < length; )        \
+            CODE                              \
+    }
+	
+
+#define systemFnGet(T, V) \
+    T *const V = array [ i++ ]

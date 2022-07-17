@@ -39,11 +39,3 @@ Components;
 
 static ComponentBoxCollider const collider_stand = { {20,20}, { 8,28} };
 static ComponentBoxCollider const collider_duck  = { {16,32}, {16,16} };
-
-
-struct sysnodes {
-    SystemNode *input_ci;
-    SystemNode *input_e;
-    SystemNode *sprite_sp;
-    SystemNode *sprite_cp;
-};

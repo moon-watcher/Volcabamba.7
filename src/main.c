@@ -85,10 +85,10 @@ void ramiro(){
     manPlayers = manager();
     manWeapons = manager();
 
-    sysSprite   = system ( &system_sprite,   "system sprite"   );
-    sysInput    = system ( &system_input,    "system input"    );
-    sysMovement = system ( &system_movement, "system movement" );
-    sysTimer    = system ( &system_timer,    "system Timer"    );
+    sysSprite   = system ( &system_sprite   );
+    sysInput    = system ( &system_input    );
+    sysMovement = system ( &system_movement );
+    sysTimer    = system ( &system_timer    );
 
     Entity *const e0 = managerAdd ( manPlayers, &entity_Player_tpl);
     Entity *const e1 = managerAdd ( manPlayers, &entity_Player_tpl);

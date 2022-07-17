@@ -3,17 +3,8 @@
 
 
 
-// systemFnDefine ( system_timer, {
-//     systemFnGet ( ComponentTimer, t );
+systemFnDefine ( system_timer, {
+    systemFnGet ( ComponentTimer, t );
     
-//     ComponentTimer_Update ( t );
-// });
-
-
-
-void system_timer ( System *const s ){
-    for ( SystemNode *n = s->head; n;  ) {
-        ComponentTimer *const t = n->data; n = n->next;
-        ComponentTimer_Update ( t );
-    }
-}
+    ComponentTimer_Update ( t );
+});
