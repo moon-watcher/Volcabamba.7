@@ -3,10 +3,10 @@
 
 
 
-inline static void create ( );
-inline static void change ( );
-inline static void update ( );
-inline static void delete ( );
+inline static void create ( Manager *const, Entity *const );
+inline static void change ( Manager *const, Entity *const );
+inline static void update ( Manager *const, Entity *const );
+inline static void delete ( Manager *const, Entity *const );
 
 static void ( *actions [ ] ) ( ) = { create, update, change, delete };
 static int const Manager_s = sizeof ( Manager );
@@ -47,12 +47,12 @@ void managerEnd ( Manager *const manager ) {
 }
 
 
-void managerEntityUpdate ( Manager  *const manager, Entity  *const entity ) {
+void managerEntityUpdate ( Manager *const manager, Entity *const entity ) {
     update ( manager, entity );
 }
 
 
-void managerEntityDelete ( Manager  *const manager, Entity  *const entity ) {
+void managerEntityDelete ( Manager *const manager, Entity *const entity ) {
     delete ( manager, entity );
 }
 
@@ -98,9 +98,6 @@ inline static void delete ( Manager *const manager, Entity *const entity ) {
         manager->prevEntity       = entity;
     }
 
-    if ( entity->sysnodes )
-        free ( entity->sysnodes );
-        
     free ( entity->components );
     free ( entity );
 }

@@ -25,8 +25,8 @@ typedef struct {
     State *state;
     State *prevState;
     void  *components;
-    int   compsSize:13;
-    int   action:3;
+    int    compsSize:13;
+    int    action:3;
 
     void ( *Awake  ) ( );
     void ( *Update ) ( );
@@ -34,7 +34,6 @@ typedef struct {
     
     void *exec;
     void *next;
-    void *sysnodes;
 }
 Entity;
 
