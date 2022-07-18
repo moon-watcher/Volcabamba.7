@@ -1,56 +1,11 @@
 #pragma once
 
-#include "genesis.h"
-#include "../modo/system.h"
 #include "../modo/system.h"
 #include "../modo/entity.h"
 #include "../modo/manager.h"
 
-
-
-#define systemAdd1( S, A )          systemAdd(S,A);
-#define systemAdd2( S, A, B )       systemAdd(S,A); systemAdd(S,B);
-#define systemAdd3( S, A, B, C )    systemAdd(S,A); systemAdd(S,B); systemAdd(S,C);
-#define systemAdd4( S, A, B, C, D ) systemAdd(S,A); systemAdd(S,B); systemAdd(S,C); systemAdd(S,D);
-
-
 /* 
 // #define modoEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
-
-
-
-// #define defineState(STATE,ENTER,UPDATE,EXIT)                                 \
-//     static void STATE##_enter  ( Entity *entity ) ENTER                       \
-//     static void STATE##_update ( Entity *entity ) UPDATE                      \
-//     static void STATE##_exit   ( Entity *entity ) EXIT                        \
-//     State const STATE = {                                                     \
-//         .enter  = STATE##_enter,                                              \
-//         .update = STATE##_update,                                             \
-//         .exit   = STATE##_exit,                                               \
-//     };
-
-
-
-// #define defineEntity(TPL,STATE,COMPS,AWAKE,UPDATE,DELETE)                     \
-//     static void TPL##_Awake  ( Entity *entity ) AWAKE                         \
-//     static void TPL##_Update ( Entity *entity ) UPDATE                        \
-//     static void TPL##_Delete ( Entity *entity ) DELETE                        \
-//     Entity const TPL = {                                                      \
-//         .state      = (State*) &STATE,                                        \
-//         .newState   = NULL                                                    \
-//         .components = &(Components) COMPS,                                    \
-//         .compsSize  = sizeof(Components),                                     \
-//         .action     = ENTITY_ACTION_INIT,                                     \
-//         .exec       = NULL,                                                   \
-//         .Awake      = TPL##_Awake,                                            \
-//         .Update     = TPL##_Update,                                           \
-//         .Delete     = TPL##_Delete,                                           \
-//         .whatever   = NULL,                                                   \
-//     };
-
-
-
-
 
 // #define JOY_DIR_NONE    0
 // #define JOY_DIR_UP      1

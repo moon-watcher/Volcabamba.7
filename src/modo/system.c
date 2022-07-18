@@ -24,22 +24,22 @@ void systemUpdate ( System *const s ) {
 }
 
 
-void systemEnd ( System *const s ) {
-    free ( s->list );
-    free ( s );
-}
-
-
 void systemResize ( System *const s ) {
-    int max = s->max;    
+    int old = s->max;    
     s->max += 15;
     
     void *list = malloc ( voidptr_s * s->max );
-    memcpy ( list, s->list, voidptr_s * max );
+    memcpy ( list, s->list, voidptr_s * old );
     
     free ( s->list );
 
     s->list = list;
+}
+
+
+void systemEnd ( System *const s ) {
+    free ( s->list );
+    free ( s );
 }
 
 

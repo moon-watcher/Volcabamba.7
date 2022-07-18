@@ -21,7 +21,7 @@ static void update ( Entity *const e ) {
 
     systemAdd2 ( sysSprite,   sp, pos );
     systemAdd2 ( sysMovement, pos, movement );
-    systemAdd1 ( sysTimer,    timer );
+    systemAdd  ( sysTimer,    timer );
 }
 
 

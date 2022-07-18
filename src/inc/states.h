@@ -3,10 +3,9 @@
 #include "inc/modo.h"
 
 
-State const screenLogo_State;
-State const screenTitle_State;
-State const screenGameloop_State;
-
+State const entity_screen_state_gameloop;
+State const entity_screen_state_logo;
+State const entity_screen_state_title;
 
 State const Player_dieState;
 State const Player_idleState;

@@ -19,6 +19,6 @@ systemFnDefine ( system_input, {
     ComponentInput_Update ( ci );
 
     if ( ci->handler ) {
-        ci->handler ( &ci->joy, entity, NULL );
+        ci->handler ( &ci->joy, entity );
     }
 });

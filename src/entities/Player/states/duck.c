@@ -3,9 +3,8 @@
 #include "../inc.h"
 
 
-static void inputHandler ( Joyreader *const j, void *const ptr1, void *const ptr2 )
+static void inputHandler ( Joyreader *const j, Entity *const e )
 {
-    Entity *const e = ptr1;
     COMPS(e);
 
     JOY ( joy_released_down,      entity_Player_state_stay     );

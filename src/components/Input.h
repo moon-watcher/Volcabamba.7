@@ -18,6 +18,6 @@
 
 typedef struct ComponentInput {
     Joyreader joy;
-    void ( *handler ) ( Joyreader*, void*, void* );
+    void ( *handler ) ( );
 }
 ComponentInput;

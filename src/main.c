@@ -169,13 +169,49 @@ void listtest(){
     y++;
 }
 
+
+void screens(){
+    
+
+    manScreens = manager();
+
+    managerAdd ( manScreens, &entity_screen );
+
+    // sysSprite   = system ( &system_sprite   );
+    // sysMovement = system ( &system_movement );
+    sysInput = system ( &system_input );
+    sysTimer = system ( &system_timer );
+
+    while(1) {
+        managerUpdate ( manScreens );
+        // managerUpdate ( manWeapons );
+
+        // systemUpdate ( sysMovement );
+        // systemUpdate ( sysSprite );
+        systemUpdate ( sysInput );
+        systemUpdate ( sysTimer );
+
+        Int( MEM_getFree(), 0,0,5);
+
+        
+        SYS_doVBlankProcess();
+        JOY_update();
+    }
+    
+    managerEnd ( manScreens );
+    systemEnd ( sysInput );
+    systemEnd ( sysTimer );
+}
+
+
 void main()
 {
     VDP_setScreenWidth256();
 
     // mainManager();
     // listtest();
-    ramiro();
+    // ramiro();
+    screens();
 }
 
 
