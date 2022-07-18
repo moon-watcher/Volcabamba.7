@@ -19,6 +19,9 @@ System *system ( systemFn update ) {
 
 
 void systemUpdate ( System *const s ) {
+    if ( !s->length || !s->update || !s )
+        return;
+
     s->update ( s );
     s->length = 0;
 }
