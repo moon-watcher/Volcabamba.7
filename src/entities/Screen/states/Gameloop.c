@@ -3,17 +3,10 @@
 #include "inc/modo.h"
 #include "inc/systems.h"
 #include "inc/states.h"
+#include "inc/managers.h"
+#include "inc/entities.h"
 #include "../inc.h"
-#include "../res/logos.h"
-
-
-
-static void inputHandler ( Joyreader *const j, Entity *const e ) {
-    COMPS(e);
-
-    if ( joy_pressed_start ( j ) )
-        entityState ( e, &entity_screen_state_logo );
-}
+#include "interfaces/common.h"
 
 
 
@@ -21,34 +14,54 @@ stateDefine ( entity_screen_state_gameloop,
 { // enter
     COMPS(e);
         
-    input->handler = inputHandler;
-
-    SYS_disableInts();
-    VDP_drawImage ( VDP_BG_A, &res_logo_sega, 10,10);
-    SYS_enableInts();
-
-
-
     SPR_initEx(600);
+    VDP_setScreenWidth256();
 
+    manPlayers = manager ( );
+    manWeapons = manager ( );
 
+    sysSprite   = system ( &system_sprite   );
+    sysMovement = system ( &system_movement );
 
+    Entity *const e0 = managerAdd ( manPlayers, &entity_Player_tpl );
+    Entity *const e1 = managerAdd ( manPlayers, &entity_Player_tpl );
+            
+    entityExec ( InterfaceCommon, enableInput, e0, 0 );
+    entityExec ( InterfaceCommon, setX, e0, 30 );
+    entityExec ( InterfaceCommon, setY, e0, 30 );
+    entityExec ( InterfaceCommon, setX, e1, 70 );
+    entityExec ( InterfaceCommon, setY, e1, 70 );
 },
 
 { // update
     COMPS(e);
 
-    systemAdd2 ( sysInput, input, e );
+    while(1) {
+        managerUpdate ( manPlayers );
+        managerUpdate ( manWeapons );
 
+        systemUpdate ( sysMovement );
+        systemUpdate ( sysSprite );
+        systemUpdate ( sysInput );
 
-    
+        Int ( MEM_getFree(), 0, 1, 5 );
 
-    SPR_update();
+        SPR_update();
+        SYS_doVBlankProcess();
+        JOY_update();
+    }
 },
 
 { // exit
-
+    managerEnd ( manPlayers );
+    managerEnd ( manWeapons );
+    
     SPR_end();
+
+    systemEnd ( sysSprite );
+    systemEnd ( sysMovement );
+    systemEnd ( sysInput );
+
 
     PAL_fadeOut(0,63,10,0);
     VDP_clearPlane(BG_A, 0);

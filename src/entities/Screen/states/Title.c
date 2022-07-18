@@ -24,6 +24,8 @@ stateDefine ( entity_screen_state_title,
     SYS_disableInts();
     VDP_drawImage ( VDP_BG_A, &res_logo_sega, 10,20);
     SYS_enableInts();
+    
+    VDP_setScreenWidth256();
 },
 
 { // update

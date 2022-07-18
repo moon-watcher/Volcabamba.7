@@ -191,8 +191,7 @@ void screens(){
         systemUpdate ( sysInput );
         systemUpdate ( sysTimer );
 
-        Int( MEM_getFree(), 0,0,5);
-
+        Int ( MEM_getFree(), 0, 0, 5 );
         
         SYS_doVBlankProcess();
         JOY_update();
@@ -206,7 +205,7 @@ void screens(){
 
 void main()
 {
-    VDP_setScreenWidth256();
+    
 
     // mainManager();
     // listtest();
