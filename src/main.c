@@ -3,6 +3,7 @@
 
 #include "inc/modo.h"
 #include "libs/draw.h"
+#include "libs/listptr.h"
 #include "inc/entities.h"
 #include "inc/systems.h"
 #include "inc/managers.h"
@@ -173,7 +174,24 @@ void listtest(){
 void screens(){
     
 
+    listptr *managers;
+    listptr *systems;
+    listptr *ini_functions;
+    listptr *end_functions;
+
+    listptr_init ( managers, managerUpdate );
+    listptr_add( managers, manScreens )
+
     manScreens = manager();
+
+    //listptr_remove ( managers, manScreens );
+
+
+    listptr_ini ( systems, systemUpdate );
+    listptr_ini ( ini_functions, NULL );
+    listptr_ini ( end_functions, NULL );
+
+
 
     managerAdd ( manScreens, &entity_screen );
 
@@ -182,19 +200,17 @@ void screens(){
     sysInput = system ( &system_input );
     sysTimer = system ( &system_timer );
 
+    listptr_add ( systems, sysInput );
+    listptr_add ( systems, sysTimer );
+
+    listptr_add ( end_functions, SYS_doVBlankProcess );
+    listptr_add ( end_functions, JOY_update );
+
     while(1) {
-        managerUpdate ( manScreens );
-        // managerUpdate ( manWeapons );
-
-        // systemUpdate ( sysMovement );
-        // systemUpdate ( sysSprite );
-        systemUpdate ( sysInput );
-        systemUpdate ( sysTimer );
-
-        Int ( MEM_getFree(), 0, 0, 5 );
-        
-        SYS_doVBlankProcess();
-        JOY_update();
+        listpstr_update ( ini_functions );
+        listpstr_update ( manager );
+        listpstr_update ( systems );
+        listpstr_update ( end_functions );
     }
     
     managerEnd ( manScreens );

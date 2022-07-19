@@ -14,6 +14,11 @@ stateDefine ( entity_screen_state_gameloop,
 { // enter
     COMPS(e);
         
+    PAL_setPalette(PAL0,palette_blue );
+    PAL_setPalette(PAL1,palette_grey );
+    PAL_setPalette(PAL2,palette_red );
+    PAL_setPalette(PAL0,palette_green );
+
     SPR_initEx(600);
     VDP_setScreenWidth256();
 
@@ -29,30 +34,44 @@ stateDefine ( entity_screen_state_gameloop,
     entityExec ( InterfaceCommon, enableInput, e0, 0 );
     entityExec ( InterfaceCommon, setX, e0, 30 );
     entityExec ( InterfaceCommon, setY, e0, 30 );
-    entityExec ( InterfaceCommon, setX, e1, 70 );
+    entityExec ( InterfaceCommon, setX, e1, 0 );
     entityExec ( InterfaceCommon, setY, e1, 70 );
+
+
+    listptr_add ( managers, manPlayers );
+    listptr_add ( managers, manWeapons );
+    
+    listptr_add ( systems, sysMovement );
+    listptr_add ( systems, sysSprite );
+
+    listpstr_insertBefore ( end_functions, &SPR_update, &SYS_doVBlankProcess );
+    // listpstr_moveBefore ( functions, &SPR_update, &SYS_doVBlankProcess );
 },
 
 { // update
     COMPS(e);
 
-    while(1) {
-        managerUpdate ( manPlayers );
-        managerUpdate ( manWeapons );
+  
+        Int ( MEM_getFree(), 2, 2, 5 );
 
-        systemUpdate ( sysMovement );
-        systemUpdate ( sysSprite );
-        systemUpdate ( sysInput );
 
-        Int ( MEM_getFree(), 0, 1, 5 );
-
-        SPR_update();
-        SYS_doVBlankProcess();
-        JOY_update();
+        // SPR_update();
+        // SYS_doVBlankProcess();
+        // JOY_update();
     }
 },
 
 { // exit
+    listprt_remove ( functions, &SPR_update );
+    listprt_remove ( functions, &SYS_doVBlankProcess );
+
+    listptr_remove ( systems, sysMovement );
+    listptr_remove ( systems, sysSprite );
+
+    listptr_remove ( managers, manWeapons );
+    listptr_remove ( managers, manPlayers );
+
+
     managerEnd ( manPlayers );
     managerEnd ( manWeapons );
     
@@ -67,93 +86,6 @@ stateDefine ( entity_screen_state_gameloop,
     VDP_clearPlane(BG_A, 0);
     VDP_clearPlane(BG_B, 0);
 });
-
-
-
-// #include "inc/modo.h"
-// #include "libs/draw.h"
-// #include "inc/entities.h"
-// #include "inc/managers.h"
-// #include "inc/states.h"
-// #include "inc/systems.h"
-// #include "../components.h"
-
-
-// static void _enter ( Entity *entity )
-// {
-//     PAL_setPalette(PAL0,palette_blue );
-//     PAL_setPalette(PAL1,palette_grey );
-//     PAL_setPalette(PAL2,palette_red );
-//     PAL_setPalette(PAL0,palette_green );
-
-
-//     drawText("enter",3,2 ); waitMs(1000);
-
-//     SPR_init ( );
-
-//     ///modoManager()
-
-//     // Manager *manEnemies = modoManager.new();
-
-//     Entity *e = modoEntity ( &entityPlayer1_tpl );
-//     modoManagerAdd ( &manPlayers, e );
-//     //modo_entity_new ( manEnemies, &entityEnemy1_tpl );
-
-
-
-// // // por alguna razón está haciendo la suma de velocidades de e y e2 en el imput
-// //     Entity *e2 = modoManagerNewEntity ( &manPlayers, &entityPlayer2_tpl );
-// //     //modoEntityExec ( disableInput, e2, NULL );
-
-
-
-// //     //e->exec->setPosition ( e, 30, 40 );
-// //     //e->exec->setFallara ( e, 30, 40 );
-    
-//     modoEntityExec ( setPosition, e, FIX32(130), FIX32(3) );
-// //     modoEntityExec ( setFallara, e,  130, 3 );
-// //     // modoEntityExec ( setPositionFIX32, e, 12 );
-    
-// //     int g = modoEntityExec ( getInt, e, NULL );
-// //     drawInt( g, 32,1, 4);
-// //     int f = modoEntityExec ( getFalla, e, NULL );
-// //     drawInt( f, 32,2, 4);
-// }
-
-
-// static void _update ( Entity *entity )
-// {
-//     COMPONENTS(entity);
-
-
-
-
-//     // drawText("update",3,3 ); 
-        
-
-//     // modoManagerUpdate ( &manPlayers );
-//     // modoManagerUpdate ( &manWeapons );
-//     // // modoManager_update ( manEnemies );
-
-//     // modoSystemUpdate ( &sysMovement );
-//     // modoSystemUpdate ( &sysInput    );
-//     // modoSystemUpdate ( &sysSprite   );
-
-//     // SPR_update ( );
-//     // SYS_doVBlankProcess();
-//     // JOY_update();
-// }
-
-
-// static void _exit ( Entity *entity )
-// {
-//     SPR_end ( ); 
-// }
-
-
-// State const screenGameloop_State = { _enter, _update, _exit };
-
-
 
 
 
