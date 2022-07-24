@@ -174,9 +174,7 @@ void listtest(){
 }
 
 
-void screens(){
-    int  i = 0;
-
+void gameInit(){ // antiguo screens()
     manScreens = manager();
 
     //Int( managers.size, 0,i++,5);
@@ -194,37 +192,30 @@ void screens(){
 
     hist_add ( end_functions, &SYS_doVBlankProcess );
     hist_add ( end_functions, &JOY_update );
-
-   
 }
 
 
 void main()
 {
-    
-
     // mainManager();
     // listtest();
     // ramiro();
 
+    init_functions = hist ( NULL );
+    managers       = hist ( &managerUpdate );
+    pre_systems    = hist ( NULL );
+    systems        = hist ( &systemUpdate );
+    end_functions  = hist ( NULL );
 
-    managers      = hist ( &managerUpdate );
-    systems       = hist ( &systemUpdate );
-    ini_functions = hist ( NULL );
-    end_functions = hist ( NULL );
+    gameInit(); // the game init function
 
-    screens();
-
-     while(1) {
-        hist_update ( ini_functions );
+    while ( 1 ) {
+        hist_update ( init_functions );
         hist_update ( managers );
+        hist_update ( pre_systems );
         hist_update ( systems );
         hist_update ( end_functions );
     }
-    
-    managerEnd ( manScreens );
-    systemEnd ( sysInput );
-    systemEnd ( sysTimer );
 }
 
 

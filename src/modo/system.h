@@ -27,17 +27,6 @@ void    systemInfo   ( System *const );
         for ( int i = 0; i < length; )        \
             CODE                              \
     }
-// #define systemFnDefine( FUNCTION, BEFORE, CODE, AFTER )      \
-//     void FUNCTION ( System *const s ) {       \
-//         BEFORE ; \
-//         void *const *array = (void*) s->list; \
-//         int length = s->length;               \
-//                                               \
-//         for ( int i = 0; i < length; )        \
-//             CODE                              \
-// \
-//         AFTER \
-//     }
 	
 #define systemFnGet(T, V) \
     T *const V = array [ i++ ]

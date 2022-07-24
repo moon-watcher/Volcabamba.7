@@ -44,8 +44,11 @@ stateDefine ( entity_screen_state_gameloop,
     hist_add ( systems, sysMovement );
     hist_add ( systems, sysSprite );
 
+    SPR_init();
+
     //listpstr_insertBefore ( end_functions, &SPR_update, &SYS_doVBlankProcess );
     // listpstr_moveBefore ( functions, &SPR_update, &SYS_doVBlankProcess );
+    hist_add ( end_functions, &SPR_update );
 },
 
 { // update
