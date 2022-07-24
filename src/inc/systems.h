@@ -1,6 +1,7 @@
 #pragma once
 
 #include "inc/modo.h"
+#include "modo/hist.h"
 #include "inc/components.h"
 
 System *sysMovement;
@@ -15,3 +16,9 @@ void system_movement   ( System *const );
 void system_input  ( System *const );
 void system_sprite     ( System *const );
 void system_timer      ( System *const );
+
+
+    histlist *managers;
+    histlist *systems;
+    histlist *ini_functions;
+    histlist *end_functions;

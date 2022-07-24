@@ -19,17 +19,25 @@ void    systemEnd    ( System *const );
 void    systemInfo   ( System *const );
 
 
-#define systemFnDefine( FUNCTION, BEFORE, CODE, AFTER )      \
+#define systemFnDefine( FUNCTION, CODE )      \
     void FUNCTION ( System *const s ) {       \
-        BEFORE ; \
         void *const *array = (void*) s->list; \
         int length = s->length;               \
                                               \
         for ( int i = 0; i < length; )        \
             CODE                              \
-\
-        AFTER \
     }
+// #define systemFnDefine( FUNCTION, BEFORE, CODE, AFTER )      \
+//     void FUNCTION ( System *const s ) {       \
+//         BEFORE ; \
+//         void *const *array = (void*) s->list; \
+//         int length = s->length;               \
+//                                               \
+//         for ( int i = 0; i < length; )        \
+//             CODE                              \
+// \
+//         AFTER \
+//     }
 	
 #define systemFnGet(T, V) \
     T *const V = array [ i++ ]

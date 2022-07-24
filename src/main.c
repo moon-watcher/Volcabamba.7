@@ -3,11 +3,14 @@
 
 #include "inc/modo.h"
 #include "libs/draw.h"
-#include "libs/listptr.h"
+#include "modo/hist.h"
 #include "inc/entities.h"
 #include "inc/systems.h"
 #include "inc/managers.h"
 #include "interfaces/common.h"
+
+
+#include "modo/hist.h"
 
 
 
@@ -172,26 +175,12 @@ void listtest(){
 
 
 void screens(){
-    
-
-    listptr *managers;
-    listptr *systems;
-    listptr *ini_functions;
-    listptr *end_functions;
-
-    listptr_init ( managers, managerUpdate );
-    listptr_add( managers, manScreens )
+    int  i = 0;
 
     manScreens = manager();
 
-    //listptr_remove ( managers, manScreens );
-
-
-    listptr_ini ( systems, systemUpdate );
-    listptr_ini ( ini_functions, NULL );
-    listptr_ini ( end_functions, NULL );
-
-
+    //Int( managers.size, 0,i++,5);
+    hist_add ( managers, manScreens );
 
     managerAdd ( manScreens, &entity_screen );
 
@@ -200,22 +189,13 @@ void screens(){
     sysInput = system ( &system_input );
     sysTimer = system ( &system_timer );
 
-    listptr_add ( systems, sysInput );
-    listptr_add ( systems, sysTimer );
+    hist_add ( systems, sysInput );
+    hist_add ( systems, sysTimer );
 
-    listptr_add ( end_functions, SYS_doVBlankProcess );
-    listptr_add ( end_functions, JOY_update );
+    hist_add ( end_functions, &SYS_doVBlankProcess );
+    hist_add ( end_functions, &JOY_update );
 
-    while(1) {
-        listpstr_update ( ini_functions );
-        listpstr_update ( manager );
-        listpstr_update ( systems );
-        listpstr_update ( end_functions );
-    }
-    
-    managerEnd ( manScreens );
-    systemEnd ( sysInput );
-    systemEnd ( sysTimer );
+   
 }
 
 
@@ -226,7 +206,25 @@ void main()
     // mainManager();
     // listtest();
     // ramiro();
+
+
+    managers      = hist ( &managerUpdate );
+    systems       = hist ( &systemUpdate );
+    ini_functions = hist ( NULL );
+    end_functions = hist ( NULL );
+
     screens();
+
+     while(1) {
+        hist_update ( ini_functions );
+        hist_update ( managers );
+        hist_update ( systems );
+        hist_update ( end_functions );
+    }
+    
+    managerEnd ( manScreens );
+    systemEnd ( sysInput );
+    systemEnd ( sysTimer );
 }
 
 
