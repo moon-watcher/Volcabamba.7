@@ -50,7 +50,7 @@ void hist_add ( histlist *const h, void *const data ) {
 
 
 void hist_update ( histlist *const h ) {
-    void* (*update)() = h->update ? h->update : NULL;
+    void (*update)() = h->update ? h->update : NULL;
 
     if ( update )
         hist_foreach ( h, node )

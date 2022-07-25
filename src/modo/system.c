@@ -10,7 +10,7 @@ System *system ( systemFn update ) {
     System *s = malloc ( System_s );
 
     s->update = update;
-    s->max = 15;
+    s->max = 20;
     s->list = malloc ( voidptr_s * s->max );
     s->length = 0;
 
@@ -27,9 +27,9 @@ void systemUpdate ( System *const s ) {
 }
 
 
-void systemResize ( System *const s ) {
+void systemResize ( System *const s, int inc ) {
     int old = s->max;    
-    s->max += 15;
+    s->max += inc;
     
     void *list = malloc ( voidptr_s * s->max );
     memcpy ( list, s->list, voidptr_s * old );
