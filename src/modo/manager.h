@@ -12,7 +12,7 @@ typedef struct
 Manager;
 
 
-Manager *manager       ( );
+Manager *manager       ( char *const );
 Entity  *managerAdd    ( Manager *const, Entity const* );
 void     managerUpdate ( Manager *const );
 void     managerEnd    ( Manager *const );
