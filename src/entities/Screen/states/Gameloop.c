@@ -22,8 +22,8 @@ stateDefine ( entity_screen_state_gameloop,
     SPR_initEx(600);
     VDP_setScreenWidth256();
 
-    manPlayers = manager ( );
-    manWeapons = manager ( );
+    manPlayers = manager ( "Players" );
+    manWeapons = manager ( "Weapons" );
 
     sysSprite   = system ( &system_sprite   );
     sysMovement = system ( &system_movement );

@@ -36,7 +36,7 @@ void mainManager()
     drawUInt( MEM_getFree(), 0,21, 8);
 
 
-    Manager *m1 = manager();
+    Manager *m1 = manager ( NULL );
     
     Entity *e1, *e2, *e3, *e4; 
     int y = 0;
@@ -86,8 +86,8 @@ void ramiro(){
 
     SPR_initEx(1200); //SPR_init();
 
-    manPlayers = manager();
-    manWeapons = manager();
+    manPlayers = manager ( "Players" );
+    manWeapons = manager ( "Weapons" );
 
     sysSprite   = system ( &system_sprite   );
     sysInput    = system ( &system_input    );
@@ -175,10 +175,29 @@ void listtest(){
 
 
 void gameInit(){ // antiguo screens()
-    manScreens = manager();
+    manScreens = manager ( "Screens" );
+    Manager* man0 = manager ( "man0" );
 
-    //Int( managers.size, 0,i++,5);
+    // //Int( managers.size, 0,i++,5);
+    hist_add ( managers, man0 );
     hist_add ( managers, manScreens );
+    hist_add ( managers, manScreens );
+    hist_add ( managers, man0 );
+    hist_add ( managers, man0 );
+    hist_add ( managers, man0 );
+
+
+
+    //hist_delete ( managers, man0 ); 
+    hist_delete ( managers, man0 ); 
+    hist_delete ( managers, manScreens );
+    //hist_delete_force ( managers, manScreens );
+    Int(managers->size, 0,0,4);
+    Int(managers->size, 0,1,4);
+    waitMs(100);
+
+    hist_managers ( managers );
+    waitMs(1000);
 
     managerAdd ( manScreens, &entity_screen );
 
@@ -192,6 +211,7 @@ void gameInit(){ // antiguo screens()
 
     hist_add ( end_functions, &SYS_doVBlankProcess );
     hist_add ( end_functions, &JOY_update );
+
 }
 
 
