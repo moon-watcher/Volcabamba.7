@@ -1,5 +1,6 @@
 #include <genesis.h>
 #include "hist.h"
+#include "manager.h"
 
 
 // static int const hvlistNode_s = sizeof(hvlistNode);
@@ -13,6 +14,7 @@ static histnode* _create ( void* data ) {
     
     node->data = data;
     node->next = NULL;
+    node->count = 1;
 
     return node;
 }
@@ -22,30 +24,34 @@ static histnode* _create ( void* data ) {
 histlist *hist ( void (*update)() ) {
     histlist *h = malloc ( sizeof ( histlist ) );
 
-    h->head = NULL;
+    h->head   = NULL;
     h->update = update;
+    h->size   = 0;
 
     return h;
 }
 
 
 void hist_add ( histlist *const h, void *const data ) {
-
     if ( !h->head ) {
         h->head = _create ( data );
+        ++h->size;
         return;
     }
 
     histnode *last = h->head;
 
     hist_foreach ( h, node ) {
-        if ( node->data == data )
+        if ( node->data == data ) {
+            ++node->count;
             return;
+        }
 
         last = node;
     }
 
     last->next = _create ( data );
+    ++h->size;
 }
 
 
@@ -62,8 +68,70 @@ void hist_update ( histlist *const h ) {
 }
 
 
+void hist_delete ( histlist *const h, void *const data ) {
+    histnode *temp = h->head, *prev;
+ 
+    if ( temp  &&  temp->data == data ) {
+        if ( --temp->count <= 0 ) {
+            h->head = temp->next;
+            --h->size;
+            free ( temp );
+        }
+
+        return;
+    }
+ 
+    while ( temp  &&  temp->data != data ) {
+        prev = temp;
+        temp = temp->next;
+    }
+ 
+    if ( temp  &&  --temp->count <= 0 ) {
+        prev->next = temp->next;
+        --h->size;
+        free ( temp );
+    }
+}
 
 
+void hist_delete_force ( histlist *const h, void *const data ) {
+    histnode *temp = h->head, *prev;
+ 
+    if ( temp  &&  temp->data == data ) {
+        h->head = temp->next;
+        --h->size;
+        free ( temp );
+
+        return;
+    }
+ 
+    while ( temp  &&  temp->data != data ) {
+        prev = temp;
+        temp = temp->next;
+    }
+ 
+    if ( temp ) {
+        prev->next = temp->next;
+        --h->size;
+        free ( temp );
+    }
+}
+
+
+void hist_managers ( histlist *const h ) {
+    int i = 0;
+    VDP_resetScreen();
+    
+    hist_foreach ( h, nodo ) {
+        Manager *const m = nodo->data;
+
+        Text ( m->name,     0, i );
+        Int ( nodo->count, 20, i, 4 );
+        ++i;
+    }
+
+    waitMs(10000);
+}
 
 
 
