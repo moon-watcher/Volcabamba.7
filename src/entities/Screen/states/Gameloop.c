@@ -38,17 +38,17 @@ stateDefine ( entity_screen_state_gameloop,
     entityExec ( InterfaceCommon, setY, e1, 70 );
 
 
-    hist_add ( managers, manPlayers );
-    hist_add ( managers, manWeapons );
+    modoAdd ( managers, manPlayers );
+    modoAdd ( managers, manWeapons );
     
-    hist_add ( systems, sysMovement );
-    hist_add ( systems, sysSprite );
+    modoAdd ( systems, sysMovement );
+    modoAdd ( systems, sysSprite );
 
     SPR_init();
 
     //listpstr_insertBefore ( end_functions, &SPR_update, &SYS_doVBlankProcess );
     // listpstr_moveBefore ( functions, &SPR_update, &SYS_doVBlankProcess );
-    hist_add ( end_functions, &SPR_update );
+    modoAdd ( end_functions, &SPR_update );
 },
 
 { // update
@@ -68,11 +68,11 @@ stateDefine ( entity_screen_state_gameloop,
     // listprt_remove ( functions, &SPR_update );
     // listprt_remove ( functions, &SYS_doVBlankProcess );
 
-    // hist_remove ( systems, sysMovement );
-    // hist_remove ( systems, sysSprite );
+    // modoRemove ( systems, sysMovement );
+    // modoRemove ( systems, sysSprite );
 
-    // hist_remove ( managers, manWeapons );
-    // hist_remove ( managers, manPlayers );
+    // modoRemove ( managers, manWeapons );
+    // modoRemove ( managers, manPlayers );
 
 
     managerEnd ( manPlayers );

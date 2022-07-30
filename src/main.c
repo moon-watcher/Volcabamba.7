@@ -3,14 +3,14 @@
 
 #include "inc/modo.h"
 #include "libs/draw.h"
-#include "modo/hist.h"
+#include "modo/modo.h"
 #include "inc/entities.h"
 #include "inc/systems.h"
 #include "inc/managers.h"
 #include "interfaces/common.h"
 
 
-#include "modo/hist.h"
+#include "modo/modo.h"
 
 
 
@@ -175,66 +175,65 @@ void listtest(){
 
 
 void gameInit(){ // antiguo screens()
-    manScreens = manager ( "Screens" );
     Manager* man0 = manager ( "man0" );
 
     // //Int( managers.size, 0,i++,5);
-    hist_add ( managers, man0 );
-    hist_add ( managers, manScreens );
-    hist_add ( managers, manScreens );
-    hist_add ( managers, man0 );
-    hist_add ( managers, man0 );
-    hist_add ( managers, man0 );
+    //modoAdd ( managers, man0 );
+    modoAdd ( managers, man0 );
+    modoAdd ( managers, manScreens );
 
+    // modoInfoManagers ( managers );
 
+    //modoDelete ( managers, man0 ); 
+    // modoDelete ( managers, man0 ); 
+    // modoDelete ( managers, manScreens );
+    //modoDeleteForce ( managers, manScreens );
+    // Int(managers->size, 0,0,4);
+    // Int(managers->size, 0,1,4);
+    // waitMs(100);
 
-    //hist_delete ( managers, man0 ); 
-    hist_delete ( managers, man0 ); 
-    hist_delete ( managers, manScreens );
-    //hist_delete_force ( managers, manScreens );
-    Int(managers->size, 0,0,4);
-    Int(managers->size, 0,1,4);
-    waitMs(100);
-
-    hist_managers ( managers );
-    waitMs(1000);
+    //
+    //waitMs(1000);
 
     managerAdd ( manScreens, &entity_screen );
 
     // sysSprite   = system ( &system_sprite   );
     // sysMovement = system ( &system_movement );
-    sysInput = system ( &system_input );
-    sysTimer = system ( &system_timer );
+    
+    modoAdd ( systems, sysInput );
+    modoAdd ( systems, sysTimer );
 
-    hist_add ( systems, sysInput );
-    hist_add ( systems, sysTimer );
-
-    hist_add ( end_functions, &SYS_doVBlankProcess );
-    hist_add ( end_functions, &JOY_update );
-
+    modoAdd ( end_functions, &SYS_doVBlankProcess );
+    modoAdd ( end_functions, &JOY_update );
 }
 
 
 void main()
 {
+    manScreens = manager ( "Screens" );
+
+    sysInput = system ( &system_input );
+    sysTimer = system ( &system_timer );
+
+
     // mainManager();
     // listtest();
     // ramiro();
 
-    init_functions = hist ( NULL );
-    managers       = hist ( &managerUpdate );
-    pre_systems    = hist ( NULL );
-    systems        = hist ( &systemUpdate );
-    end_functions  = hist ( NULL );
+    init_functions = modo ( NULL );
+    managers       = modo ( &managerUpdate );
+    pre_systems    = modo ( NULL );
+    systems        = modo ( &systemUpdate );
+    end_functions  = modo ( NULL );
 
     gameInit(); // the game init function
 
     while ( 1 ) {
-        hist_update ( init_functions );
-        hist_update ( managers );
-        hist_update ( pre_systems );
-        hist_update ( systems );
-        hist_update ( end_functions );
+        modoUpdate ( init_functions );
+        modoUpdate ( managers );
+        modoUpdate ( pre_systems );
+        modoUpdate ( systems );
+        modoUpdate ( end_functions );
     }
 }
 
