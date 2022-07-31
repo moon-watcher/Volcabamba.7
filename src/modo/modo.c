@@ -8,9 +8,12 @@
 // http://taggedwiki.zubiaga.org/new_content/a0aaf6287ad03103f81016980041de78
 
 
+#define _foreach( L, N ) \
+	for ( ModoNode *N = L->head; N; N = N->next )
+	
 
-static modoNode* _create ( void* data ) {
-    modoNode *node = malloc ( sizeof ( modoNode ) );
+static ModoNode* _create ( void* data ) {
+    ModoNode *node = malloc ( sizeof ( ModoNode ) );
     
     node->data = data;
     node->next = NULL;
@@ -21,8 +24,8 @@ static modoNode* _create ( void* data ) {
 
 
 
-modoList *modo ( void (*update)() ) {
-    modoList *h = malloc ( sizeof ( modoList ) );
+Modo *modo ( void (*update)() ) {
+    Modo *h = malloc ( sizeof ( Modo ) );
 
     h->head   = NULL;
     h->update = update;
@@ -32,16 +35,16 @@ modoList *modo ( void (*update)() ) {
 }
 
 
-void modoAdd ( modoList *const h, void *const data ) {
+void modoAdd ( Modo *const h, void *const data ) {
     if ( !h->head ) {
         h->head = _create ( data );
         ++h->size;
         return;
     }
 
-    modoNode *last = h->head;
+    ModoNode *last = h->head;
 
-    modoForeach ( h, node ) {
+    _foreach ( h, node ) {
         if ( node->data == data ) {
             ++node->count;
             return;
@@ -55,21 +58,24 @@ void modoAdd ( modoList *const h, void *const data ) {
 }
 
 
-void modoUpdate ( modoList *const h ) {
+void modoUpdate ( Modo *const h ) {
+    if ( !h->size )
+        return;
+
     void (*update)() = h->update ? h->update : NULL;
 
     if ( update )
-        modoForeach ( h, node )
+        _foreach ( h, node )
             update ( node->data );
 
     else
-        modoForeach ( h, node )
+        _foreach ( h, node )
             ( (void(*)()) node->data ) ( );
 }
 
 
-void modoDelete ( modoList *const h, void *const data ) {
-    modoNode *temp = h->head, *prev;
+void modoDelete ( Modo *const h, void *const data ) {
+    ModoNode *temp = h->head, *prev;
  
     if ( temp  &&  temp->data == data ) {
         if ( --temp->count <= 0 ) {
@@ -94,8 +100,8 @@ void modoDelete ( modoList *const h, void *const data ) {
 }
 
 
-void modoDeleteForce ( modoList *const h, void *const data ) {
-    modoNode *temp = h->head, *prev;
+void modoDeleteForce ( Modo *const h, void *const data ) {
+    ModoNode *temp = h->head, *prev;
  
     if ( temp  &&  temp->data == data ) {
         h->head = temp->next;
@@ -118,11 +124,11 @@ void modoDeleteForce ( modoList *const h, void *const data ) {
 }
 
 
-void modoInfoManagers ( modoList *const h ) {
+void modoInfoManagers ( Modo *const h ) {
     int i = 0;
     VDP_resetScreen();
     
-    modoForeach ( h, nodo ) {
+    _foreach ( h, nodo ) {
         Manager *const m = nodo->data;
 
         Text ( m->name,     0, i );
@@ -135,9 +141,9 @@ void modoInfoManagers ( modoList *const h ) {
 
 
 
-//     modoNode *last = h->head;
-//     modoNode *node = h->head;
-//     modoNode *new = malloc ( sizeof ( modoNode ) );
+//     ModoNode *last = h->head;
+//     ModoNode *node = h->head;
+//     ModoNode *new = malloc ( sizeof ( ModoNode ) );
 
 //     new->data = data;
 //     new->next = NULL;
@@ -145,7 +151,7 @@ void modoInfoManagers ( modoList *const h ) {
 
 //     //if head is NULL, it is an empty list
 //     if ( !h->head ) {
-//         modoNode *new = malloc ( sizeof ( modoNode ) );
+//         ModoNode *new = malloc ( sizeof ( ModoNode ) );
         
 //         new->data    = data;
 //         new->next    = NULL;
@@ -170,11 +176,11 @@ void modoInfoManagers ( modoList *const h ) {
 
 
 //     if ( !h->head )
-//         h->head = malloc ( sizeof ( modoNode ) );
+//         h->head = malloc ( sizeof ( ModoNode ) );
 
 
-//     modoNode *last = h->head;
-//     modoNode *node = h->head;
+//     ModoNode *last = h->head;
+//     ModoNode *node = h->head;
 
 //     while ( node ) {
 //         if ( node->data == data ) {
@@ -186,7 +192,7 @@ void modoInfoManagers ( modoList *const h ) {
 //         node = node->next;
 //     }
 
-//     modoNode *new = malloc ( sizeof ( modoNode ) );
+//     ModoNode *new = malloc ( sizeof ( ModoNode ) );
 
 //     new->data    = data;
 //     new->next    = NULL;

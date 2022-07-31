@@ -3,10 +3,6 @@
 
 #include "inc/modo.h"
 #include "libs/draw.h"
-#include "modo/modo.h"
-#include "inc/entities.h"
-#include "inc/systems.h"
-#include "inc/managers.h"
 #include "interfaces/common.h"
 
 
@@ -179,8 +175,8 @@ void gameInit(){ // antiguo screens()
 
     // //Int( managers.size, 0,i++,5);
     //modoAdd ( managers, man0 );
-    modoAdd ( managers, man0 );
-    modoAdd ( managers, manScreens );
+    modoAdd ( modo_managers, man0 );
+    modoAdd ( modo_managers, manScreens );
 
     // modoInfoManagers ( managers );
 
@@ -200,11 +196,11 @@ void gameInit(){ // antiguo screens()
     // sysSprite   = system ( &system_sprite   );
     // sysMovement = system ( &system_movement );
     
-    modoAdd ( systems, sysInput );
-    modoAdd ( systems, sysTimer );
+    modoAdd ( modo_systems, sysInput );
+    modoAdd ( modo_systems, sysTimer );
 
-    modoAdd ( end_functions, &SYS_doVBlankProcess );
-    modoAdd ( end_functions, &JOY_update );
+    modoAdd ( modo_end, &SYS_doVBlankProcess );
+    modoAdd ( modo_end, &JOY_update );
 }
 
 
@@ -220,20 +216,20 @@ void main()
     // listtest();
     // ramiro();
 
-    init_functions = modo ( NULL );
-    managers       = modo ( &managerUpdate );
-    pre_systems    = modo ( NULL );
-    systems        = modo ( &systemUpdate );
-    end_functions  = modo ( NULL );
+    modo_init     = modo ( NULL );
+    modo_managers = modo ( &managerUpdate );
+    modo_middle   = modo ( NULL );
+    modo_systems  = modo ( &systemUpdate );
+    modo_end      = modo ( NULL );
 
     gameInit(); // the game init function
 
     while ( 1 ) {
-        modoUpdate ( init_functions );
-        modoUpdate ( managers );
-        modoUpdate ( pre_systems );
-        modoUpdate ( systems );
-        modoUpdate ( end_functions );
+        modoUpdate ( modo_init     );
+        modoUpdate ( modo_managers );
+        modoUpdate ( modo_middle   );
+        modoUpdate ( modo_systems  );
+        modoUpdate ( modo_end      );
     }
 }
 

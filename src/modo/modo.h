@@ -3,31 +3,27 @@
 //typedef void (*hvlistFn) (void*);
 
 
-typedef struct modoNode {
+typedef struct ModoNode {
 	void *data;
-	struct modoNode *next;
+	struct ModoNode *next;
 	unsigned char count;
 }
-modoNode;
+ModoNode;
 
 
 typedef struct {
-	modoNode *head;
+	ModoNode *head;
 	void (*update)();
 	unsigned char size;
 }
-modoList;
+Modo;
 
 
 
-modoList *modo             ( void (*)() );
-void      modoAdd          ( modoList *const, void *const );
-void      modoUpdate       ( modoList *const );
-void      modoDelete       ( modoList *const, void *const );
-void      modoDeleteForce  ( modoList *const, void *const );
-void      modoInfoManagers ( modoList *const );
-void      modoInfoSystems  ( modoList *const );
-
-#define modoForeach( l, n ) \
-    for ( modoNode *n = l->head; n; n = n->next )
-	
+Modo *modo             ( void (*)() );
+void  modoAdd          ( Modo *const, void *const );
+void  modoUpdate       ( Modo *const );
+void  modoDelete       ( Modo *const, void *const );
+void  modoDeleteForce  ( Modo *const, void *const );
+void  modoInfoManagers ( Modo *const );
+void  modoInfoSystems  ( Modo *const );

@@ -38,17 +38,17 @@ stateDefine ( entity_screen_state_gameloop,
     entityExec ( InterfaceCommon, setY, e1, 70 );
 
 
-    modoAdd ( managers, manPlayers );
-    modoAdd ( managers, manWeapons );
+    modoAdd ( modo_managers, manPlayers );
+    modoAdd ( modo_managers, manWeapons );
     
-    modoAdd ( systems, sysMovement );
-    modoAdd ( systems, sysSprite );
+    modoAdd ( modo_systems, sysMovement );
+    modoAdd ( modo_systems, sysSprite );
 
     SPR_init();
 
     //listpstr_insertBefore ( end_functions, &SPR_update, &SYS_doVBlankProcess );
     // listpstr_moveBefore ( functions, &SPR_update, &SYS_doVBlankProcess );
-    modoAdd ( end_functions, &SPR_update );
+    modoAdd ( modo_end, &SPR_update );
 },
 
 { // update
