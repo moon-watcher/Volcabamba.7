@@ -4,6 +4,8 @@
 
 static int const Entity_s = sizeof ( Entity );
 
+static void nullf ( Entity *e ) { }
+
 
 Entity *entity ( Entity const* template ) {
     Entity *entity;    
@@ -17,6 +19,10 @@ Entity *entity ( Entity const* template ) {
 
     entity->action = ENTITY_ACTION_CREATE;
 
+    if ( !entity->Awake  ) entity->Awake  = nullf;
+    if ( !entity->Update ) entity->Update = nullf;
+    if ( !entity->Delete ) entity->Delete = nullf;
+
     return entity;
 }
 
@@ -28,6 +34,11 @@ void entityState ( Entity *const entity, State const* newState ) {
     entity->prevState = entity->state;
     entity->state     = (State*) newState;
     entity->action    = ENTITY_ACTION_CHANGE;
+
+    // use when copy state just like the entity
+    // if ( !entity->state->enter  ) entity->state->enter  = nullf;
+    // if ( !entity->state->update ) entity->state->update = nullf;
+    // if ( !entity->state->exit   ) entity->state->exit   = nullf;
 }
 
 

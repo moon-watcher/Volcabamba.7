@@ -1,5 +1,6 @@
 #include <genesis.h>
-#include "hist.h"
+#include "modo.h"
+#include "manager.h"
 
 
 // static int const hvlistNode_s = sizeof(hvlistNode);
@@ -7,69 +8,151 @@
 // http://taggedwiki.zubiaga.org/new_content/a0aaf6287ad03103f81016980041de78
 
 
+#define _foreach( L, N ) \
+	for ( ModoNode *N = L->head; N; N = N->next )
+	
 
-static histnode* _create ( void* data ) {
-    histnode *node = malloc ( sizeof ( histnode ) );
+static ModoNode* _create ( void* data ) {
+    ModoNode *node = malloc ( sizeof ( ModoNode ) );
     
     node->data = data;
     node->next = NULL;
+    node->count = 1;
 
     return node;
 }
 
 
 
-histlist *hist ( void (*update)() ) {
-    histlist *h = malloc ( sizeof ( histlist ) );
+Modo *modo ( void (*update)() ) {
+    Modo *h = malloc ( sizeof ( Modo ) );
 
-    h->head = NULL;
+    h->head   = NULL;
     h->update = update;
+    h->size   = 0;
 
     return h;
 }
 
 
-void hist_add ( histlist *const h, void *const data ) {
-
+void modoAdd ( Modo *const h, void *const data ) {
     if ( !h->head ) {
         h->head = _create ( data );
+        ++h->size;
         return;
     }
 
-    histnode *last = h->head;
+    ModoNode *last = h->head;
 
-    hist_foreach ( h, node ) {
-        if ( node->data == data )
+    _foreach ( h, node ) {
+        if ( node->data == data ) {
+            ++node->count;
             return;
+        }
 
         last = node;
     }
 
     last->next = _create ( data );
+    ++h->size;
 }
 
 
-void hist_update ( histlist *const h ) {
-    void* (*update)() = h->update ? h->update : NULL;
+void modoUpdate ( Modo *const h ) {
+    if ( !h->size )
+        return;
+
+    void (*update)() = h->update ? h->update : NULL;
 
     if ( update )
-        hist_foreach ( h, node )
+        _foreach ( h, node )
             update ( node->data );
 
     else
-        hist_foreach ( h, node )
+        _foreach ( h, node )
             ( (void(*)()) node->data ) ( );
 }
 
 
+void modoDelete ( Modo *const h, void *const data ) {
+    if ( !h->size )
+        return;
+
+    ModoNode *temp = h->head, *prev;
+ 
+    if ( temp  &&  temp->data == data ) {
+        if ( --temp->count <= 0 ) {
+            h->head = temp->next;
+            --h->size;
+            free ( temp );
+        }
+
+        return;
+    }
+ 
+    while ( temp  &&  temp->data != data ) {
+        prev = temp;
+        temp = temp->next;
+    }
+ 
+    if ( temp  &&  --temp->count <= 0 ) {
+        prev->next = temp->next;
+        --h->size;
+        free ( temp );
+    }
+}
+
+
+void modoDeleteForce ( Modo *const h, void *const data ) {
+    if ( !h->size )
+        return;
+
+    ModoNode *temp = h->head, *prev;
+ 
+    if ( temp  &&  temp->data == data ) {
+        h->head = temp->next;
+        --h->size;
+        free ( temp );
+
+        return;
+    }
+ 
+    while ( temp  &&  temp->data != data ) {
+        prev = temp;
+        temp = temp->next;
+    }
+ 
+    if ( temp ) {
+        prev->next = temp->next;
+        --h->size;
+        free ( temp );
+    }
+}
+
+
+void modoInfoManagers ( Modo *const h ) {
+    int i = 0;
+    VDP_resetScreen();
+
+    if ( !h->size )
+        return;
+    
+    _foreach ( h, nodo ) {
+        Manager *const m = nodo->data;
+
+        Text ( m->name,     0, i );
+        Int ( nodo->count, 20, i, 4 );
+        ++i;
+    }
+
+    waitMs(10000);
+}
 
 
 
-
-
-//     histnode *last = h->head;
-//     histnode *node = h->head;
-//     histnode *new = malloc ( sizeof ( histnode ) );
+//     ModoNode *last = h->head;
+//     ModoNode *node = h->head;
+//     ModoNode *new = malloc ( sizeof ( ModoNode ) );
 
 //     new->data = data;
 //     new->next = NULL;
@@ -77,7 +160,7 @@ void hist_update ( histlist *const h ) {
 
 //     //if head is NULL, it is an empty list
 //     if ( !h->head ) {
-//         histnode *new = malloc ( sizeof ( histnode ) );
+//         ModoNode *new = malloc ( sizeof ( ModoNode ) );
         
 //         new->data    = data;
 //         new->next    = NULL;
@@ -102,11 +185,11 @@ void hist_update ( histlist *const h ) {
 
 
 //     if ( !h->head )
-//         h->head = malloc ( sizeof ( histnode ) );
+//         h->head = malloc ( sizeof ( ModoNode ) );
 
 
-//     histnode *last = h->head;
-//     histnode *node = h->head;
+//     ModoNode *last = h->head;
+//     ModoNode *node = h->head;
 
 //     while ( node ) {
 //         if ( node->data == data ) {
@@ -118,7 +201,7 @@ void hist_update ( histlist *const h ) {
 //         node = node->next;
 //     }
 
-//     histnode *new = malloc ( sizeof ( histnode ) );
+//     ModoNode *new = malloc ( sizeof ( ModoNode ) );
 
 //     new->data    = data;
 //     new->next    = NULL;

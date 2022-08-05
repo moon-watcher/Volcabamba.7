@@ -13,11 +13,12 @@ static int const Manager_s = sizeof ( Manager );
 
 
 
-Manager *manager ( ) {
+Manager *manager ( char *const name ) {
     Manager *manager = malloc ( Manager_s );
     
     manager->entities   = ((void*)0);
     manager->prevEntity = ((void*)0);
+    manager->name       = name;
 
     return manager;
 }
@@ -58,11 +59,12 @@ void managerEntityDelete ( Manager *const manager, Entity *const entity ) {
 
 
 
-#define X(F,E) if(F)F(E)
+#define XE( F, E )            F ( E )
+#define XS( F, E )   if ( F ) F ( E )
 
 inline static void create ( Manager *const manager, Entity *const entity ) {
-    X ( entity->Awake,        entity );
-    X ( entity->state->enter, entity );
+    XE ( entity->Awake,        entity );
+    XS ( entity->state->enter, entity );
 
     entity->action = ENTITY_ACTION_UPDATE;
         
@@ -70,15 +72,15 @@ inline static void create ( Manager *const manager, Entity *const entity ) {
 }
 
 inline static void update ( Manager *const manager, Entity *const entity ) {
-    X ( entity->Update,        entity );
-    X ( entity->state->update, entity );
+    XE ( entity->Update,        entity );
+    XS ( entity->state->update, entity );
 
     manager->prevEntity = entity;
 }
 
 inline static void change ( Manager *const manager, Entity *const entity ) {
-    X ( entity->prevState->exit, entity );
-    X ( entity->state->enter,    entity );
+    XS ( entity->prevState->exit, entity );
+    XS ( entity->state->enter,    entity );
 
     entity->action = ENTITY_ACTION_UPDATE;
 
@@ -86,8 +88,8 @@ inline static void change ( Manager *const manager, Entity *const entity ) {
 }
 
 inline static void delete ( Manager *const manager, Entity *const entity ) {
-    X ( entity->state->exit, entity );
-    X ( entity->Delete,      entity );
+    XS ( entity->state->exit, entity );
+    XE ( entity->Delete,      entity );
 
     if ( manager->entities == entity ) {
         manager->entities = entity->next;

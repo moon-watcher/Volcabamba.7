@@ -17,6 +17,8 @@ stateDefine ( entity_screen_state_logo,
     
     ComponentTimer_Init ( timer, 100 );
     VDP_setScreenWidth320();
+
+    systemUse ( sysTimer );
 },
 
 { // update

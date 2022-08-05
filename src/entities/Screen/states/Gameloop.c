@@ -22,12 +22,6 @@ stateDefine ( entity_screen_state_gameloop,
     SPR_initEx(600);
     VDP_setScreenWidth256();
 
-    manPlayers = manager ( );
-    manWeapons = manager ( );
-
-    sysSprite   = system ( &system_sprite   );
-    sysMovement = system ( &system_movement );
-
     Entity *const e0 = managerAdd ( manPlayers, &entity_Player_tpl );
     Entity *const e1 = managerAdd ( manPlayers, &entity_Player_tpl );
             
@@ -38,52 +32,35 @@ stateDefine ( entity_screen_state_gameloop,
     entityExec ( InterfaceCommon, setY, e1, 70 );
 
 
-    hist_add ( managers, manPlayers );
-    hist_add ( managers, manWeapons );
+    modoAdd ( modo_managers, manPlayers );
+    modoAdd ( modo_managers, manWeapons );
     
-    hist_add ( systems, sysMovement );
-    hist_add ( systems, sysSprite );
+    modoAdd ( modo_systems, sysMovement );
+    modoAdd ( modo_systems, sysSprite );
+
+    modoAdd ( modo_end, SPR_update );
 
     SPR_init();
-
-    //listpstr_insertBefore ( end_functions, &SPR_update, &SYS_doVBlankProcess );
-    // listpstr_moveBefore ( functions, &SPR_update, &SYS_doVBlankProcess );
-    hist_add ( end_functions, &SPR_update );
 },
 
 { // update
     COMPS(e);
 
-  
-        Int ( MEM_getFree(), 2, 2, 5 );
-
-
-        // SPR_update();
-        // SYS_doVBlankProcess();
-        // JOY_update();
-    //}
+    Int ( MEM_getFree(), 2, 2, 5 );
+    
+    // SPR_update();
+    // SYS_doVBlankProcess();
+    // JOY_update();
 },
 
 { // exit
-    // listprt_remove ( functions, &SPR_update );
-    // listprt_remove ( functions, &SYS_doVBlankProcess );
+    modoDelete ( modo_systems, sysMovement );
+    modoDelete ( modo_systems, sysSprite );
 
-    // hist_remove ( systems, sysMovement );
-    // hist_remove ( systems, sysSprite );
+    modoDelete ( modo_managers, manWeapons );
+    modoDelete ( modo_managers, manPlayers );
 
-    // hist_remove ( managers, manWeapons );
-    // hist_remove ( managers, manPlayers );
-
-
-    managerEnd ( manPlayers );
-    managerEnd ( manWeapons );
-    
     SPR_end();
-
-    systemEnd ( sysSprite );
-    systemEnd ( sysMovement );
-    systemEnd ( sysInput );
-
 
     PAL_fadeOut(0,63,10,0);
     VDP_clearPlane(BG_A, 0);
