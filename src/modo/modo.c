@@ -75,6 +75,9 @@ void modoUpdate ( Modo *const h ) {
 
 
 void modoDelete ( Modo *const h, void *const data ) {
+    if ( !h->size )
+        return;
+
     ModoNode *temp = h->head, *prev;
  
     if ( temp  &&  temp->data == data ) {
@@ -101,6 +104,9 @@ void modoDelete ( Modo *const h, void *const data ) {
 
 
 void modoDeleteForce ( Modo *const h, void *const data ) {
+    if ( !h->size )
+        return;
+
     ModoNode *temp = h->head, *prev;
  
     if ( temp  &&  temp->data == data ) {
@@ -127,6 +133,9 @@ void modoDeleteForce ( Modo *const h, void *const data ) {
 void modoInfoManagers ( Modo *const h ) {
     int i = 0;
     VDP_resetScreen();
+
+    if ( !h->size )
+        return;
     
     _foreach ( h, nodo ) {
         Manager *const m = nodo->data;

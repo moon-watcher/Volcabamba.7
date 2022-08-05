@@ -1,7 +1,5 @@
 #pragma once
 
-//typedef void (*hvlistFn) (void*);
-
 
 typedef struct ModoNode {
 	void *data;
@@ -17,7 +15,6 @@ typedef struct {
 	unsigned char size;
 }
 Modo;
-
 
 
 Modo *modo             ( void (*)() );

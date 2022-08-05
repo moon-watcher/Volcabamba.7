@@ -14,6 +14,9 @@ static void awake ( Entity *const e ) {
 
     ComponentSprite_Init ( sp, cp->x.rounded, cp->y.rounded );
     ComponentInput_Init ( ci );
+
+    systemUse ( sysSprite );
+    systemUse ( sysInput );
 }
 
 

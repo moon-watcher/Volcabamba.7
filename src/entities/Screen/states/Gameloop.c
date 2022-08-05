@@ -22,12 +22,6 @@ stateDefine ( entity_screen_state_gameloop,
     SPR_initEx(600);
     VDP_setScreenWidth256();
 
-    manPlayers = manager ( "Players" );
-    manWeapons = manager ( "Weapons" );
-
-    sysSprite   = system ( &system_sprite   );
-    sysMovement = system ( &system_movement );
-
     Entity *const e0 = managerAdd ( manPlayers, &entity_Player_tpl );
     Entity *const e1 = managerAdd ( manPlayers, &entity_Player_tpl );
             
@@ -44,46 +38,29 @@ stateDefine ( entity_screen_state_gameloop,
     modoAdd ( modo_systems, sysMovement );
     modoAdd ( modo_systems, sysSprite );
 
-    SPR_init();
+    modoAdd ( modo_end, SPR_update );
 
-    //listpstr_insertBefore ( end_functions, &SPR_update, &SYS_doVBlankProcess );
-    // listpstr_moveBefore ( functions, &SPR_update, &SYS_doVBlankProcess );
-    modoAdd ( modo_end, &SPR_update );
+    SPR_init();
 },
 
 { // update
     COMPS(e);
 
-  
-        Int ( MEM_getFree(), 2, 2, 5 );
-
-
-        // SPR_update();
-        // SYS_doVBlankProcess();
-        // JOY_update();
-    //}
+    Int ( MEM_getFree(), 2, 2, 5 );
+    
+    // SPR_update();
+    // SYS_doVBlankProcess();
+    // JOY_update();
 },
 
 { // exit
-    // listprt_remove ( functions, &SPR_update );
-    // listprt_remove ( functions, &SYS_doVBlankProcess );
+    modoDelete ( modo_systems, sysMovement );
+    modoDelete ( modo_systems, sysSprite );
 
-    // modoRemove ( systems, sysMovement );
-    // modoRemove ( systems, sysSprite );
+    modoDelete ( modo_managers, manWeapons );
+    modoDelete ( modo_managers, manPlayers );
 
-    // modoRemove ( managers, manWeapons );
-    // modoRemove ( managers, manPlayers );
-
-
-    managerEnd ( manPlayers );
-    managerEnd ( manWeapons );
-    
     SPR_end();
-
-    systemEnd ( sysSprite );
-    systemEnd ( sysMovement );
-    systemEnd ( sysInput );
-
 
     PAL_fadeOut(0,63,10,0);
     VDP_clearPlane(BG_A, 0);

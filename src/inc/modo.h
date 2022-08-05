@@ -9,8 +9,6 @@
 #include "../inc/managers.h"
 
 
-
-
 Modo *modo_init;
 Modo *modo_managers;
 Modo *modo_middle;

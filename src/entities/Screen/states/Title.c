@@ -26,6 +26,8 @@ stateDefine ( entity_screen_state_title,
     SYS_enableInts();
     
     VDP_setScreenWidth256();
+
+    systemUse ( sysInput );
 },
 
 { // update
