@@ -1,16 +1,46 @@
 #include <genesis.h>
 #include "modo.h"
 #include "manager.h"
+#include "system.h"
 
 
-// static int const hvlistNode_s = sizeof(hvlistNode);
+Modo modo_lists_init     = { NULL, 0 };
+Modo modo_lists_managers = { NULL, 0 };
+Modo modo_lists_middle   = { NULL, 0 };
+Modo modo_lists_systems  = { NULL, 0 };
+Modo modo_lists_end      = { NULL, 0 };
+
+
 
 // http://taggedwiki.zubiaga.org/new_content/a0aaf6287ad03103f81016980041de78
 
 
-#define _foreach( L, N ) \
-	for ( ModoNode *N = L->head; N; N = N->next )
-	
+
+
+void modo ( Manager *m, Entity *const e ) {
+    m = manager ( );
+
+    managerAdd ( m, e );
+    modoAdd ( &modo_lists_managers, m );
+
+    while ( 1 ) {
+        for ( ModoNode *N = modo_lists[MODOLIST_INIT].head;    N; N = N->next )
+            ( (void(*)()) N->data ) ( );
+
+        for ( ModoNode *N = modo_lists[MODOLIST_MANAGER].head; N; N = N->next )
+            managerUpdate ( N->data );
+
+        for ( ModoNode *N = modo_lists[MODOLIST_MIDDLE].head;  N; N = N->next )
+            ( (void(*)()) N->data ) ( );
+
+        for ( ModoNode *N = modo_lists[MODOLIST_SYSTEM].head;  N; N = N->next )
+            systemUpdate  ( N->data );
+
+        for ( ModoNode *N = modo_lists[MODOLIST_END].head;     N; N = N->next )
+            ( (void(*)()) N->data ) ( );
+    }
+}
+
 
 static ModoNode* _create ( void* data ) {
     ModoNode *node = malloc ( sizeof ( ModoNode ) );
@@ -23,19 +53,9 @@ static ModoNode* _create ( void* data ) {
 }
 
 
+void modoAdd ( Modolist_t index, void *const data ) {
+    Modo *const h = &modo_lists [ index ];
 
-Modo *modo ( void (*update)() ) {
-    Modo *h = malloc ( sizeof ( Modo ) );
-
-    h->head   = NULL;
-    h->update = update;
-    h->size   = 0;
-
-    return h;
-}
-
-
-void modoAdd ( Modo *const h, void *const data ) {
     if ( !h->head ) {
         h->head = _create ( data );
         ++h->size;
@@ -44,13 +64,13 @@ void modoAdd ( Modo *const h, void *const data ) {
 
     ModoNode *last = h->head;
 
-    _foreach ( h, node ) {
-        if ( node->data == data ) {
-            ++node->count;
+    for ( ModoNode *N = h->head; N; N = N->next ) {
+        if ( N->data == data ) {
+            ++N->count;
             return;
         }
 
-        last = node;
+        last = N;
     }
 
     last->next = _create ( data );
@@ -58,23 +78,10 @@ void modoAdd ( Modo *const h, void *const data ) {
 }
 
 
-void modoUpdate ( Modo *const h ) {
-    if ( !h->size )
-        return;
 
-    void (*update)() = h->update ? h->update : NULL;
-
-    if ( update )
-        _foreach ( h, node )
-            update ( node->data );
-
-    else
-        _foreach ( h, node )
-            ( (void(*)()) node->data ) ( );
-}
-
-
-void modoDelete ( Modo *const h, void *const data ) {
+void modoDelete ( Modolist_t index, void *const data ) {
+    Modo *const h = &modo_lists [ index ];
+    
     if ( !h->size )
         return;
 
@@ -130,23 +137,52 @@ void modoDeleteForce ( Modo *const h, void *const data ) {
 }
 
 
-void modoInfoManagers ( Modo *const h ) {
-    int i = 0;
-    VDP_resetScreen();
+// void modoInfoManagers ( Modo *const h ) {
+//     int i = 0;
+//     VDP_resetScreen();
 
-    if ( !h->size )
-        return;
+//     if ( !h->size )
+//         return;
     
-    _foreach ( h, nodo ) {
-        Manager *const m = nodo->data;
+//     for ( ModoNode *N = h->head; N; N = N->next ) {
+//         Manager *const m = N->data;
 
-        Text ( m->name,     0, i );
-        Int ( nodo->count, 20, i, 4 );
-        ++i;
-    }
+//         Text ( m->name,     0, i );
+//         Int ( N->count, 20, i, 4 );
+//         ++i;
+//     }
 
-    waitMs(10000);
-}
+//     waitMs(10000);
+// }
+
+
+
+
+
+// # define _foreach( L, N ) \
+// 	for ( ModoNode *N = L->head; N; N = N->next )
+	
+
+
+// void modoUpdate ( Modo *const h ) {
+//     if ( !h->size )
+//         return;
+
+//     void (*update)() = h->update ? h->update : NULL;
+
+//     if ( update )
+//         _foreach ( h, node )
+//             update ( node->data );
+
+//     else
+//         _foreach ( h, node )
+//             ( (void(*)()) node->data ) ( );
+// }
+
+
+
+
+
 
 
 

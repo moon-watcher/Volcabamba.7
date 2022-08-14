@@ -27,15 +27,11 @@ void systemUpdate ( System *const s ) {
     s->length = 0;
 }
 
-int i = 0;
+
 void systemUse ( System *const s ) {
     if ( s->length + s->params < s->max )
 		return;
-    else {
-        Int ( ++i, 5,5,4);
-        waitMs(1000);
-    }
-
+        
     int old = s->max;    
     s->max += ( s->params * 20 );
     

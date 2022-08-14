@@ -9,12 +9,6 @@
 #include "../inc/managers.h"
 
 
-Modo *modo_init;
-Modo *modo_managers;
-Modo *modo_middle;
-Modo *modo_systems;
-Modo *modo_end;
-
 
 /* 
 // #define modoEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
