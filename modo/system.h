@@ -1,35 +1,30 @@
 #pragma once
 
 
-//typedef void (*systemFn) ( );
-
 typedef struct {
     void (*update) ();
-    unsigned max;
 	void const **list;
-    unsigned length;
+    unsigned max:6;
+    unsigned length:6;
     unsigned params:3;
 }
 System;
 
 
-System* system       ( void(*)(), int );
+System* system       ( void (*)(), int, int );
 void    systemUpdate ( System *const );
-void    systemUse    ( System *const );
 void    systemEnd    ( System *const );
 void    systemInfo   ( System *const );
 
 
-#define systemFnDefine( F, C )                \
-    void F ( System *const s ) {              \
+#define systemDefineFn( FUNCTION, CODE )      \
+    void FUNCTION ( System *const s ) {       \
         void *const *array = (void*) s->list; \
-        int length = s->length;               \
-        int i = 0;                            \
-        while ( i < length )                  \
-            C                                 \
+        for ( int i = 0; i < s->length; )     \
+            CODE                              \
     }
 	
-#define systemFnGet( T, V )            \
+#define systemGetParam( T, V )            \
     T *const V = array [ i++ ]
 
 #define systemAdd( S, A )              \

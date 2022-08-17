@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "inc/modo.h"
+#include "modo.h"
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "inc/managers.h"
@@ -32,11 +32,11 @@ stateDefine ( entity_screen_state_gameloop,
     entityExec ( InterfaceCommon, setY, e1, 70 );
 
 
-    modoAdd ( MODOLIST_MANAGER, manPlayers );
-    modoAdd ( MODOLIST_MANAGER, manWeapons );
-    modoAdd ( MODOLIST_SYSTEM,  sysSprite );
-    modoAdd ( MODOLIST_SYSTEM,  sysMovement );
-    modoAdd ( MODOLIST_END,     SPR_update );
+    // modoAdd ( MODOLIST_MANAGER, manPlayers );
+    // modoAdd ( MODOLIST_MANAGER, manWeapons );
+    // modoAdd ( MODOLIST_SYSTEM,  sysSprite );
+    // modoAdd ( MODOLIST_SYSTEM,  sysMovement );
+    // modoAdd ( MODOLIST_END,     SPR_update );
 
     SPR_init();
 },
@@ -52,11 +52,11 @@ stateDefine ( entity_screen_state_gameloop,
 },
 
 { // exit
-    modoDelete ( MODOLIST_MANAGER, manPlayers );
-    modoDelete ( MODOLIST_MANAGER, manWeapons );
-    modoDelete ( MODOLIST_SYSTEM,  sysSprite );
-    modoDelete ( MODOLIST_SYSTEM,  sysMovement );
-    modoDelete ( MODOLIST_END,     SPR_update );
+    // modoDelete ( MODOLIST_MANAGER, manPlayers );
+    // modoDelete ( MODOLIST_MANAGER, manWeapons );
+    // modoDelete ( MODOLIST_SYSTEM,  sysSprite );
+    // modoDelete ( MODOLIST_SYSTEM,  sysMovement );
+    // modoDelete ( MODOLIST_END,     SPR_update );
 
     SPR_end();
 
@@ -71,7 +71,7 @@ stateDefine ( entity_screen_state_gameloop,
 
 // // #include <genesis.h>
 
-// // #include "inc/modo.h"
+// // #include "modo.h"
 // // #include "libs/draw.h"
 // // #include "inc/entities.h"
 // // #include "inc/managers.h"

@@ -1,5 +1,6 @@
 #include <genesis.h>
-#include "modo/system.h"
+// #include "modo.h"
+#include "modo.h"
 #include "components/Movement.h"
 #include "components/Position.h"
 
@@ -20,9 +21,9 @@ inline static void _update ( ComponentMovement *const cm ) {
 }
 
 
-systemFnDefine ( system_movement, {
-    systemFnGet ( ComponentPosition2D, p );
-    systemFnGet ( ComponentMovement2D, v );
+systemDefineFn ( system_movement, {
+    systemGetParam ( ComponentPosition2D, p );
+    systemGetParam ( ComponentMovement2D, v );
     
     _update ( &v->x );
     _update ( &v->y );

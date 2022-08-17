@@ -1,4 +1,4 @@
-#include "inc/modo.h"
+#include "modo.h"
 #include "inc/states.h"
 #include "../inc.h"
 

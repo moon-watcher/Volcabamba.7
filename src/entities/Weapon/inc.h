@@ -1,6 +1,6 @@
 #pragma once
 
-#include "modo/system.h"
+#include "modo.h"
 #include "inc/components.h"
 
 #define COMPS(E)                                    \

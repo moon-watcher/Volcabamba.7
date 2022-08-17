@@ -1,7 +1,7 @@
 #include <genesis.h>
-#include "inc/modo.h"
+#include "modo.h"
 
 
 void main ( ) {
-    modo ( manScreens, &entity_screen );
+    // modo ( manScreens, &entity_screen );
 }

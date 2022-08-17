@@ -25,7 +25,7 @@ typedef struct {
     
     void *exec;
     void *next;
-    void *COMPS[];
+    // void *COMPS[];
 }
 Entity;
 
