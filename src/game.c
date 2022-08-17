@@ -1,34 +1,12 @@
 
 #include <genesis.h>
-#include "inc/modo.h"
-
-
-void game ( ) {
-    manScreens = manager ( "Screens" );
-    manPlayers = manager ( "Players" );
-    manWeapons = manager ( "Weapons" );
-
-    sysSprite   = system ( system_sprite,   2 );
-    sysMovement = system ( system_movement, 2 );
-    sysInput    = system ( system_input,    2 );
-    sysTimer    = system ( system_timer,    1 );
-
-    managerAdd ( manScreens, &entity_screen );
-
-    modoAdd ( modo_managers, manScreens );
-
-    modoAdd ( modo_systems, sysInput );
-    modoAdd ( modo_systems, sysTimer );
-
-    modoAdd ( modo_end, SYS_doVBlankProcess );
-    modoAdd ( modo_end, JOY_update );
-}
+#include "modo.h"
 
 
 
 
 
-// #include "inc/modo.h"
+// #include "modo.h"
 // #include "libs/draw.h"
 // #include "interfaces/common.h"
 // #include "modo/modo.h"
@@ -197,20 +175,20 @@ void game ( ) {
 
 
                             // void main() {
-                            //     modo_init     = modo ( NULL );
-                            //     modo_managers = modo ( &managerUpdate );
-                            //     modo_middle   = modo ( NULL );
-                            //     modo_systems  = modo ( &systemUpdate );
-                            //     modo_end      = modo ( NULL );
+                            //     modo_lists_init     = modo ( NULL );
+                            //     modo_lists_managers = modo ( &managerUpdate );
+                            //     modo_lists_middle   = modo ( NULL );
+                            //     modo_lists_systems  = modo ( &systemUpdate );
+                            //     modo_lists_end      = modo ( NULL );
 
                             //     gameInit(); // the game init function
 
                             //     while ( 1 ) {
-                            //         modoUpdate ( modo_init     );
-                            //         modoUpdate ( modo_managers );
-                            //         modoUpdate ( modo_middle   );
-                            //         modoUpdate ( modo_systems  );
-                            //         modoUpdate ( modo_end      );
+                            //         modoUpdate ( modo_lists_init     );
+                            //         modoUpdate ( modo_lists_managers );
+                            //         modoUpdate ( modo_lists_middle   );
+                            //         modoUpdate ( modo_lists_systems  );
+                            //         modoUpdate ( modo_lists_end      );
                             //     }
                             // }
 

@@ -1,5 +1,5 @@
 #include <genesis.h>
-#include "inc/modo.h"
+#include "modo.h"
 #include "inc.h"
 #include "inc/systems.h"
 #include "inc/states.h"
@@ -12,16 +12,7 @@
 static void awake ( Entity *const e ) {
     COMPS(e);
 
-    systemUse ( sysSprite   );
-    systemUse ( sysMovement );
-    systemUse ( sysTimer    );
-
     ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
-
-    // ((ComponentTimer*) e->COMPS[2])->max = 33;
-    // Int ( ((ComponentTimer*) e->COMPS[2])->max, 0,0, 4);
-    // ComponentTimer *const t0 = (ComponentTimer *)e->COMPS[2];
-    // Int ( t0->max, 0,1, 4);
 }
 
 
@@ -52,13 +43,13 @@ Entity const entity_Weapon_tpl = {
         .sprite = { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
         .movement.x  = { FIX32(2), FIX32(2) }
     },
-    .COMPS = {
-        &(ComponentSprite      ) { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
-        &(ComponentMovement2D  ) { { FIX32(2), FIX32(2) } },
-        &(ComponentTimer       ) { },
-        &(ComponentBoxCollider ) { },
-        &(ComponentPosition2D  ) { },
-   }
+//     .COMPS = {
+//         &(ComponentSprite      ) { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
+//         &(ComponentMovement2D  ) { { FIX32(2), FIX32(2) } },
+//         &(ComponentTimer       ) { },
+//         &(ComponentBoxCollider ) { },
+//         &(ComponentPosition2D  ) { },
+//    }
 };
 
 

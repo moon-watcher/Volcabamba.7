@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "inc/modo.h"
+#include "modo.h"
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../inc.h"
@@ -17,8 +17,6 @@ stateDefine ( entity_screen_state_logo,
     
     ComponentTimer_Init ( timer, 100 );
     VDP_setScreenWidth320();
-
-    systemUse ( sysTimer );
 },
 
 { // update

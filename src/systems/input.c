@@ -1,7 +1,7 @@
 #include <genesis.h>
-#include "modo/system.h"
-#include "modo/system.h"
-#include "modo/entity.h"
+#include "modo.h"
+// #include "modo.h"
+// #include "modo/entity.h"
 #include "components/Input.h"
 
 /**
@@ -9,9 +9,9 @@
  *  - ComponentInput
  *  - Entity
  */
-systemFnDefine ( system_input, {
-    systemFnGet ( ComponentInput, ci     );
-    systemFnGet ( Entity,         entity );
+systemDefineFn ( system_input, {
+    systemGetParam ( ComponentInput, ci     );
+    systemGetParam ( Entity,         entity );
 
     if ( ci->joy.port < 0 )
         continue;

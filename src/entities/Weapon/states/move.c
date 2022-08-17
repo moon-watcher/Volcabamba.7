@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "inc/modo.h"
+#include "modo.h"
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../inc.h"

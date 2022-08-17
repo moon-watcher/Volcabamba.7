@@ -1,19 +1,12 @@
 #pragma once
 
-#include "../modo/modo.h"
-#include "../modo/system.h"
 #include "../modo/entity.h"
+#include "../modo/system.h"
 #include "../modo/manager.h"
-#include "../inc/entities.h"
-#include "../inc/systems.h"
-#include "../inc/managers.h"
+#include "inc/entities.h"
+#include "inc/systems.h"
+#include "inc/managers.h"
 
-
-Modo *modo_init;
-Modo *modo_managers;
-Modo *modo_middle;
-Modo *modo_systems;
-Modo *modo_end;
 
 
 /* 

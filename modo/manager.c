@@ -13,12 +13,11 @@ static int const Manager_s = sizeof ( Manager );
 
 
 
-Manager *manager ( char *const name ) {
+Manager *manager ( ) {
     Manager *manager = malloc ( Manager_s );
     
     manager->entities   = ((void*)0);
     manager->prevEntity = ((void*)0);
-    manager->name       = name;
 
     return manager;
 }

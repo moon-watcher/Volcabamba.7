@@ -1,5 +1,5 @@
 #include <genesis.h>
-#include "inc/modo.h"
+#include "modo.h"
 #include "inc.h"
 #include "inc/systems.h"
 #include "inc/states.h"
@@ -14,9 +14,6 @@ static void awake ( Entity *const e ) {
 
     ComponentSprite_Init ( sp, cp->x.rounded, cp->y.rounded );
     ComponentInput_Init ( ci );
-
-    systemUse ( sysSprite );
-    systemUse ( sysInput );
 }
 
 

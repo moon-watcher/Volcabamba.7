@@ -3,8 +3,7 @@
 #include "entity.h"
 
 
-typedef struct
-{
+typedef struct {
 	Entity *entities;
 	Entity *prevEntity;
     char *name;
@@ -12,7 +11,7 @@ typedef struct
 Manager;
 
 
-Manager *manager       ( char *const );
+Manager *manager       ( );
 Entity  *managerAdd    ( Manager *const, Entity const* );
 void     managerUpdate ( Manager *const );
 void     managerEnd    ( Manager *const );

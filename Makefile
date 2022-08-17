@@ -18,6 +18,7 @@ SRC := src
 RES := res
 LIBS := libs
 INCLUDE := inc
+MODO := modo
 
 SHELL := $(BIN)/sh
 RM := $(BIN)/rm
@@ -37,6 +38,7 @@ MKDIR := $(BIN)/mkdir
 
 
 SRC_C = $(wildcard *.c)
+SRC_C += $(wildcard $(MODO)/*.c)
 SRC_C += $(wildcard $(LIBS)/*.c)
 SRC_C += $(wildcard $(SRC)/*.c)
 SRC_C += $(wildcard $(SRC)/*/*.c)

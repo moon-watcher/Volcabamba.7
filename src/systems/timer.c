@@ -1,10 +1,10 @@
-#include "modo/system.h"
+#include "modo.h"
 #include "components/Timer.h"
 
 
 
-systemFnDefine ( system_timer, {
-    systemFnGet ( ComponentTimer, t );
+systemDefineFn ( system_timer, {
+    systemGetParam ( ComponentTimer, t );
     
     ComponentTimer_Update ( t );
 });

@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "inc/modo.h"
+#include "modo.h"
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../inc.h"
@@ -26,8 +26,6 @@ stateDefine ( entity_screen_state_title,
     SYS_enableInts();
     
     VDP_setScreenWidth256();
-
-    systemUse ( sysInput );
 },
 
 { // update
