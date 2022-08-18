@@ -9,11 +9,10 @@ static int const system_s     = sizeof ( System );
 static int const systemNode_s = sizeof ( SystemNode );
 
 
-System* system ( void (*update) (), char *const name ) {
+System* system ( void (*update) () ) {
     System *system = malloc ( system_s );
     
     system->update = update;
-    system->name   = name;
     system->head   = ((void*)0);
     system->tail   = ((void*)0);
 

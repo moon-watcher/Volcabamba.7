@@ -9,16 +9,14 @@ typedef struct SystemNode {
 SystemNode;
 
 typedef struct {
-	 void (*update)(); 
-     char *name;
-	    
+	void (*update)();
 	SystemNode *head;
 	SystemNode *tail;
 }
 System;
 
 
-System     *system       ( void (*update) ( ), char *const );
+System     *system       ( void (*) () );
 void        systemUpdate ( System *const );
 SystemNode *systemAdd    ( System *const, void* );
 void        systemDelete ( System *const, SystemNode *const );
