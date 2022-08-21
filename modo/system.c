@@ -6,9 +6,11 @@ System *system ( System const *template ) {
     System *s = malloc ( sizeof ( System ) );
     
     s->update = template->update;
+    s->max    = template->max * template->params;
+    s->params = template->params;    
+    s->name   = template->name;    
+    s->list   = malloc ( sizeof ( void* ) * s->max );
     s->length = 0;
-    s->name = name;
-    s->params = params;
 
     return s;
 }
