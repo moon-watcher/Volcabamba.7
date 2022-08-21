@@ -83,15 +83,15 @@ void mainManager()
 
 void ramiro(){
 
-    SPR_initEx(1200); //SPR_init();
+    SPR_initEx(800); //SPR_init();
 
     manPlayers = manager();
     manWeapons = manager();
 
-    sysSprite   = system ( &system_sprite,   70, 2 );
-    sysInput    = system ( &system_input,     2, 2 );
-    sysMovement = system ( &system_movement, 70, 2 );
-    sysTimer    = system ( &system_timer,    40, 1 );
+    sysSprite   = system ( &system_sprite,   70, 2, "Sprite"   );
+    sysInput    = system ( &system_input,     2, 2, "Input"    );
+    sysMovement = system ( &system_movement, 70, 2, "Movement" );
+    sysTimer    = system ( &system_timer,    40, 1, "Timer"    );
 
     Entity *const e0 = managerAdd ( manPlayers, &entity_Player_tpl);
     Entity *const e1 = managerAdd ( manPlayers, &entity_Player_tpl);
@@ -182,8 +182,8 @@ void screens(){
 
     // sysSprite   = system ( &system_sprite   );
     // sysMovement = system ( &system_movement );
-    sysInput = system ( &system_input, 2, 2 );
-    sysTimer = system ( &system_timer, 30, 1 );
+    sysInput = system ( &system_input,  4, 2, "Input" );
+    sysTimer = system ( &system_timer, 30, 2, "Timer" );
 
     while(1) {
         managerUpdate ( manScreens );

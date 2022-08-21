@@ -4,14 +4,15 @@
 typedef struct {
     void (*update) ();
 	void const **list;
-    unsigned max:6;
-    unsigned length:6;
+    unsigned max;
+    unsigned length;
     unsigned params:3;
+    char *name;
 }
 System;
 
 
-System* system       ( void (*)(), int, int );
+System *system       ( void (*)(), int, int, char* );
 void    systemUpdate ( System *const );
 void    systemEnd    ( System *const );
 void    systemInfo   ( System *const );
@@ -20,14 +21,15 @@ void    systemInfo   ( System *const );
 #define systemDefineFn( FUNCTION, CODE )      \
     void FUNCTION ( System *const s ) {       \
         void *const *array = (void*) s->list; \
-        for ( int i = 0; i < s->length; )     \
+        int length = s->length;               \
+        for ( int i = 0; i < length; )        \
             CODE                              \
     }
 	
-#define systemGetParam( T, V )            \
+#define systemGetParam( T, V )         \
     T *const V = array [ i++ ]
 
-#define systemAdd( S, A )              \
+#define systemAdd1( S, A )             \
     S->list [ S->length++ ] = A;
 
 #define systemAdd2( S, A, B )          \

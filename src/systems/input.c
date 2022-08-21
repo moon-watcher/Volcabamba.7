@@ -18,7 +18,6 @@ systemDefineFn ( system_input, {
 
     ComponentInput_Update ( ci );
 
-    if ( ci->handler ) {
+    if ( ci->handler )
         ci->handler ( &ci->joy, entity );
-    }
 });

@@ -2,20 +2,15 @@
 #include "entity.h"
 
 
-static int const Entity_s = sizeof ( Entity );
-
 static void nullf ( Entity *e ) { }
 
 
 Entity *entity ( Entity const* template ) {
-    Entity *entity;    
-    int const Comps_s = template->compsSize;
+    Entity *entity = malloc ( sizeof ( Entity ) );
+    memcpy ( entity, template, sizeof ( Entity ) );
 
-    entity = malloc ( Entity_s );
-    memcpy ( entity, template, Entity_s );
-
-    entity->components = malloc ( Comps_s );
-    memcpy ( entity->components, template->components, Comps_s  );
+    entity->components = malloc ( template->compsSize );
+    memcpy ( entity->components, template->components, template->compsSize );
 
     entity->action = ENTITY_ACTION_CREATE;
 

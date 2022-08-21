@@ -21,7 +21,7 @@ stateDefine ( entity_screen_state_logo,
 
 { // update
     COMPS(e);
-    systemAdd ( sysTimer, timer );
+    systemAdd1 ( sysTimer, timer );
     
     if ( ComponentTimer_Timeout ( timer  ) )
         entityState ( e, &entity_screen_state_title );
