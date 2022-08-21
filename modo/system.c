@@ -7,8 +7,8 @@ System *system ( System const *template ) {
     
     s->update = template->update;
     s->max    = template->max * template->params;
-    s->params = template->params;    
-    s->name   = template->name;    
+    s->params = template->params;
+    s->name   = template->name;
     s->list   = malloc ( sizeof ( void* ) * s->max );
     s->length = 0;
 
