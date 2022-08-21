@@ -9,3 +9,6 @@ systemDefineFn ( system_sprite, {
 
     SPR_setPosition ( sp->sprite, cp->x.rounded, cp->y.rounded );
 });
+
+
+System const system_Sprite_tpl = { &system_sprite, 70, 2, "Sprite" };

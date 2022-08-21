@@ -9,7 +9,7 @@
 
 #define ComponentSprite_InitEx( A, B, C ) \
 	A->sprite = SPR_addSpriteEx ( A->sd, B, C, A->attr, 0, A->flags); \
-	VDP_setPalette ( A->attr >> 14,  A->sprite->definition->palette->data );
+	VDP_setPalette ( A->attr >> 14,  A->sprite->definition->palette->data )
 	
 #define ComponentSprite_Release( A ) \
 	SPR_releaseSprite ( A->sprite )

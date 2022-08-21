@@ -21,3 +21,6 @@ systemDefineFn ( system_input, {
     if ( ci->handler )
         ci->handler ( &ci->joy, entity );
 });
+
+
+System const system_Input_tpl = { &system_input, 2, 2, "Input" };

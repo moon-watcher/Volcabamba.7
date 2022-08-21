@@ -30,3 +30,6 @@ systemDefineFn ( system_movement, {
     p->x.rounded = fix32ToInt ( p->x.pos += v->x.vel );
     p->y.rounded = fix32ToInt ( p->y.pos += v->y.vel );
 });
+
+
+System const system_Movement_tpl = { &system_movement, 70, 2, "Movement" };

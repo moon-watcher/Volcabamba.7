@@ -3,16 +3,16 @@
 
 typedef struct {
     void (*update) ();
-	void const **list;
     unsigned max;
-    unsigned length;
     unsigned params:3;
     char *name;
+	void const **list;
+    unsigned length;
 }
 System;
 
 
-System *system       ( void (*)(), int, int, char* );
+System *system       ( System const * );
 void    systemUpdate ( System *const );
 void    systemEnd    ( System *const );
 void    systemInfo   ( System *const );

@@ -2,12 +2,10 @@
 #include "system.h"
 
 
-System *system ( void (*update) (), int max, int params, char* name ) {
+System *system ( System const *template ) {
     System *s = malloc ( sizeof ( System ) );
-
-    s->update = update;
-    s->max = max * params;
-    s->list = malloc ( sizeof ( void* ) * s->max );
+    
+    s->update = template->update;
     s->length = 0;
     s->name = name;
     s->params = params;

@@ -16,8 +16,8 @@ typedef struct {
     State *state;
     State *prevState;
     void  *components;
-    int    compsSize:13;
-    int    action:3;
+    unsigned compsSize:10; // 1024 bytes
+    unsigned action:3;
 
     void ( *Awake  ) ( );
     void ( *Update ) ( );
@@ -41,22 +41,22 @@ void    entityDelete  ( Entity *const );
 
 
 #define entityDefineEx( ENTITY, NAME, TPL, STATE, COMPS, AWAKE, UPDATE, DELETE, EXEC ) \
-    static void TPL##_Awake  ( Entity *const ENTITY ) AWAKE       \
-    static void TPL##_Update ( Entity *const ENTITY ) UPDATE      \
-    static void TPL##_Delete ( Entity *const ENTITY ) DELETE      \
-    Entity const TPL = {                                          \
-        .state      = (State*) &STATE,                            \
-        .components = &(Components) COMPS,                        \
-        .compsSize  = sizeof(Components),                         \
-        .action     = ENTITY_ACTION_CREATE,                       \
-        .Awake      = TPL##_Awake,                                \
-        .Update     = TPL##_Update,                               \
-        .Delete     = TPL##_Delete,                               \
-        .exec       = EXEC,                                       \
-        .name       = NAME,                                       \
-        .next       = NULL,                                       \
-        .prevState  = NULL                                        \
+    static void TPL##_Awake  ( Entity *const ENTITY ) AWAKE           \
+    static void TPL##_Update ( Entity *const ENTITY ) UPDATE          \
+    static void TPL##_Delete ( Entity *const ENTITY ) DELETE          \
+    Entity const TPL = {                                              \
+        .state      = (State*) &STATE,                                \
+        .components = &(Components) COMPS,                            \
+        .compsSize  = sizeof(Components),                             \
+        .action     = ENTITY_ACTION_CREATE,                           \
+        .Awake      = TPL##_Awake,                                    \
+        .Update     = TPL##_Update,                                   \
+        .Delete     = TPL##_Delete,                                   \
+        .exec       = EXEC,                                           \
+        .name       = NAME,                                           \
+        .next       = NULL,                                           \
+        .prevState  = NULL                                            \
     };
 
-#define entityDefine( TPL, STATE, COMPS, AWAKE, UPDATE, DELETE )  \
+#define entityDefine( TPL, STATE, COMPS, AWAKE, UPDATE, DELETE )      \
     entityDefineEx ( e, NULL, TPL, STATE, COMPS, AWAKE, UPDATE, DELETE, NULL )
