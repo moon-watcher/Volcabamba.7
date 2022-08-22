@@ -17,6 +17,10 @@ stateDefine ( entity_screen_state_logo,
     
     ComponentTimer_Init ( timer, 100 );
     VDP_setScreenWidth320();
+
+    sysTimer = system ( &system_Timer_tpl );
+    
+    modo_addSystem ( sysTimer );
 },
 
 { // update
@@ -28,6 +32,12 @@ stateDefine ( entity_screen_state_logo,
 },
 
 { // exit
+
+    modo_deleteSystem ( sysTimer );
+    systemEnd ( sysTimer );
+    
+    
+
     PAL_fadeOut ( 0, 63, 10, 0 );
     VDP_clearPlane ( BG_A, 0 );
     VDP_clearPlane ( BG_B, 0 );

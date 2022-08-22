@@ -32,11 +32,11 @@ stateDefine ( entity_screen_state_gameloop,
     entityExec ( InterfaceCommon, setY, e1, 70 );
 
 
-    // modoAdd ( MODOLIST_MANAGER, manPlayers );
-    // modoAdd ( MODOLIST_MANAGER, manWeapons );
-    // modoAdd ( MODOLIST_SYSTEM,  sysSprite );
-    // modoAdd ( MODOLIST_SYSTEM,  sysMovement );
-    // modoAdd ( MODOLIST_END,     SPR_update );
+    // modo_add ( MODOLIST_MANAGER, manPlayers );
+    // modo_add ( MODOLIST_MANAGER, manWeapons );
+    // modo_add ( MODOLIST_SYSTEM,  sysSprite );
+    // modo_add ( MODOLIST_SYSTEM,  sysMovement );
+    // modo_add ( MODOLIST_END,     SPR_update );
 
     SPR_init();
 },
@@ -52,11 +52,11 @@ stateDefine ( entity_screen_state_gameloop,
 },
 
 { // exit
-    // modoDelete ( MODOLIST_MANAGER, manPlayers );
-    // modoDelete ( MODOLIST_MANAGER, manWeapons );
-    // modoDelete ( MODOLIST_SYSTEM,  sysSprite );
-    // modoDelete ( MODOLIST_SYSTEM,  sysMovement );
-    // modoDelete ( MODOLIST_END,     SPR_update );
+    // modo_delete ( MODOLIST_MANAGER, manPlayers );
+    // modo_delete ( MODOLIST_MANAGER, manWeapons );
+    // modo_delete ( MODOLIST_SYSTEM,  sysSprite );
+    // modo_delete ( MODOLIST_SYSTEM,  sysMovement );
+    // modo_delete ( MODOLIST_END,     SPR_update );
 
     SPR_end();
 
@@ -64,6 +64,113 @@ stateDefine ( entity_screen_state_gameloop,
     VDP_clearPlane(BG_A, 0);
     VDP_clearPlane(BG_B, 0);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// #include <genesis.h>
+
+// #include "inc/modo.h"
+// #include "inc/systems.h"
+// #include "inc/states.h"
+// #include "inc/managers.h"
+// #include "inc/entities.h"
+// #include "../inc.h"
+// #include "interfaces/common.h"
+
+
+
+// stateDefine ( entity_screen_state_gameloop,
+// { // enter
+//     COMPS(e);
+        
+//     PAL_setPalette(PAL0,palette_blue );
+//     PAL_setPalette(PAL1,palette_grey );
+//     PAL_setPalette(PAL2,palette_red );
+//     PAL_setPalette(PAL0,palette_green );
+
+//     SPR_initEx(600);
+//     VDP_setScreenWidth256();
+
+//     Entity *const e0 = managerAdd ( manPlayers, &entity_Player_tpl );
+//     Entity *const e1 = managerAdd ( manPlayers, &entity_Player_tpl );
+            
+//     entityExec ( InterfaceCommon, enableInput, e0, 0 );
+//     entityExec ( InterfaceCommon, setX, e0, 30 );
+//     entityExec ( InterfaceCommon, setY, e0, 30 );
+//     entityExec ( InterfaceCommon, setX, e1, 0 );
+//     entityExec ( InterfaceCommon, setY, e1, 70 );
+
+
+//     modo_add ( MODOLIST_MANAGER, manPlayers );
+//     modo_add ( MODOLIST_MANAGER, manWeapons );
+//     modo_add ( MODOLIST_SYSTEM,  sysSprite );
+//     modo_add ( MODOLIST_SYSTEM,  sysMovement );
+//     modo_add ( MODOLIST_END,     SPR_update );
+
+//     SPR_init();
+// },
+
+// { // update
+//     COMPS(e);
+
+//     Int ( MEM_getFree(), 2, 2, 5 );
+    
+//     // SPR_update();
+//     // SYS_doVBlankProcess();
+//     // JOY_update();
+// },
+
+// { // exit
+//     modo_delete ( MODOLIST_MANAGER, manPlayers );
+//     modo_delete ( MODOLIST_MANAGER, manWeapons );
+//     modo_delete ( MODOLIST_SYSTEM,  sysSprite );
+//     modo_delete ( MODOLIST_SYSTEM,  sysMovement );
+//     modo_delete ( MODOLIST_END,     SPR_update );
+
+//     SPR_end();
+
+//     PAL_fadeOut(0,63,10,0);
+//     VDP_clearPlane(BG_A, 0);
+//     VDP_clearPlane(BG_B, 0);
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

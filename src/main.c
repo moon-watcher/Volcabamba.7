@@ -174,8 +174,6 @@ void listtest(){
 
 
 void screens(){
-    
-
     manScreens = manager();
 
     managerAdd ( manScreens, &entity_screen );
@@ -208,7 +206,10 @@ void screens(){
 
 void main()
 {
-    
+    manScreens = manager ( );
+    managerAdd ( manScreens, &entity_screen );
+    modo_addManager ( manScreens );
+    modo ( );
 
     // mainManager();
     // listtest();
