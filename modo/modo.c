@@ -107,6 +107,137 @@ void modo_deleteForce ( Modo *const h, void *const data ) {
 
 
 
+// struct Singleton {
+//    char *Data;	
+// };
+
+// struct Singleton *singletonObjectPointer = NULL;
+
+// struct Singleton *getInstance ( ) {
+//     if ( singletonObjectPointer == NULL ) {
+//         singletonObjectPointer = malloc ( sizeof ( struct Singleton ) ); 
+//     }
+
+// 	return singletonObjectPointer;
+// }
+
+
+// void implementation () {
+//     struct Singleton *s = getInstance();
+// }
+
+
+
+
+// #include <genesis.h>
+// #include "modo.h"
+// #include "manager.h"
+// #include "system.h"
+
+
+// static Modo list_init    = { NULL, NULL };
+// static Modo list_manager = { NULL, NULL };
+// static Modo list_system  = { NULL, NULL };
+// static Modo list_end     = { NULL, NULL };
+
+
+// // http://taggedwiki.zubiaga.org/new_content/a0aaf6287ad03103f81016980041de78
+
+
+// #define FOR( H, N ) \
+//     for ( Modo *N = H; N; N = N->next )
+
+
+// inline static Modo* _create ( void* data ) {
+//     Modo *node = malloc ( sizeof ( Modo ) );
+    
+//     node->data = data;
+//     node->next = NULL;
+
+//     return node;
+// }
+
+// inline static void _add ( Modo *list, void *const data ) {
+//     Modo *node = list;
+
+//     while ( node )
+//         node = node->next;
+
+//     node = _create ( data );
+// }
+
+// inline static void _delete ( Modo *list, void *const data ) {
+//     Modo *node = list;
+//     Modo *prev = list;
+
+//     while ( node ) {
+//         if ( node->data == data ) {
+//             prev->next = node->next;
+//             free ( node );
+//             return;
+//         }
+//         prev = node;
+//         node = node->next;
+//     }
+// }
+
+
+
+// void modo  ( ) {
+//     while ( 1 ) {
+//         FOR ( &list_init,    node ) ((void(*)()) node->data) ( );
+//         FOR ( &list_manager, node ) managerUpdate ( node->data );
+//         FOR ( &list_system,  node ) systemUpdate  ( node->data );
+//         FOR ( &list_end,     node ) ((void(*)()) node->data) ( );
+
+//         SYS_doVBlankProcess();
+//     }
+// }
+
+// void modo_addInit       ( void *const data ) { _add    ( &list_init,    data ); }
+// void modo_addManager    ( void *const data ) { _add    ( &list_manager, data ); }
+// void modo_addSystem     ( void *const data ) { _add    ( &list_system,  data ); }
+// void modo_addEnd        ( void *const data ) { _add    ( &list_end,     data ); }
+
+// void modo_deleteInit    ( void *const data ) { _delete ( &list_init,    data ); }
+// void modo_deleteManager ( void *const data ) { _delete ( &list_manager, data ); }
+// void modo_deleteSystem  ( void *const data ) { _delete ( &list_system,  data ); }
+// void modo_deleteEnd     ( void *const data ) { _delete ( &list_end,     data ); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // void modoInfoManagers ( Modo *const h ) {
 //     int i = 0;
 //     VDP_resetScreen();
