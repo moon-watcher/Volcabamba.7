@@ -9,6 +9,155 @@
 
 
 
+// My own Modo API
+typedef struct {
+    struct MODO_system  {
+        System  const* ( *new    ) ( System const* );
+        void           ( *update ) ( System *const );
+        void           ( *end    ) ( System *const );
+        void           ( *info   ) ( System *const );
+    } *const system;
+
+    struct MODO_manager {
+        Manager const* ( *new    ) ( );
+        Entity  const* ( *add    ) ( Manager *const, Entity const* );
+        void           ( *update ) ( Manager *const );
+        void           ( *end    ) ( Manager *const );
+    } *const manager;
+
+    struct MODO_entity  {
+        Entity  const* ( *new    ) ( Entity const* );
+        void           ( *state  ) ( Entity *const, State const* );
+        void           ( *delete ) ( Entity *const );
+    } *const entity;
+}
+MODO;
+
+MODO *const $;
+
+
+
+
+
+
+
+// typedef struct {
+//     System *( *new    ) ( System const *template );
+//     void    ( *update ) ( );
+//     void    ( *end    ) ( );
+//     void    ( *info   ) ( );
+// } 
+// SYSTEM;
+
+// typedef struct {
+//     Manager *( *new     ) ( );
+//     Entity  *( *add     ) ( Entity const* );
+//     void     ( *update  ) ( );
+//     void     ( *end     ) ( );
+// }
+// MANAGER;
+
+// typedef struct {
+//     Entity *( *new    ) ( Entity const* );
+//     void    ( *state  ) ( State const* );
+//     void    ( *delete ) ( );
+// }
+// ENTITY;
+
+// typedef struct {
+//     SYSTEM  *const system;
+//     MANAGER *const manager;
+//     ENTITY  *const entity;
+    
+//     SYSTEM  *( *s ) ( System  const * );
+//     MANAGER *( *m ) ( Manager const * );
+//     ENTITY  *( *e ) ( Entity  const * );
+// }   
+// MODO;
+
+// SYSTEM  *S = &(SYSTEM ) { &system,  &systemUpdate, &systemEnd,     &systemInfo, };
+// MANAGER *M = &(MANAGER) { &manager, &managerAdd,   &managerUpdate, &managerEnd, };
+// ENTITY  *E = &(ENTITY ) { &entity,  &entityState,  &entityDelete,               };
+// MODO    m000 = { S, M, E };
+// //MODO    *Modo = &m000;
+
+
+// static System  * _use_system;
+// static Manager * _use_manager;
+// static Entity  * _use_entity;
+
+// static SYSTEM  * use_system  ( System  *const x ) { _use_system  = x; return S; }
+// static MANAGER * use_manager ( Manager *const x ) { _use_manager = x; return M; }
+// static ENTITY  * use_entity  ( Entity  *const x ) { _use_entity  = x; return E; }
+
+
+// MODO *const Modo = &(MODO) {
+//     &(SYSTEM ) { &system,  &systemUpdate, &systemEnd,     &systemInfo, },
+//     &(MANAGER) { &manager, &managerAdd,   &managerUpdate, &managerEnd, },
+//     &(ENTITY ) { &entity,  &entityState,  &entityDelete,               },
+
+//     &use_system,
+//     &use_manager,
+//     &use_entity,
+// };
+
+
+
+
+
+// typedef struct {
+//     System  *( *new    ) ( System const* );
+//     void     ( *update ) ( System *const );
+//     void     ( *end    ) ( System *const );
+//     void     ( *info   ) ( System *const );
+// } 
+// SYSTEM;
+
+// typedef struct {
+//     Manager *( *new    ) ( );
+//     Entity  *( *add    ) ( Manager *const, Entity const* );
+//     void     ( *update ) ( Manager *const );
+//     void     ( *end    ) ( Manager *const );
+// }
+// MANAGER;
+
+// typedef struct {
+//     Entity  *( *new    ) ( Entity const* );
+//     void     ( *state  ) ( Entity *const, State const* );
+//     void     ( *delete ) ( Entity *const );
+// }
+// ENTITY;
+
+// typedef struct {
+//     SYSTEM  *const system;
+//     MANAGER *const manager;
+//     ENTITY  *const entity;
+// }
+// MODO;
+
+// MODO *const Modo = &(MODO) {
+//     &(SYSTEM ) { &system,  &systemUpdate, &systemEnd,     &systemInfo, },
+//     &(MANAGER) { &manager, &managerAdd,   &managerUpdate, &managerEnd, },
+//     &(ENTITY ) { &entity,  &entityState,  &entityDelete,               },
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//modo->s(aaa)->update();
+
 /* 
 // #define modoEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
 

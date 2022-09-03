@@ -12,83 +12,6 @@
 #include "interfaces/common.h"
 
 
-// typedef struct {
-//     System *( *new    ) ( System const *template );
-//     void    ( *update ) ( System *const s );
-//     void    ( *end    ) ( System *const s );
-//     void    ( *info   ) ( System *const s );
-// } 
-// SYSTEM;
-
-// typedef struct {
-//     Manager *( *new ) ( );
-//     Entity  *( *add     ) ( Manager *const, Entity const* );
-//     void     ( *update  ) ( Manager *const );
-//     void     ( *end     ) ( Manager *const );
-// }
-// MANAGER;
-
-// typedef struct {
-//     Entity *( *new    ) ( Entity const* );
-//     void    ( *state  ) ( Entity *const, State const* );
-//     void    ( *delete ) ( Entity *const );
-// }
-// ENTITY;
-
-// typedef struct {
-//     SYSTEM  *const system;
-//     MANAGER *const manager;
-//     ENTITY  *const entity;
-// }   
-// MODO;
-
-// SYSTEM  *S = &(SYSTEM ) { &system,  &systemUpdate, &systemEnd,     &systemInfo, };
-// MANAGER *M = &(MANAGER) { &manager, &managerAdd,   &managerUpdate, &managerEnd, };
-// ENTITY  *E = &(ENTITY ) { &entity,  &entityState,  &entityDelete,               };
-// MODO    m000 = { S, M, E };
-// MODO    *Mo = &m000;
-
-// MODO *const Modo = &(MODO) {
-//     &(SYSTEM ) { &system,  &systemUpdate, &systemEnd,     &systemInfo, },
-//     &(MANAGER) { &manager, &managerAdd,   &managerUpdate, &managerEnd, },
-//     &(ENTITY ) { &entity,  &entityState,  &entityDelete,               },
-// };
-
-
-
-typedef struct {
-    struct system {
-        System *( *new    ) ( System const *template );
-        void    ( *update ) ( System *const s );
-        void    ( *end    ) ( System *const s );
-        void    ( *info   ) ( System *const s );
-    } *const system;
-
-    struct manager {
-        Manager *( *new ) ( );
-        Entity  *( *add     ) ( Manager *const, Entity const* );
-        void     ( *update  ) ( Manager *const );
-        void     ( *end     ) ( Manager *const );
-    } *const manager;
-
-    struct entity {
-        Entity *( *new    ) ( Entity const* );
-        void    ( *state  ) ( Entity *const, State const* );
-        void    ( *delete ) ( Entity *const );
-    } *const entity;
-}   
-MODO;
-
-MODO *const Modo = &(MODO) {
-    & ( struct system  ) { &system,  &systemUpdate, &systemEnd,     &systemInfo, },
-    & ( struct manager ) { &manager, &managerAdd,   &managerUpdate, &managerEnd, },
-    & ( struct entity  ) { &entity,  &entityState,  &entityDelete,               },
-};
-
-
-//modo->systemystem(aaa)->add(asdf);
-
-
 
 
 
@@ -164,16 +87,16 @@ void ramiro(){
 
     SPR_initEx(800); //SPR_init();
 
-    manPlayers = Modo->manager->new ( );
-    manWeapons = Modo->manager->new ( );
+    manPlayers = $->manager->new ( );
+    manWeapons = $->manager->new ( );
 
-    sysSprite   = Modo->system->new ( &system_Sprite_tpl   );
-    sysInput    = Modo->system->new ( &system_Input_tpl    );
-    sysMovement = Modo->system->new ( &system_Movement_tpl );
-    sysTimer    = Modo->system->new ( &system_Timer_tpl    );
+    sysSprite   = $->system->new ( &system_Sprite_tpl   );
+    sysInput    = $->system->new ( &system_Input_tpl    );
+    sysMovement = $->system->new ( &system_Movement_tpl );
+    sysTimer    = $->system->new ( &system_Timer_tpl    );
 
-    Entity *const e0 =Modo->manager->add ( manPlayers, &entity_Player_tpl);
-    Entity *const e1 =Modo->manager->add ( manPlayers, &entity_Player_tpl);
+    Entity *const e0 = $->manager->add ( manPlayers, &entity_Player_tpl);
+    Entity *const e1 = $->manager->add ( manPlayers, &entity_Player_tpl);
     // Entity *const e2 = managerAdd ( manPlayers, &entity_Player_tpl);
     // Entity *const e3 = managerAdd ( manPlayers, &entity_Player_tpl);
 
@@ -190,13 +113,13 @@ void ramiro(){
 
     while(1){
 
-        Modo->manager->update ( manPlayers );
-        Modo->manager->update ( manWeapons );
+        $->manager->update ( manPlayers );
+        $->manager->update ( manWeapons );
 
-        Modo->system->update ( sysMovement );
-        Modo->system->update ( sysSprite );
-        Modo->system->update ( sysInput );
-        Modo->system->update ( sysTimer );
+        $->system->update ( sysMovement );
+        $->system->update ( sysSprite );
+        $->system->update ( sysInput );
+        $->system->update ( sysTimer );
 
         Int( MEM_getFree(), 0,0,5);
 
