@@ -95,8 +95,10 @@ void ramiro(){
     sysMovement = $->system->new ( &system_Movement_tpl );
     sysTimer    = $->system->new ( &system_Timer_tpl    );
 
-    Entity *const e0 = $->manager->add ( manPlayers, &entity_Player_tpl);
-    Entity *const e1 = $->manager->add ( manPlayers, &entity_Player_tpl);
+    // $m(manPlayers)->add ( &entity_Player_tpl);
+    //  $(manPlayers)->add ( &entity_Player_tpl);
+    Entity *const e0 = $m->add ( manPlayers, &entity_Player_tpl );
+    Entity *const e1 = $->manager->add ( manPlayers, &entity_Player_tpl );
     // Entity *const e2 = managerAdd ( manPlayers, &entity_Player_tpl);
     // Entity *const e3 = managerAdd ( manPlayers, &entity_Player_tpl);
 
@@ -116,7 +118,7 @@ void ramiro(){
         $->manager->update ( manPlayers );
         $->manager->update ( manWeapons );
 
-        $->system->update ( sysMovement );
+        $s->update ( sysMovement );
         $->system->update ( sysSprite );
         $->system->update ( sysInput );
         $->system->update ( sysTimer );

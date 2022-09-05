@@ -10,7 +10,7 @@
 
 
 // My own Modo API
-typedef struct {
+struct MODO {
     struct MODO_system  {
         System  const* ( *new    ) ( System const* );
         void           ( *update ) ( System *const );
@@ -30,10 +30,12 @@ typedef struct {
         void           ( *state  ) ( Entity *const, State const* );
         void           ( *delete ) ( Entity *const );
     } *const entity;
-}
-MODO;
+};
 
-MODO *const $;
+struct MODO         *const $;
+struct MODO_system  *const $s;
+struct MODO_manager *const $m;
+struct MODO_entity  *const $e;
 
 
 
