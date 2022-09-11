@@ -13,18 +13,18 @@ enum {
 
 typedef struct {
     char  *name;
-    State *state;
-    State *prevState;
+    State *state;     // debería tenerlo el manager? igual 
+    State *prevState; // debería tenerlo el manager? igual sí
     void  *components;
     unsigned compsSize:10; // 1024 bytes
-    unsigned action:3;
+    unsigned action:3; // debería tenerlo el manager?
 
     void ( *Awake  ) ( );
     void ( *Update ) ( );
     void ( *Delete ) ( );
     
     void *exec;
-    void *next;
+    void *next;  // debería tenerlo el manager!
     // void *COMPS[];
 }
 Entity;

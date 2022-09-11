@@ -218,7 +218,17 @@ void main()
     // listtest();
     ramiro();
     // screens();
+
+    // m->init( $entity_scene_entry );
 }
+
+// y dentro de modo_init...
+// una manager exclusivo y privado de modo para pasar entre scenas
+// la entidad escena debe ser sigleton.
+// 
+// los bucles están dentro de la escena
+// cada escena tiene su bucle de cotrol
+
 
 
 // void drawState(char *s)
