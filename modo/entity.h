@@ -35,9 +35,10 @@ Entity;
         ((INTERFACE*) ENTITY->exec)->FUNCTION ( ENTITY, __VA_ARGS__ )
 
 
-Entity *entity        ( Entity const* );
-void    entityState   ( Entity *const, State const* );
-void    entityDelete  ( Entity *const );
+Entity   *entity            ( Entity const* );
+void     entityState        ( Entity *const, State const* );
+unsigned entityStateChanged ( Entity *const );
+void     entityDelete       ( Entity *const );
 
 
 #define entityDefineEx( ENTITY, NAME, TPL, STATE, COMPS, AWAKE, UPDATE, DELETE, EXEC ) \

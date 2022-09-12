@@ -3,6 +3,7 @@
 #include "../modo/entity.h"
 #include "../modo/system.h"
 #include "../modo/manager.h"
+#include "../modo/modo.h"
 #include "inc/entities.h"
 #include "inc/systems.h"
 #include "inc/managers.h"
@@ -26,10 +27,13 @@ struct MODO {
     } *const manager;
 
     struct MODO_entity  {
-        Entity  const* ( *new    ) ( Entity const* );
-        void           ( *state  ) ( Entity *const, State const* );
-        void           ( *delete ) ( Entity *const );
+        Entity  const* ( *new    )       ( Entity const* );
+        void           ( *state  )       ( Entity *const, State const* );
+        void           ( *delete )       ( Entity *const );
+        unsigned       ( *stateChanged ) ( Entity *const );
     } *const entity;
+
+    void ( *init ) ( Entity const* );
 };
 
 struct MODO         *const $;

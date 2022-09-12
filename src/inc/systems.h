@@ -1,6 +1,6 @@
 #pragma once
 
-#include "modo.h"
+#include "mymodo.h" 
 
 
 System *sysMovement;

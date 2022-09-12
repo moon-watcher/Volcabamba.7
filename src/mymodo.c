@@ -1,15 +1,17 @@
-#include "modo.h"
+#include "mymodo.h" 
+
+#define SYSTEM   & ( struct MODO_system  ) { &system,  &systemUpdate, &systemEnd,     &systemInfo,         }
+#define MANAGER  & ( struct MODO_manager ) { &manager, &managerAdd,   &managerUpdate, &managerEnd,         }
+#define ENTITY   & ( struct MODO_entity  ) { &entity,  &entityState,  &entityDelete,  &entityStateChanged, }
+
+struct MODO         *const $  = & ( struct MODO ) { SYSTEM, MANAGER, ENTITY, &modo };
+struct MODO_system  *const $s = SYSTEM;
+struct MODO_manager *const $m = MANAGER;
+struct MODO_entity  *const $e = ENTITY;
 
 
-struct MODO *const $ = &( struct MODO ) {
-    & ( struct MODO_system  ) { &system,  &systemUpdate, &systemEnd,     &systemInfo, },
-    & ( struct MODO_manager ) { &manager, &managerAdd,   &managerUpdate, &managerEnd, },
-    & ( struct MODO_entity  ) { &entity,  &entityState,  &entityDelete,               },
-};
 
-struct MODO_system  *const $s = & ( struct MODO_system  ) { &system,  &systemUpdate, &systemEnd,     &systemInfo, };
-struct MODO_manager *const $m = & ( struct MODO_manager ) { &manager, &managerAdd,   &managerUpdate, &managerEnd, };
-struct MODO_entity  *const $e = & ( struct MODO_entity  ) { &entity,  &entityState,  &entityDelete,               };
+
 
 
 static System  *s_const;

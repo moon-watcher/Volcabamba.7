@@ -1,5 +1,5 @@
 #include <genesis.h>
-#include "modo.h"
+#include "mymodo.h" 
 #include "components/Movement.h"
 #include "components/Position.h"
 

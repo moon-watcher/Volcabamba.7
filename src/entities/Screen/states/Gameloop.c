@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "modo.h"
+#include "mymodo.h" 
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "inc/managers.h"
@@ -12,8 +12,6 @@
 
 stateDefine ( entity_screen_state_gameloop,
 { // enter
-    COMPS(e);
-        
     PAL_setPalette(PAL0,palette_blue );
     PAL_setPalette(PAL1,palette_grey );
     PAL_setPalette(PAL2,palette_red );
@@ -42,8 +40,6 @@ stateDefine ( entity_screen_state_gameloop,
 },
 
 { // update
-    COMPS(e);
-
     Int ( MEM_getFree(), 2, 2, 5 );
     
     // SPR_update();
@@ -71,7 +67,7 @@ stateDefine ( entity_screen_state_gameloop,
 
 // // #include <genesis.h>
 
-// // #include "modo.h"
+// // #include "mymodo.h" 
 // // #include "libs/draw.h"
 // // #include "inc/entities.h"
 // // #include "inc/managers.h"

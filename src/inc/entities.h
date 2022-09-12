@@ -1,6 +1,6 @@
 #pragma once
 
-#include "modo.h"
+#include "mymodo.h" 
 
 Entity const entityPlayer1_tpl;
 Entity const entityPlayer2_tpl;

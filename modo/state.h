@@ -9,10 +9,10 @@ typedef struct {
 State;
 
 
-#define stateDefineEx( ENTITY, NAME, STATE, ENTER, UPDATE, EXIT ) \
-    static void STATE##_enter  ( Entity *const ENTITY ) ENTER     \
-    static void STATE##_update ( Entity *const ENTITY ) UPDATE    \
-    static void STATE##_exit   ( Entity *const ENTITY ) EXIT      \
+#define stateDefineEx( ENTITY, NAME, STATE, ENTER, UPDATE, EXIT, COMPS ) \
+    static void STATE##_enter  ( Entity *const ENTITY ) { COMPS(ENTITY); ENTER  }   \
+    static void STATE##_update ( Entity *const ENTITY ) { COMPS(ENTITY); UPDATE }   \
+    static void STATE##_exit   ( Entity *const ENTITY ) { COMPS(ENTITY); EXIT   }   \
     State const STATE = {                                         \
         .enter  = STATE##_enter,                                  \
         .update = STATE##_update,                                 \
@@ -21,4 +21,4 @@ State;
     };
 
 #define stateDefine( STATE, ENTER, UPDATE, EXIT )                 \
-    stateDefineEx( e, NULL, STATE, ENTER, UPDATE, EXIT )
+    stateDefineEx( e, NULL, STATE, ENTER, UPDATE, EXIT, COMPS )

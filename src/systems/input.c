@@ -1,6 +1,6 @@
 #include <genesis.h>
-#include "modo.h"
-// #include "modo.h"
+#include "mymodo.h" 
+// #include "mymodo.h" 
 // #include "modo/entity.h"
 #include "components/Input.h"
 

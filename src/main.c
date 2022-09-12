@@ -1,9 +1,9 @@
 // #include <genesis.h>
-// #include "modo.h"
+// #include "mymodo.h" 
 
 
 #include <genesis.h>
-#include "modo.h"
+#include "mymodo.h" 
 
 #include "libs/draw.h"
 #include "inc/entities.h"
@@ -216,10 +216,10 @@ void main()
 
     // mainManager();
     // listtest();
-    ramiro();
+    // ramiro();
     // screens();
 
-    // m->init( $entity_scene_entry );
+    $->init ( &entity_screen );
 }
 
 // y dentro de modo_init...

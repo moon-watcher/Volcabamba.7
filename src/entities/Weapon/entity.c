@@ -1,5 +1,5 @@
 #include <genesis.h>
-#include "modo.h"
+#include "mymodo.h" 
 #include "inc.h"
 #include "inc/systems.h"
 #include "inc/states.h"

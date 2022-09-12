@@ -40,3 +40,8 @@ void entityState ( Entity *const entity, State const* newState ) {
 void entityDelete ( Entity *const entity ) {
     entity->action = ENTITY_ACTION_DELETE;
 }
+
+
+unsigned entityStateChanged ( Entity *const entity ) {
+    return (int) entity->action == ENTITY_ACTION_CHANGE;
+}
