@@ -8,9 +8,10 @@
 #include "../inc.h"
 #include "interfaces/common.h"
 
-
+static Manager *mmmmm;
 
 stateDefine ( entity_screen_state_gameloop,
+
 { // enter
     PAL_setPalette(PAL0,palette_blue );
     PAL_setPalette(PAL1,palette_grey );
@@ -20,8 +21,8 @@ stateDefine ( entity_screen_state_gameloop,
     SPR_initEx(600);
     VDP_setScreenWidth256();
 
-    Entity *const e0 = managerAdd ( manPlayers, &entity_Player_tpl );
-    Entity *const e1 = managerAdd ( manPlayers, &entity_Player_tpl );
+    Entity *const e0 = $m->add ( mmmmm, &entity_Player_tpl );
+    Entity *const e1 = $m->add ( mmmmm, &entity_Player_tpl );
             
     entityExec ( InterfaceCommon, enableInput, e0, 0 );
     entityExec ( InterfaceCommon, setX, e0, 30 );

@@ -13,7 +13,7 @@ static void inputHandler ( Joyreader *const j, Entity *const e ) {
     COMPS(e);
 
     if ( joy_pressed_start ( j ) )
-        entityState ( e, &entity_screen_state_gameloop );
+        $e->state ( e, &entity_screen_state_gameloop );
 }
 
 
@@ -28,13 +28,14 @@ stateDefine ( entity_screen_state_title,
     
     VDP_setScreenWidth256();
 
-    ssss = system ( &system_Input_tpl );
+    ssss = $s->new ( &system_Input_tpl );
 },
 
 { // update
     while ( !entityStateChanged ( e ) ) {
         systemAdd2 ( ssss, input, e );
-        systemUpdate ( ssss );
+        // systemAdd ( ssss, (void *const[]) { input, e, 0 } );
+        $s->update ( ssss );
         
         JOY_update();
         SYS_doVBlankProcess();
@@ -46,5 +47,5 @@ stateDefine ( entity_screen_state_title,
     VDP_clearPlane(BG_A, 0);
     VDP_clearPlane(BG_B, 0);
 
-    systemEnd ( ssss );
+    $s->end ( ssss );
 });
