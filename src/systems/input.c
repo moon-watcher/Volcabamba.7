@@ -1,6 +1,6 @@
 #include <genesis.h>
-#include "modo.h"
-// #include "modo.h"
+#include "mymodo.h" 
+// #include "mymodo.h" 
 // #include "modo/entity.h"
 #include "components/Input.h"
 
@@ -18,7 +18,9 @@ systemDefineFn ( system_input, {
 
     ComponentInput_Update ( ci );
 
-    if ( ci->handler ) {
+    if ( ci->handler )
         ci->handler ( &ci->joy, entity );
-    }
 });
+
+
+System const system_Input_tpl = { &system_input, 2, 2, "Input" };

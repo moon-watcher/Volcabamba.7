@@ -1,4 +1,4 @@
-#include "modo.h"
+#include "mymodo.h" 
 #include "components/Timer.h"
 
 
@@ -8,3 +8,6 @@ systemDefineFn ( system_timer, {
     
     ComponentTimer_Update ( t );
 });
+
+
+System const system_Timer_tpl = { &system_timer, 40, 1, "Timer" };

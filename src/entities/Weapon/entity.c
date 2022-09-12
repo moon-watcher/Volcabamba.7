@@ -1,5 +1,5 @@
 #include <genesis.h>
-#include "modo.h"
+#include "mymodo.h" 
 #include "inc.h"
 #include "inc/systems.h"
 #include "inc/states.h"
@@ -13,15 +13,16 @@ static void awake ( Entity *const e ) {
     COMPS(e);
 
     ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
+    //ComponentSprite_InitEx ( sp, pos->x.rounded, pos->y.rounded );
 }
 
 
 static void update ( Entity *const e ) {
     COMPS(e);
 
-    systemAdd2 ( sysSprite,   sp, pos );
+    systemAdd2 ( sysSprite,   sp,  pos );
     systemAdd2 ( sysMovement, pos, movement );
-    systemAdd  ( sysTimer,    timer );
+    systemAdd1 ( sysTimer,    timer );
 }
 
 
@@ -41,6 +42,7 @@ Entity const entity_Weapon_tpl = {
     .compsSize  = sizeof(Components),
     .components = &(Components) {
         .sprite = { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
+        //.sprite = { &res_sprite_weapon, TILE_ATTR_FULL(PAL3,1,0,0,200), SPR_FLAG_AUTO_SPRITE_ALLOC|SPR_FLAG_AUTO_TILE_UPLOAD },
         .movement.x  = { FIX32(2), FIX32(2) }
     },
 //     .COMPS = {

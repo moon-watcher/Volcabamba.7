@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "modo.h"
+#include "mymodo.h" 
 
 
 State const entity_screen_state_gameloop;
