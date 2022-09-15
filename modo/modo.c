@@ -3,9 +3,9 @@
 #include "manager.h"
 
 void modo ( Entity *const entity ) {
-    Manager *const scenemanager = manager ( );
-    managerAdd ( scenemanager, entity );
+    Manager *const m = manager ( );
+    managerAdd ( m, entity );
 
     while ( 1 )
-        managerUpdate ( scenemanager );
+        managerUpdate ( m );
 }

@@ -32,14 +32,12 @@ stateDefine ( entity_screen_state_title,
 },
 
 { // update
-    while ( !entityStateChanged ( e ) ) {
-        systemAdd2 ( ssss, input, e );
-        // systemAdd ( ssss, (void *const[]) { input, e, 0 } );
-        $s->update ( ssss );
-        
-        JOY_update();
-        SYS_doVBlankProcess();
-    }    
+    systemAdd2 ( ssss, input, e );
+    // systemAdd ( ssss, (void *const[]) { input, e, 0 } );
+    $s->update ( ssss );
+
+    JOY_update();
+    SYS_doVBlankProcess();
 },
 
 { // exit
