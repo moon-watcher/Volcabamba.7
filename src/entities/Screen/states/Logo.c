@@ -23,21 +23,17 @@ stateDefine ( entity_screen_state_logo,
 },
 
 { // update
-    int exit = 0;
+    if ( ComponentTimer_Timeout ( timer ) )
+        $e->state ( e, &entity_screen_state_title );
 
-    while ( !exit ) {
-        exit = ComponentTimer_Timeout ( timer );
+
+    systemAdd1 ( sssss, timer );
+    $s->update ( sssss );
+
+    Int ( MEM_getFree(), 0, 0, 5 );
     
-        systemAdd1 ( sssss, timer );
-        $s->update ( sssss );
-
-        Int ( MEM_getFree(), 0, 0, 5 );
-        
-        JOY_update();
-        SYS_doVBlankProcess();
-    }
-
-    $e->state ( e, &entity_screen_state_title );
+    JOY_update();
+    SYS_doVBlankProcess();
 },
 
 { // exit

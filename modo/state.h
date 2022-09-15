@@ -21,4 +21,4 @@ State;
     };
 
 #define stateDefine( STATE, ENTER, UPDATE, EXIT )                 \
-    stateDefineEx( e, NULL, STATE, ENTER, UPDATE, EXIT, COMPS )
+    stateDefineEx ( e, "", STATE, ENTER, UPDATE, EXIT, COMPS )

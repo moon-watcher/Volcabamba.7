@@ -23,4 +23,4 @@ systemDefineFn ( system_input, {
 });
 
 
-System const system_Input_tpl = { &system_input, 2, 2, "Input" };
+System const system_Input_tpl = { &system_input, 5, 2, "Input" };

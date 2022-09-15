@@ -8,7 +8,6 @@
 #include "../inc.h"
 #include "interfaces/common.h"
 
-static Manager *mmmmm;
 
 stateDefine ( entity_screen_state_gameloop,
 
@@ -18,44 +17,61 @@ stateDefine ( entity_screen_state_gameloop,
     PAL_setPalette(PAL2,palette_red );
     PAL_setPalette(PAL0,palette_green );
 
-    SPR_initEx(600);
+    SPR_initEx(400);
     VDP_setScreenWidth256();
 
-    Entity *const e0 = $m->add ( mmmmm, &entity_Player_tpl );
-    Entity *const e1 = $m->add ( mmmmm, &entity_Player_tpl );
+    manPlayers = $m->new ( );
+    manWeapons = $m->new ( );
+
+    sysSprite   = $s->new ( &system_Sprite_tpl   );
+    sysInput    = $s->new ( &system_Input_tpl    );
+    sysMovement = $s->new ( &system_Movement_tpl );
+    sysTimer    = $s->new ( &system_Timer_tpl    );
+
+    Entity *const e0 = $m->add ( manPlayers, &entity_Player_tpl );
+    Entity *const e1 = $m->add ( manPlayers, &entity_Player_tpl );
+    Entity *const e2 = managerAdd ( manPlayers, &entity_Player_tpl);
+    Entity *const e3 = managerAdd ( manPlayers, &entity_Player_tpl);
+
             
     entityExec ( InterfaceCommon, enableInput, e0, 0 );
     entityExec ( InterfaceCommon, setX, e0, 30 );
     entityExec ( InterfaceCommon, setY, e0, 30 );
-    entityExec ( InterfaceCommon, setX, e1, 0 );
+    entityExec ( InterfaceCommon, setX, e1, 70 );
     entityExec ( InterfaceCommon, setY, e1, 70 );
-
-
-    // modoAdd ( MODOLIST_MANAGER, manPlayers );
-    // modoAdd ( MODOLIST_MANAGER, manWeapons );
-    // modoAdd ( MODOLIST_SYSTEM,  sysSprite );
-    // modoAdd ( MODOLIST_SYSTEM,  sysMovement );
-    // modoAdd ( MODOLIST_END,     SPR_update );
-
-    SPR_init();
+    entityExec ( InterfaceCommon, setX, e2, 130 );
+    entityExec ( InterfaceCommon, setY, e2, 130 );
+    entityExec ( InterfaceCommon, setX, e3, 160 );
+    entityExec ( InterfaceCommon, setY, e3, 160 );
 },
 
 { // update
-    Int ( MEM_getFree(), 2, 2, 5 );
+    JOY_update();
     
-    // SPR_update();
-    // SYS_doVBlankProcess();
-    // JOY_update();
+    $m->update ( manPlayers );
+    $m->update ( manWeapons );
+
+    $s->update ( sysMovement );
+    $s->update ( sysSprite );
+    $s->update ( sysInput );
+    $s->update ( sysTimer );
+
+    Int( MEM_getFree(), 0,0,5);
+
+    SPR_update();
+    SYS_doVBlankProcess();
 },
 
 { // exit
-    // modoDelete ( MODOLIST_MANAGER, manPlayers );
-    // modoDelete ( MODOLIST_MANAGER, manWeapons );
-    // modoDelete ( MODOLIST_SYSTEM,  sysSprite );
-    // modoDelete ( MODOLIST_SYSTEM,  sysMovement );
-    // modoDelete ( MODOLIST_END,     SPR_update );
-
     SPR_end();
+
+    $m->end ( manPlayers );
+    $m->end ( manWeapons );
+
+    $s->end ( sysMovement );
+    $s->end ( sysSprite );
+    $s->end ( sysInput );
+    $s->end ( sysTimer );
 
     PAL_fadeOut(0,63,10,0);
     VDP_clearPlane(BG_A, 0);
