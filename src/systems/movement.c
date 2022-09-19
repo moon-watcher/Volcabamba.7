@@ -20,9 +20,9 @@ inline static void _update ( ComponentMovement *const cm ) {
 }
 
 
-systemDefineFn ( system_movement, {
-    systemGetParam ( ComponentPosition2D, p );
-    systemGetParam ( ComponentMovement2D, v );
+mm_systemDefineFn ( system_movement, {
+    mm_systemGetParam ( ComponentPosition2D, p );
+    mm_systemGetParam ( ComponentMovement2D, v );
     
     _update ( &v->x );
     _update ( &v->y );

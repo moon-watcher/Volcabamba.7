@@ -23,8 +23,8 @@ static void update ( Entity *const e ) {
     if ( joy_active_left(joy)  ) C->dirH = -1;
     if ( joy_active_right(joy) ) C->dirH = +1;
 
-    systemAdd2 ( sysInput,  ci, e );
-    systemAdd2 ( sysSprite, sp, cp );
+    mm_systemAdd2 ( sysInput,  ci, e );
+    mm_systemAdd2 ( sysSprite, sp, cp );
 }
 
 

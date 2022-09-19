@@ -7,18 +7,3 @@ typedef struct {
     char *name;
 }
 State;
-
-
-#define stateDefineEx( ENTITY, NAME, STATE, ENTER, UPDATE, EXIT, COMPS ) \
-    static void STATE##_enter  ( Entity *const ENTITY ) { COMPS(ENTITY); ENTER  }   \
-    static void STATE##_update ( Entity *const ENTITY ) { COMPS(ENTITY); UPDATE }   \
-    static void STATE##_exit   ( Entity *const ENTITY ) { COMPS(ENTITY); EXIT   }   \
-    State const STATE = {                                         \
-        .enter  = STATE##_enter,                                  \
-        .update = STATE##_update,                                 \
-        .exit   = STATE##_exit,                                   \
-        .name   = NAME,                                           \
-    };
-
-#define stateDefine( STATE, ENTER, UPDATE, EXIT )                 \
-    stateDefineEx ( e, "", STATE, ENTER, UPDATE, EXIT, COMPS )

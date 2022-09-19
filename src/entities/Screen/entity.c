@@ -5,7 +5,7 @@
 #include "inc/states.h"
 
 
-entityDefine ( 
+mm_entityDefine ( 
     entity_screen,
     entity_screen_state_logo,
 

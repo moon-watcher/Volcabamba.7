@@ -9,9 +9,9 @@
  *  - ComponentInput
  *  - Entity
  */
-systemDefineFn ( system_input, {
-    systemGetParam ( ComponentInput, ci     );
-    systemGetParam ( Entity,         entity );
+mm_systemDefineFn ( system_input, {
+    mm_systemGetParam ( ComponentInput, ci     );
+    mm_systemGetParam ( Entity,         entity );
 
     if ( ci->joy.port < 0 )
         continue;

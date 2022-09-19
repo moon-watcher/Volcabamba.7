@@ -1,13 +1,13 @@
 #include "mymodo.h" 
 
-#define SYSTEM   & ( MODO_SYSTEM_t  ) { &system,  &systemUpdate, &systemEnd,     &systemInfo,         }
-#define MANAGER  & ( MODO_MANAGER_t ) { &manager, &managerAdd,   &managerUpdate, &managerEnd,         }
-#define ENTITY   & ( MODO_ENTITY_t  ) { &entity,  &entityState,  &entityDelete,  &entityStateChanged, }
+#define SYSTEM   & ( MYMODO_SYSTEM  ) { &system,  &systemUpdate, &systemEnd,     &systemInfo,         }
+#define MANAGER  & ( MYMODO_MANAGER ) { &manager, &managerAdd,   &managerUpdate, &managerEnd,         }
+#define ENTITY   & ( MYMODO_ENTITY  ) { &entity,  &entityState,  &entityDelete,  &entityStateChanged, }
 
-MODO_t         *const $  = & ( MODO_t ) { SYSTEM, MANAGER, ENTITY, &modo };
-MODO_SYSTEM_t  *const $s = SYSTEM;
-MODO_MANAGER_t *const $m = MANAGER;
-MODO_ENTITY_t  *const $e = ENTITY;
+MYMODO         *const $  = & ( MYMODO ) { SYSTEM, MANAGER, ENTITY, &modo };
+MYMODO_SYSTEM  *const $s = SYSTEM;
+MYMODO_MANAGER *const $m = MANAGER;
+MYMODO_ENTITY  *const $e = ENTITY;
 
 
 
@@ -36,17 +36,17 @@ MODO_ENTITY_t  *const $e = ENTITY;
 // #define $EEe(x)  ({ (s_const = x); $e; })
 
 
-// struct MODO_system  *const $S ( System *const x ) {
+// struct MYMODO_system  *const $S ( System *const x ) {
 //     s_const = x;
 //     return $s;
 // }
 
-// struct MODO_manager *const $M ( Manager *const x ) {
+// struct MYMODO_manager *const $M ( Manager *const x ) {
 //     m_const = x;
 //     return $m;
 // }
 
-// struct MODO_entity  *const $E ( Entity *const x ) {
+// struct MYMODO_entity  *const $E ( Entity *const x ) {
 //     e_const = x;
 //     return $e;
 // }

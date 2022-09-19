@@ -103,15 +103,15 @@ void ramiro(){
     // Entity *const e3 = managerAdd ( manPlayers, &entity_Player_tpl);
 
             
-    entityExec ( InterfaceCommon, enableInput, e0, 0 );
-    entityExec ( InterfaceCommon, setX, e0, 30 );
-    entityExec ( InterfaceCommon, setY, e0, 30 );
-    entityExec ( InterfaceCommon, setX, e1, 70 );
-    entityExec ( InterfaceCommon, setY, e1, 70 );
-    // entityExec ( InterfaceCommon, setX, e2, 130 );
-    // entityExec ( InterfaceCommon, setY, e2, 130 );
-    // entityExec ( InterfaceCommon, setX, e3, 160 );
-    // entityExec ( InterfaceCommon, setY, e3, 160 );
+    mm_entityExec ( InterfaceCommon, enableInput, e0, 0 );
+    mm_entityExec ( InterfaceCommon, setX, e0, 30 );
+    mm_entityExec ( InterfaceCommon, setY, e0, 30 );
+    mm_entityExec ( InterfaceCommon, setX, e1, 70 );
+    mm_entityExec ( InterfaceCommon, setY, e1, 70 );
+    // mm_entityExec ( InterfaceCommon, setX, e2, 130 );
+    // mm_entityExec ( InterfaceCommon, setY, e2, 130 );
+    // mm_entityExec ( InterfaceCommon, setX, e3, 160 );
+    // mm_entityExec ( InterfaceCommon, setY, e3, 160 );
 
     while(1){
 

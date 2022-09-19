@@ -20,9 +20,9 @@ static void awake ( Entity *const e ) {
 static void update ( Entity *const e ) {
     COMPS(e);
 
-    systemAdd2 ( sysSprite,   sp,  pos );
-    systemAdd2 ( sysMovement, pos, movement );
-    systemAdd1 ( sysTimer,    timer );
+    mm_systemAdd2 ( sysSprite,   sp,  pos );
+    mm_systemAdd2 ( sysMovement, pos, movement );
+    mm_systemAdd1 ( sysTimer,    timer );
 }
 
 

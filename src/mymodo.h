@@ -10,44 +10,135 @@
 #include "inc/systems.h"
 #include "inc/managers.h"
 
-typedef struct {
-    System const* ( *new    ) ( System const* );
-    void          ( *update ) ( System *const );
-    void          ( *end    ) ( System *const );
-    void          ( *info   ) ( System *const );
-}
-MODO_SYSTEM_t;
+
 
 typedef struct {
-    Manager const* ( *new    ) ( );
-    Entity  const* ( *add    ) ( Manager *const, Entity const* );
-    void           ( *update ) ( Manager *const );
-    void           ( *end    ) ( Manager *const );
+    System *( *new    ) ( System const* );
+    void    ( *update ) ( System *const );
+    void    ( *end    ) ( System *const );
+    void    ( *info   ) ( System *const );
 }
-MODO_MANAGER_t;
+MYMODO_SYSTEM;
 
 typedef struct {
-    Entity const* ( *new    )       ( Entity const* );
-    void          ( *state  )       ( Entity *const, State const* );
-    void          ( *delete )       ( Entity *const );
-    unsigned      ( *stateChanged ) ( Entity *const );
+    Manager *( *new    ) ( );
+    Entity  *( *add    ) ( Manager *const, Entity const* );
+    void     ( *update ) ( Manager *const );
+    void     ( *end    ) ( Manager *const );
 }
-MODO_ENTITY_t;
+MYMODO_MANAGER;
 
 typedef struct {
-    MODO_SYSTEM_t  *const system;
-    MODO_MANAGER_t *const manager;
-    MODO_ENTITY_t  *const entity;
+    Entity   *( *new    )       ( Entity const* );
+    void      ( *state  )       ( Entity *const, State const* );
+    void      ( *delete )       ( Entity *const );
+    unsigned  ( *stateChanged ) ( Entity *const );
+}
+MYMODO_ENTITY;
+
+typedef struct {
+    MYMODO_SYSTEM  *const system;
+    MYMODO_MANAGER *const manager;
+    MYMODO_ENTITY  *const entity;
 
     void ( *init ) ( Entity const* );
-} MODO_t;
+} MYMODO;
 
 
-MODO_t         *const $;
-MODO_SYSTEM_t  *const $s;
-MODO_MANAGER_t *const $m;
-MODO_ENTITY_t  *const $e;
+MYMODO         *const $;
+MYMODO_SYSTEM  *const $s;
+MYMODO_MANAGER *const $m;
+MYMODO_ENTITY  *const $e;
 
+
+
+
+
+#define mm_stateDefineEx( ENTITY, NAME, STATE, ENTER, UPDATE, EXIT, COMPS ) \
+    static void STATE##_enter  ( Entity *const ENTITY ) { COMPS(ENTITY); ENTER  }   \
+    static void STATE##_update ( Entity *const ENTITY ) { COMPS(ENTITY); UPDATE }   \
+    static void STATE##_exit   ( Entity *const ENTITY ) { COMPS(ENTITY); EXIT   }   \
+    State const STATE = {                                         \
+        .enter  = STATE##_enter,                                  \
+        .update = STATE##_update,                                 \
+        .exit   = STATE##_exit,                                   \
+        .name   = NAME,                                           \
+    };
+
+#define mm_stateDefine( STATE, ENTER, UPDATE, EXIT )                 \
+    mm_stateDefineEx ( e, "", STATE, ENTER, UPDATE, EXIT, COMPS )
+
+
+
+
+
+
+#define mm_systemDefineFn( FUNCTION, CODE )      \
+    void FUNCTION ( System *const s ) {       \
+        void *const *array = (void*) s->list; \
+        int length = s->length;               \
+        for ( int i = 0; i < length; )        \
+            CODE                              \
+    }
+	
+#define mm_systemGetParam( T, V )         \
+    T *const V = array [ i++ ]
+
+#define mm_systemAdd1( S, A )             \
+    S->list [ S->length++ ] = A;
+
+#define mm_systemAdd2( S, A, B )          \
+    S->list [ S->length++ ] = A;       \
+    S->list [ S->length++ ] = B;
+
+#define mm_systemAdd3( S, A, B, C )       \
+    S->list [ S->length++ ] = A;       \
+    S->list [ S->length++ ] = B;       \
+    S->list [ S->length++ ] = C;
+
+#define mm_systemAdd4( S, A, B, C, D )    \
+    S->list [ S->length++ ] = A;       \
+    S->list [ S->length++ ] = B;       \
+    S->list [ S->length++ ] = C;       \
+    S->list [ S->length++ ] = D;
+
+#define mm_systemAdd5( S, A, B, C, D, E ) \
+    S->list [ S->length++ ] = A;       \
+    S->list [ S->length++ ] = B;       \
+    S->list [ S->length++ ] = C;       \
+    S->list [ S->length++ ] = D;       \
+    S->list [ S->length++ ] = E;
+
+
+
+
+
+
+
+#define mm_entityExec( INTERFACE, FUNCTION, ENTITY, ... )                \
+    if ( ((INTERFACE*) ENTITY->exec)->FUNCTION )                      \
+        ((INTERFACE*) ENTITY->exec)->FUNCTION ( ENTITY, __VA_ARGS__ )
+
+#define mm_entityDefineEx( ENTITY, NAME, TPL, STATE, COMPS, AWAKE, UPDATE, DELETE, EXEC ) \
+    static void TPL##_Awake  ( Entity *const ENTITY ) AWAKE           \
+    static void TPL##_Update ( Entity *const ENTITY ) UPDATE          \
+    static void TPL##_Delete ( Entity *const ENTITY ) DELETE          \
+    Entity const TPL = {                                              \
+        .state      = (State*) &STATE,                                \
+        .components = &(Components) COMPS,                            \
+        .compsSize  = sizeof(Components),                             \
+        .action     = ENTITY_ACTION_CREATE,                           \
+        .Awake      = TPL##_Awake,                                    \
+        .Update     = TPL##_Update,                                   \
+        .Delete     = TPL##_Delete,                                   \
+        .exec       = EXEC,                                           \
+        .name       = NAME,                                           \
+        .next       = NULL,                                           \
+        .prevState  = NULL                                            \
+    };
+
+#define mm_entityDefine( TPL, STATE, COMPS, AWAKE, UPDATE, DELETE )      \
+    mm_entityDefineEx ( e, NULL, TPL, STATE, COMPS, AWAKE, UPDATE, DELETE, NULL )
 
 
 
