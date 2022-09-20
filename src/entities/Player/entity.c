@@ -1,5 +1,5 @@
 #include <genesis.h>
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "inc.h"
 #include "inc/systems.h"
 #include "inc/states.h"
@@ -23,8 +23,10 @@ static void update ( Entity *const e ) {
     if ( joy_active_left(joy)  ) C->dirH = -1;
     if ( joy_active_right(joy) ) C->dirH = +1;
 
-    mm_systemAdd2 ( sysInput,  ci, e );
-    mm_systemAdd2 ( sysSprite, sp, cp );
+    mm_systemAdd ( sysInput,  ci );
+    mm_systemAdd ( sysInput,   e );
+    mm_systemAdd ( sysSprite, sp );
+    mm_systemAdd ( sysSprite, cp );
 }
 
 

@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../inc.h"
@@ -27,7 +27,7 @@ mm_stateDefine ( entity_screen_state_logo,
         $e->state ( e, &entity_screen_state_title );
 
 
-    mm_systemAdd1 ( sssss, timer );
+    mm_systemAdd ( sssss, timer );
     $s->update ( sssss );
 
     Int ( MEM_getFree(), 0, 0, 5 );

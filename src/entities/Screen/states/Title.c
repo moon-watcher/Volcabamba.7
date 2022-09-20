@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../inc.h"
@@ -32,7 +32,8 @@ mm_stateDefine ( entity_screen_state_title,
 },
 
 { // update
-    mm_systemAdd2 ( ssss, input, e );
+    mm_systemAdd ( ssss, input );
+    mm_systemAdd ( ssss, e );
     // mm_systemAdd ( ssss, (void *const[]) { input, e, 0 } );
     $s->update ( ssss );
 

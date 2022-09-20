@@ -1,9 +1,9 @@
 // #include <genesis.h>
-// #include "mymodo.h" 
+// #include "mymodo/mm.h" 
 
 
 #include <genesis.h>
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 
 #include "libs/draw.h"
 #include "inc/entities.h"

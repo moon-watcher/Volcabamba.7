@@ -1,12 +1,12 @@
 
 #include <genesis.h>
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 
 
 
 
 
-// #include "mymodo.h" 
+// #include "mymodo/mm.h" 
 // #include "libs/draw.h"
 // #include "interfaces/common.h"
 // #include "modo/modo.h"

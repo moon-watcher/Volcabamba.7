@@ -1,5 +1,5 @@
 #include <genesis.h>
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "inc.h"
 #include "inc/systems.h"
 #include "inc/states.h"
@@ -20,9 +20,11 @@ static void awake ( Entity *const e ) {
 static void update ( Entity *const e ) {
     COMPS(e);
 
-    mm_systemAdd2 ( sysSprite,   sp,  pos );
-    mm_systemAdd2 ( sysMovement, pos, movement );
-    mm_systemAdd1 ( sysTimer,    timer );
+    mm_systemAdd ( sysSprite,   sp );
+    mm_systemAdd ( sysSprite,   pos );
+    mm_systemAdd ( sysMovement, pos );
+    mm_systemAdd ( sysMovement, movement );
+    mm_systemAdd ( sysTimer,    timer );
 }
 
 

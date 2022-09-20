@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "inc/managers.h"
@@ -84,7 +84,7 @@ mm_stateDefine ( entity_screen_state_gameloop,
 
 // // #include <genesis.h>
 
-// // #include "mymodo.h" 
+// // #include "mymodo/mm.h" 
 // // #include "libs/draw.h"
 // // #include "inc/entities.h"
 // // #include "inc/managers.h"
