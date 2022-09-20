@@ -54,7 +54,7 @@ MYMODO_ENTITY  *const $e;
 
 
 
-#define mm_stateDefineEx( ENTITY, NAME, STATE, ENTER, UPDATE, EXIT, COMPS ) \
+#define mm_stateDefineEx( ENTITY, NAME, STATE, ENTER, UPDATE, EXIT, COMPS )         \
     static void STATE##_enter  ( Entity *const ENTITY ) { COMPS(ENTITY); ENTER  }   \
     static void STATE##_update ( Entity *const ENTITY ) { COMPS(ENTITY); UPDATE }   \
     static void STATE##_exit   ( Entity *const ENTITY ) { COMPS(ENTITY); EXIT   }   \
@@ -65,7 +65,7 @@ MYMODO_ENTITY  *const $e;
         .name   = NAME,                                           \
     };
 
-#define mm_stateDefine( STATE, ENTER, UPDATE, EXIT )                 \
+#define mm_stateDefine( STATE, ENTER, UPDATE, EXIT )              \
     mm_stateDefineEx ( e, "", STATE, ENTER, UPDATE, EXIT, COMPS )
 
 
@@ -73,7 +73,7 @@ MYMODO_ENTITY  *const $e;
 
 
 
-#define mm_systemDefineFn( FUNCTION, CODE )      \
+#define mm_systemDefineFn( FUNCTION, CODE )   \
     void FUNCTION ( System *const s ) {       \
         void *const *array = (void*) s->list; \
         int length = s->length;               \
@@ -88,25 +88,25 @@ MYMODO_ENTITY  *const $e;
     S->list [ S->length++ ] = A;
 
 #define mm_systemAdd2( S, A, B )          \
-    S->list [ S->length++ ] = A;       \
+    S->list [ S->length++ ] = A;          \
     S->list [ S->length++ ] = B;
 
 #define mm_systemAdd3( S, A, B, C )       \
-    S->list [ S->length++ ] = A;       \
-    S->list [ S->length++ ] = B;       \
+    S->list [ S->length++ ] = A;          \
+    S->list [ S->length++ ] = B;          \
     S->list [ S->length++ ] = C;
 
 #define mm_systemAdd4( S, A, B, C, D )    \
-    S->list [ S->length++ ] = A;       \
-    S->list [ S->length++ ] = B;       \
-    S->list [ S->length++ ] = C;       \
+    S->list [ S->length++ ] = A;          \
+    S->list [ S->length++ ] = B;          \
+    S->list [ S->length++ ] = C;          \
     S->list [ S->length++ ] = D;
 
 #define mm_systemAdd5( S, A, B, C, D, E ) \
-    S->list [ S->length++ ] = A;       \
-    S->list [ S->length++ ] = B;       \
-    S->list [ S->length++ ] = C;       \
-    S->list [ S->length++ ] = D;       \
+    S->list [ S->length++ ] = A;          \
+    S->list [ S->length++ ] = B;          \
+    S->list [ S->length++ ] = C;          \
+    S->list [ S->length++ ] = D;          \
     S->list [ S->length++ ] = E;
 
 

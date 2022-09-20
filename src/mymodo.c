@@ -4,7 +4,7 @@
 #define MANAGER  & ( MYMODO_MANAGER ) { &manager, &managerAdd,   &managerUpdate, &managerEnd,         }
 #define ENTITY   & ( MYMODO_ENTITY  ) { &entity,  &entityState,  &entityDelete,  &entityStateChanged, }
 
-MYMODO         *const $  = & ( MYMODO ) { SYSTEM, MANAGER, ENTITY, &modo };
+MYMODO         *const $  = & ( MYMODO ) { SYSTEM, MANAGER, ENTITY, modo };
 MYMODO_SYSTEM  *const $s = SYSTEM;
 MYMODO_MANAGER *const $m = MANAGER;
 MYMODO_ENTITY  *const $e = ENTITY;
