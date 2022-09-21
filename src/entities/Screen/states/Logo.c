@@ -9,7 +9,7 @@
 
 static System *sssss;
 
-mm_stateDefine ( entity_screen_state_logo,
+defineState ( entity_screen_state_logo,
 
 { // enter
     SYS_disableInts();
@@ -27,7 +27,7 @@ mm_stateDefine ( entity_screen_state_logo,
         $e->state ( e, &entity_screen_state_title );
 
 
-    mm_systemAdd ( sssss, timer );
+    systemAdd ( sssss, timer );
     $s->update ( sssss );
 
     Int ( MEM_getFree(), 0, 0, 5 );

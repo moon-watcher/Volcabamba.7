@@ -46,7 +46,7 @@ void systemInfo ( System *const s ) {
 }
 
 
-// void mm_systemAdd ( System *const system, void *const array[] ) {
+// void systemAdd ( System *const system, void *const array[] ) {
 //     // int t = sizeof (array) / sizeof ( void*const );
 // 	while ( *array ) {
 //         system->list [ system->length++ ] = *array;

@@ -3,9 +3,9 @@
 #include "components/Position.h"
 
 
-mm_systemDefineFn ( system_sprite, {
-    mm_systemGetParam ( ComponentSprite,     sp );
-    mm_systemGetParam ( ComponentPosition2D, cp );
+defineSystemFn ( system_sprite, {
+    systemGetParam ( ComponentSprite,     sp );
+    systemGetParam ( ComponentPosition2D, cp );
 
     SPR_setPosition ( sp->sprite, cp->x.rounded, cp->y.rounded );
 });

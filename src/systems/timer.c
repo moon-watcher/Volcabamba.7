@@ -3,8 +3,8 @@
 
 
 
-mm_systemDefineFn ( system_timer, {
-    mm_systemGetParam ( ComponentTimer, t );
+defineSystemFn ( system_timer, {
+    systemGetParam ( ComponentTimer, t );
     
     ComponentTimer_Update ( t );
 });

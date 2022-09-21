@@ -17,7 +17,7 @@ static void inputHandler ( Joyreader *const j, Entity *const e ) {
 }
 
 
-mm_stateDefine ( entity_screen_state_title,
+defineState ( entity_screen_state_title,
 
 { // enter
     input->handler = inputHandler;
@@ -32,9 +32,9 @@ mm_stateDefine ( entity_screen_state_title,
 },
 
 { // update
-    mm_systemAdd ( ssss, input );
-    mm_systemAdd ( ssss, e );
-    // mm_systemAdd ( ssss, (void *const[]) { input, e, 0 } );
+    systemAdd ( ssss, input );
+    systemAdd ( ssss, e );
+    // systemAdd ( ssss, (void *const[]) { input, e, 0 } );
     $s->update ( ssss );
 
     JOY_update();
