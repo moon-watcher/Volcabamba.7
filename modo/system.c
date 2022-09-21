@@ -46,10 +46,10 @@ void systemInfo ( System *const s ) {
 }
 
 
-void systemAdd ( System *const system, void *const array[] ) {
-    // int t = sizeof (array) / sizeof ( void*const );
-	while ( *array ) {
-        system->list [ system->length++ ] = *array;
-        ++array;
-    }
-}
+// void systemAdd ( System *const system, void *const array[] ) {
+//     // int t = sizeof (array) / sizeof ( void*const );
+// 	while ( *array ) {
+//         system->list [ system->length++ ] = *array;
+//         ++array;
+//     }
+// }

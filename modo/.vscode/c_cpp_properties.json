@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "D:/MDDev/Works/Volcabamba.7/SGDK/inc",
-                "D:/MDDev/Works/Volcabamba.7/game/src"
+                "D:/MDDev/Works/Volcabamba.7/game/src",
+                "D:/MDDev/Works/Volcabamba.7/game/src/libs"
             ],
             "defines": [
                 "_DEBUG",

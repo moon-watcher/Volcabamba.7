@@ -2,4 +2,4 @@
 
 #include "entity.h"
 
-void modo ( Entity *const );
+void modo ( Entity const* );

@@ -1,9 +1,9 @@
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "components/Timer.h"
 
 
 
-systemDefineFn ( system_timer, {
+defineSystemFn ( system_timer, {
     systemGetParam ( ComponentTimer, t );
     
     ComponentTimer_Update ( t );

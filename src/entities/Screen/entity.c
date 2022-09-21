@@ -1,11 +1,11 @@
 #include <genesis.h>
 
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "inc.h"
 #include "inc/states.h"
 
 
-entityDefine ( 
+defineEntity ( 
     entity_screen,
     entity_screen_state_logo,
 

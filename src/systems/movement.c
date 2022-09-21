@@ -1,5 +1,5 @@
 #include <genesis.h>
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "components/Movement.h"
 #include "components/Position.h"
 
@@ -20,7 +20,7 @@ inline static void _update ( ComponentMovement *const cm ) {
 }
 
 
-systemDefineFn ( system_movement, {
+defineSystemFn ( system_movement, {
     systemGetParam ( ComponentPosition2D, p );
     systemGetParam ( ComponentMovement2D, v );
     

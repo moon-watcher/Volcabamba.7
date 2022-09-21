@@ -1,6 +1,6 @@
 #include <genesis.h>
-#include "mymodo.h" 
-// #include "mymodo.h" 
+#include "mymodo/mm.h" 
+// #include "mymodo/mm.h" 
 // #include "modo/entity.h"
 #include "components/Input.h"
 
@@ -9,7 +9,7 @@
  *  - ComponentInput
  *  - Entity
  */
-systemDefineFn ( system_input, {
+defineSystemFn ( system_input, {
     systemGetParam ( ComponentInput, ci     );
     systemGetParam ( Entity,         entity );
 

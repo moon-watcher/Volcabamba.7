@@ -1,9 +1,9 @@
 // #include <genesis.h>
-// #include "mymodo.h" 
+// #include "mymodo/mm.h" 
 
 
 #include <genesis.h>
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 
 #include "libs/draw.h"
 #include "inc/entities.h"
@@ -341,4 +341,116 @@ void main()
 
 
 
+// }
+
+
+
+
+
+
+//modo->s(aaa)->update();
+//$s(aaa)->update();
+
+/* 
+// #define modoEntityExec(FUNCTION,ENTITY,...)    ({ ENTITY->exec->FUNCTION ? ENTITY->exec->FUNCTION ( ENTITY, __VA_ARGS__ ) : NULL; })
+
+// #define JOY_DIR_NONE    0
+// #define JOY_DIR_UP      1
+// #define JOY_DIR_DOWN    2
+// #define JOY_DIR_LEFT    3
+// #define JOY_DIR_RIGHT   4
+
+// #define joy_get_vertical(J,X)          ( joy_##X##_up   ( J ) ? JOY_DIR_UP   : ( joy_##X##_down  ( J ) ? JOY_DIR_DOWN  : JOY_DIR_NONE ) )
+// #define joy_get_horizontal(J,X)        ( joy_##X##_left ( J ) ? JOY_DIR_LEFT : ( joy_##X##_right ( J ) ? JOY_DIR_RIGHT : JOY_DIR_NONE ) )
+
+// // #define joy_exec_vertical(J,X,A,B,C)   ( joy_##X##_up   ( J ) ? A            : ( joy_##X##_down  ( J ) ? B             : C            ) )
+// // #define joy_exec_horizontal(J,X,A,B,C) ( joy_##X##_left ( J ) ? A            : ( joy_##X##_right ( J ) ? B             : C            ) )
+
+//  #define joy_exec_vertical(J,X,A,B,C) ({   \
+//     int ret = JOY_DIR_NONE;                \
+//     if ( joy_##X##_up ( J ) ) {            \
+//         ret = JOY_DIR_UP;                  \
+//         A                                  \
+//     } else if ( joy_##X##_down ( J ) ) {   \
+//         ret = JOY_DIR_DOWN;                \
+//         B                                  \
+//     } else {                               \
+//         C                                  \
+//     }                                      \
+//     ret; })
+
+// #define joy_exec_horizontal(J,X,A,B,C) ({  \
+//     int ret = JOY_DIR_NONE;                \
+//     if ( joy_##X##_left ( J ) ) {          \
+//         ret = JOY_DIR_LEFT;                \
+//         A                                  \
+//     } else if ( joy_##X##_right ( J ) ) {  \
+//         ret = JOY_DIR_RIGHT;               \
+//         B                                  \
+//     } else {                               \
+//         C                                  \
+//     }                                      \
+//     ret; })
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+// static System  *s_const;
+// static Manager *m_const;
+// static Entity  *e_const;
+// static void    *x_const;
+
+// #define $SS(x)  ({ s_const = x, $s })
+// #define $MM(x)  ({ m_const = x, $m })
+// #define $EE(x)  ({ s_const = x, $e })
+
+// // #define $SS(x)  ({ (s_const = x), $s })
+// // #define $MM(x)  ({ (m_const = x), $m })
+// // #define $EE(x)  ({ (s_const = x), $e })
+
+// // #define $SS(x)  ({ (s_const = x); $s; })
+// // #define $MM(x)  ({ (m_const = x); $m; })
+// // #define $EE(x)  ({ (s_const = x); $e; })
+
+// #define $(x)  ({ (s_const = x); $s; })
+// #define $MMm(x)  ({ (m_const = x); $m; })
+// #define $EEe(x)  ({ (s_const = x); $e; })
+
+
+// struct MYMODO_system  *const $S ( System *const x ) {
+//     s_const = x;
+//     return $s;
+// }
+
+// struct MYMODO_manager *const $M ( Manager *const x ) {
+//     m_const = x;
+//     return $m;
+// }
+
+// struct MYMODO_entity  *const $E ( Entity *const x ) {
+//     e_const = x;
+//     return $e;
+// }
+
+// #define $manTal ( { (m_const = manTal ); $m; } )
+
+// // M(manTal)->add( entity  );
+// // $manTal->add( entity  );
+// // $manTal->new();
+
+// // $$ ( manaasd )->add ( Entity );
+
+// Entity *const addEntityToManager ( Entity const * tpl ) {
+//     return managerAdd ( m_const, tpl );
 // }

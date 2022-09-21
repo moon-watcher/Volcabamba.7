@@ -1,9 +1,9 @@
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "components/Sprite.h"
 #include "components/Position.h"
 
 
-systemDefineFn ( system_sprite, {
+defineSystemFn ( system_sprite, {
     systemGetParam ( ComponentSprite,     sp );
     systemGetParam ( ComponentPosition2D, cp );
 

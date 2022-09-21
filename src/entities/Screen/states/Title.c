@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../inc.h"
@@ -17,7 +17,7 @@ static void inputHandler ( Joyreader *const j, Entity *const e ) {
 }
 
 
-stateDefine ( entity_screen_state_title,
+defineState ( entity_screen_state_title,
 
 { // enter
     input->handler = inputHandler;
@@ -32,7 +32,8 @@ stateDefine ( entity_screen_state_title,
 },
 
 { // update
-    systemAdd2 ( ssss, input, e );
+    systemAdd ( ssss, input );
+    systemAdd ( ssss, e );
     // systemAdd ( ssss, (void *const[]) { input, e, 0 } );
     $s->update ( ssss );
 

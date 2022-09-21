@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "mymodo.h" 
+#include "mymodo/mm.h" 
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "inc/managers.h"
@@ -9,7 +9,7 @@
 #include "interfaces/common.h"
 
 
-stateDefine ( entity_screen_state_gameloop,
+defineState ( entity_screen_state_gameloop,
 
 { // enter
     PAL_setPalette(PAL0,palette_blue );
@@ -84,7 +84,7 @@ stateDefine ( entity_screen_state_gameloop,
 
 // // #include <genesis.h>
 
-// // #include "mymodo.h" 
+// // #include "mymodo/mm.h" 
 // // #include "libs/draw.h"
 // // #include "inc/entities.h"
 // // #include "inc/managers.h"
