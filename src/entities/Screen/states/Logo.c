@@ -1,6 +1,6 @@
 #include <genesis.h>
 
-#include "mymodo/mm.h" 
+#include "mm.h" 
 #include "inc/systems.h"
 #include "inc/states.h"
 #include "../inc.h"
