@@ -16,7 +16,7 @@ defineState ( entity_screen_state_logo,
     VDP_drawImage ( VDP_BG_A, &res_logo_sega, 0, 0 );
     SYS_enableInts();
     
-    ComponentTimer_Init ( timer, 100 );
+    ComponentTimer_Init ( timer, 10 );
     VDP_setScreenWidth320();
 
     sssss = $s->new ( &system_Timer_tpl );
