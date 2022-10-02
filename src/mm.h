@@ -1,5 +1,6 @@
 #pragma once
 
+#include <genesis.h>
 #include "../mymodo/mymodo.h"
 
 #include "inc/entities.h"
