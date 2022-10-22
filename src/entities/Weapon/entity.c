@@ -31,7 +31,7 @@ static void update ( Entity *const e ) {
 static void delete ( Entity *const e ) {
     COMPS(e);
 
-    ComponentSprite_Release ( sp );
+    // ComponentSprite_Release ( sp );
 }
 
 
