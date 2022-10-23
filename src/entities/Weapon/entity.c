@@ -37,9 +37,9 @@ static void delete ( Entity *const e ) {
 
 
 Entity const entity_Weapon_tpl = {
-    .Awake  = awake,
-    .Update = update,
-    .Delete = delete,
+    // .Awake  = awake,
+    // .Update = update,
+    // .Delete = delete,
     .state  = (State*) &entity_Weapon_state_move,
     .compsSize  = sizeof(Components),
     .components = &(Components) {

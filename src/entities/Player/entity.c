@@ -64,10 +64,10 @@ static void enableInput ( Entity *const e, bool enable ) {
 
 
 Entity const entity_Player_tpl = {
-    .Awake  = awake,
-    .Update = update,
-    .Delete = delete,
-    .state  = (State*) &entity_Player_state_stay,
+    // .Awake  = awake,
+    // .Update = update,
+    // .Delete = delete,
+    .state      = (State*) &entity_Player_state_stay,
     .compsSize  = sizeof(Components),
     .components = &(Components) {
         .sprite = { &res_sprite_player, TILE_ATTR(PAL3,1,0,0) },
