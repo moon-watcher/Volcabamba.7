@@ -1,23 +1,42 @@
-#include <genesis.h>
+// #include <genesis.h>
+
+// #include "mm.h" 
+// #include "inc/systems.h"
+// #include "inc/states.h"
+// #include "../inc.h"
 
 #include "mm.h" 
+#include "inc.h"
 #include "inc/systems.h"
-#include "inc/states.h"
-#include "../inc.h"
+// #include "../inc/states.h"
+// #include "../inc/entities.h"
+// #include "../inc/managers.h"
+// #include "inc/systems.h"
+// #include "inc/entities.h"
+// #include "inc/managers.h"
 
-
-
-static void enter ( Entity *const e ) {
-    Components          *C  = e->components;
-    ComponentMovement2D *cm = &C->movement;
+defineState ( entity_Weapon_state_move,
+{ // enter
+    Components          *const C   = e->components;
+    ComponentMovement2D *const cm  = &C->movement;
+    ComponentSprite     *const sp  = &C->sprite;
+    ComponentPosition2D *const pos = &C->pos;
     //ComponentTimer      *ct = &C->timer;
 
     // ComponentTimer_Init ( ct, 30 );
-}
+    ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
+    //ComponentSprite_InitEx ( sp, pos->x.rounded, pos->y.rounded );
+},
+
+{ }, // update
 
 
-static void update ( Entity *const e ) {
-    COMPS ( e );
+{ // exit
+    systemAdd ( sysSprite,   sp );
+    systemAdd ( sysSprite,   pos );
+    systemAdd ( sysMovement, pos );
+    systemAdd ( sysMovement, movement );
+    systemAdd ( sysTimer,    timer );
 
     if ( pos->x.rounded > screenWidth  ||  pos->x.rounded < - 16 )
         entityDelete ( e );
@@ -25,11 +44,8 @@ static void update ( Entity *const e ) {
 
     // if ( ComponentTimer_Timeout ( timer ) )
     //     entityDelete ( e );
-}
+});
 
-
-State const entity_Weapon_state_move = { enter, update, };
-// State const entity_Weapon_state_move = { 0 };
 
 
 

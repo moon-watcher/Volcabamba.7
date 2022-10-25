@@ -26,5 +26,18 @@ static void enter ( Entity *const e ) {
     e->action = 0;
 }
 
+static void update ( Entity *const e ) {
+    COMPS(e);
 
-State const entity_Player_state_stay = { enter };
+    // para meter en los updates
+    if ( joy_active_left(joy)  ) C->dirH = -1;
+    if ( joy_active_right(joy) ) C->dirH = +1;
+
+    systemAdd ( sysInput,  ci );
+    systemAdd ( sysInput,   e );
+    systemAdd ( sysSprite, sp );
+    systemAdd ( sysSprite, cp );
+}
+
+
+State const entity_Player_state_stay = { enter, update };

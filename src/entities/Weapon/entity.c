@@ -1,38 +1,38 @@
 #include <genesis.h>
 #include "mm.h" 
 #include "inc.h"
-#include "inc/systems.h"
 #include "inc/states.h"
 #include "../res/spr_weapon.h"
-#include "inc/entities.h"
-#include "inc/managers.h"
+// #include "inc/systems.h"
+// #include "inc/entities.h"
+// #include "inc/managers.h"
 
-#define AAA ComponentSprite *const sp2 = &(e->COMPS[0]);
+// #define AAA ComponentSprite *const sp2 = &(e->COMPS[0]);
 
-static void awake ( Entity *const e ) {
-    COMPS(e);
+// static void awake ( Entity *const e ) {
+//     COMPS(e);
 
-    ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
-    //ComponentSprite_InitEx ( sp, pos->x.rounded, pos->y.rounded );
-}
-
-
-static void update ( Entity *const e ) {
-    COMPS(e);
-
-    systemAdd ( sysSprite,   sp );
-    systemAdd ( sysSprite,   pos );
-    systemAdd ( sysMovement, pos );
-    systemAdd ( sysMovement, movement );
-    systemAdd ( sysTimer,    timer );
-}
+//     ComponentSprite_Init ( sp, pos->x.rounded, pos->y.rounded );
+//     //ComponentSprite_InitEx ( sp, pos->x.rounded, pos->y.rounded );
+// }
 
 
-static void delete ( Entity *const e ) {
-    COMPS(e);
+// static void update ( Entity *const e ) {
+//     COMPS(e);
 
-    // ComponentSprite_Release ( sp );
-}
+//     systemAdd ( sysSprite,   sp );
+//     systemAdd ( sysSprite,   pos );
+//     systemAdd ( sysMovement, pos );
+//     systemAdd ( sysMovement, movement );
+//     systemAdd ( sysTimer,    timer );
+// }
+
+
+// static void delete ( Entity *const e ) {
+//     COMPS(e);
+
+//     // ComponentSprite_Release ( sp );
+// }
 
 
 
@@ -44,8 +44,8 @@ Entity const entity_Weapon_tpl = {
     .compsSize  = sizeof(Components),
     .components = &(Components) {
         .sprite = { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
-        //.sprite = { &res_sprite_weapon, TILE_ATTR_FULL(PAL3,1,0,0,200), SPR_FLAG_AUTO_SPRITE_ALLOC|SPR_FLAG_AUTO_TILE_UPLOAD },
         .movement.x  = { FIX32(2), FIX32(2) }
+        //.sprite = { &res_sprite_weapon, TILE_ATTR_FULL(PAL3,1,0,0,200), SPR_FLAG_AUTO_SPRITE_ALLOC|SPR_FLAG_AUTO_TILE_UPLOAD },
     },
 //     .COMPS = {
 //         &(ComponentSprite      ) { &res_sprite_weapon, TILE_ATTR(PAL3,1,0,0) },
