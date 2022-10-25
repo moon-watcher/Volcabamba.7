@@ -29,6 +29,16 @@ static void enter ( Entity *const e ) {
 
 static void update ( Entity *const e ) {
     COMPS(e);
+
+    // para meter en los updates
+    if ( joy_active_left(joy)  ) C->dirH = -1;
+    if ( joy_active_right(joy) ) C->dirH = +1;
+
+    systemAdd ( sysInput,  ci );
+    systemAdd ( sysInput,   e );
+    systemAdd ( sysSprite, sp );
+    systemAdd ( sysSprite, cp );
+
     --counter1;
 
     sp->sprite->timer= 200;

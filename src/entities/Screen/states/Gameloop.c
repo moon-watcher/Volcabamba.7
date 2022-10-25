@@ -29,20 +29,20 @@ defineState ( entity_screen_state_gameloop,
     sysTimer    = $s->new ( &system_Timer_tpl    );
 
     Entity *const e0 = $m->add ( manPlayers, &entity_Player_tpl );
-    Entity *const e1 = $m->add ( manPlayers, &entity_Player_tpl );
-    Entity *const e2 = managerAdd ( manPlayers, &entity_Player_tpl);
-    Entity *const e3 = managerAdd ( manPlayers, &entity_Player_tpl);
+    // Entity *const e1 = $m->add ( manPlayers, &entity_Player_tpl );
+    // Entity *const e2 = managerAdd ( manPlayers, &entity_Player_tpl);
+    // Entity *const e3 = managerAdd ( manPlayers, &entity_Player_tpl);
 
             
-    entityExec ( InterfaceCommon, enableInput, e0, 0 );
+    // entityExec ( InterfaceCommon, enableInput, e0, 0 );
     entityExec ( InterfaceCommon, setX, e0, 30 );
     entityExec ( InterfaceCommon, setY, e0, 30 );
-    entityExec ( InterfaceCommon, setX, e1, 70 );
-    entityExec ( InterfaceCommon, setY, e1, 70 );
-    entityExec ( InterfaceCommon, setX, e2, 130 );
-    entityExec ( InterfaceCommon, setY, e2, 130 );
-    entityExec ( InterfaceCommon, setX, e3, 160 );
-    entityExec ( InterfaceCommon, setY, e3, 160 );
+    // entityExec ( InterfaceCommon, setX, e1, 70 );
+    // entityExec ( InterfaceCommon, setY, e1, 70 );
+    // entityExec ( InterfaceCommon, setX, e2, 130 );
+    // entityExec ( InterfaceCommon, setY, e2, 130 );
+    // entityExec ( InterfaceCommon, setX, e3, 160 );
+    // entityExec ( InterfaceCommon, setY, e3, 160 );
 },
 
 { // update
@@ -55,6 +55,11 @@ defineState ( entity_screen_state_gameloop,
     $s->update ( sysSprite );
     $s->update ( sysInput );
     $s->update ( sysTimer );
+
+    Int ( managerCount(manPlayers),      0, 4, 3 );
+    Int ( managerCountCache(manPlayers), 5, 4, 3 );
+    Int ( managerCount(manWeapons),      0, 5, 3 );
+    Int ( managerCountCache(manWeapons), 5, 5, 3 );
 
     Int( MEM_getFree(), 0,0,5);
 

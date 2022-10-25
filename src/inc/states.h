@@ -11,6 +11,8 @@ State const Player_dieState;
 State const Player_idleState;
 State const Player_moveState;
 
+State const entity_Player_state_init;
+State const entity_Player_state_destroy;
 State const entity_Player_state_fall;
 State const entity_Player_state_jump;
 State const entity_Player_state_stay;

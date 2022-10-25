@@ -11,9 +11,5 @@ defineEntity (
 
     { // comps
         .input = { .joy.port = PORT_1 }
-    },
-
-    { }, // awake 
-    { }, // update
-    { }  // delete
+    }
 );
